@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  title: 顺道儿 API
+  description: 顺道儿 API
+  version: "1.1.0"
+# the domain of the service
+host: api.byway.net.cn
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /customers:
+    post:
+      summary: 注册一个Customer
+      description: 注册客户(Customer)
+      parameters:
+        - name: customer
+          in: body
+          description: 新注册的customer的信息
+          schema:
+            $ref: '#/definitions/Customer'
+          required: true
+      tags:
+        - Customer
+      responses:
+        201:
+          description: 用户注册（创建）成功
+          schema:
+            type: object
+            properties:
+              status: 
+                type: integer
+              msg: 
+                type: string
+              href: 
+                type: string
+        default:
+          description: 用户注册失败
+          schema:
+            $ref: '#/definitions/Error'
+  /orders:
+    post:
+      summary: 客户：下单(已经选好菜品了)
+      description: 添加一个订单
+      parameters:
+        - name: order
+          in: body
+          description: 订单的信息
+          schema:
+            $ref: '#/definitions/Order'
+          required: true
+      tags:
+        - Order
+      responses:
+        201:
+          description: 下单成功
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              msg:
+                type: string
+              href:
+                type: string
+                description: 此订单的地址
+        default: 
+          description: 下单失败
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  Customer:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Customer设置的用户名(收货人名称)
+      mail:
+        type: string
+        description: Customer的邮箱(必须为校园邮箱)
+      phone:
+        type: string
+        description: Customer的手机号码.
+      password:
+        type: string
+        description: Customer设置的密码.
+  Order:
+    type: object
+    properties:
+      cateen_id:
+        type: integer
+        description: 食堂的id
+      product_list: 
+        type: string
+        description: 订单商品的id的集合。格式：id1_id2_id3（id间用_隔开）
+      product_price:
+        type: number
+        format: float
+        description: 商品总价
+      ship_price:
+        type: number
+        format: float
+        description: 配送费
+      promotion:
+        type: number
+        format: float
+        description: 优惠（减免）价格
+      total_price:
+        type: number
+        format: float
+        description: 总价
+      if_self_help: 
+        type: integer
+        description: 是否自取(1为自取，0为不自取)
+      expect_time:
+        type: integer
+        description: 希望在多长时间内到达（单位：分钟，如果不选则此项为0）
+      leave_msg: 
+        type: string
+        description: 客户留言
+      
+  Error:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      msg:
+        type: string
+    

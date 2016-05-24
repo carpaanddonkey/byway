@@ -89,7 +89,7 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-BYWAY_URL = 'http://web.shundaoer.net.cn'
+BYWAY_URL = 'http://web.byway.net.cn'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

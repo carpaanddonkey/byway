@@ -2,6 +2,7 @@
 from django.forms.models import model_to_dict
 
 from customers.models import *
+from util.response_util import *
 
 
 class Canteen(models.Model):
@@ -43,6 +44,7 @@ class Product(models.Model):
 	sold_num = models.IntegerField(default=0)
 
 	def to_dict(self):
+		self.picture = BASE_SCHEMES + API_BASE + self.picture
 		product_dict = model_to_dict(self)
 		return product_dict
 

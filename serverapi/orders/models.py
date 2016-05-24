@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.forms.models import model_to_dict
+from datetime import datetime
 
 from canteens.models import *
 from util.qr_util import *
@@ -15,6 +15,16 @@ ORDER_PUSHED = 4
 ORDER_PULLED = 5
 ORDER_SENDING = 6
 ORDER_COMPLETED = 7
+
+ORDER_STATUS_DICT = dict()
+ORDER_STATUS_DICT[ORDER_CREATED] = u'待付款'
+ORDER_STATUS_DICT[ORDER_PAYED] = u'已付款'
+ORDER_STATUS_DICT[ORDER_WAITING] = u'待食堂接单'
+ORDER_STATUS_DICT[ORDER_RECEIVED] = u'食堂已接单'
+ORDER_STATUS_DICT[ORDER_PUSHED] = u'已做完 待配送'
+ORDER_STATUS_DICT[ORDER_PULLED] = u'送餐员已取餐'
+ORDER_STATUS_DICT[ORDER_SENDING] = u'配送中'
+ORDER_STATUS_DICT[ORDER_COMPLETED] = u'已完成'
 
 
 class Order(models.Model):
@@ -80,6 +90,15 @@ class OrderRecord(models.Model):
 	send_time = models.DateTimeField(blank=True)
 	finish_time = models.DateTimeField(blank=True)
 	deliver_id = models.ForeignKey(Customer, blank=True)
+
+	def to_dict(self):
+		record_dict = dict()
+		for (key, value) in model_to_dict(self).items():
+			if isinstance(value, datetime):
+				record_dict[key] = value.strftime('%Y-%m-%d %H:%M:%S')
+			else:
+				record_dict[key] = value
+		return record_dict
 
 	def update_order_state(self, status, order_deliver_id=None):
 		if status == ORDER_PAYED:

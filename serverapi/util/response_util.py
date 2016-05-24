@@ -2,6 +2,7 @@ from django.http import HttpResponse
 
 BASE_SCHEMES = r'http://'
 BASE_PATH = r'api.byway.net.cn/v1/'
+API_BASE = r'api.byway.net.cn/v1'
 # BASE_PATH = r'115.159.208.167/v1/'
 
 

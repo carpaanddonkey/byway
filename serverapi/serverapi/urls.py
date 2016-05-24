@@ -9,6 +9,7 @@ from canteens.products import *
 from canteens.views import *
 from canteens.canteens import *
 from customers.views import *
+from orders.order_record import *
 
 
 admin.autodiscover()
@@ -31,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^v1/products/(?P<product_id>\w+)/$', products),
     url(r'^v1/search/$', search),
     url(r'^v1/user/$', user_info),
+    url(r'^v1/order_record/(?P<order_id>\w+)/$', order_record),
                        url(r'^testcelery/', get),
                        url(r'^testsession/', test_session),
 )

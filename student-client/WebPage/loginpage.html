@@ -6,11 +6,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>顺道儿——登录</title>
+        <title>顺道儿——登陆</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\welcome_style.css" rel="stylesheet" type="text/css" />
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
+<<<<<<< HEAD
+=======
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script src = "js/ajax.js"></script>
         <script type = "text/javascript">
@@ -22,11 +24,13 @@ and open the template in the editor.
                 var password = document.getElementById("user_password").value;
                 o["username"] = name;
                 o["password"] = password;
-                //ajax(url,JSON.stringify(o),'POST',su,err);
-                $.ajax({
+                ajax(url,JSON.stringify(o),'POST',su,err);
+                //ajax(url,function(str){
+                  //  flag = "shoppage.html";});
+                /*$.ajax({
                     async:false,
                     type:"POST",
-                    url:url,
+                    url:"http://api.byway.net.cn/v1/login/",
                     data:JSON.stringify(o),
                     success:function(jsonResult){
                         flag = "shoppage.html";
@@ -35,10 +39,9 @@ and open the template in the editor.
                         flag = "loginpage.html";
                         alert("登陆失败！");
                     }
-                });
-                window.location.href = flag;
+                });*/
+              //  window.location.href = flag;
             }
-            /*
             function su(str)
             {
                 alert(str);
@@ -48,9 +51,10 @@ and open the template in the editor.
             {
                 alert("登陆失败！");
                 window.location.href = "loginpage.html";
-            }*/
+            }
         </script>
         
+>>>>>>> refs/remotes/origin/developer
     </head>
     <body>
         <div class="header">
@@ -59,14 +63,19 @@ and open the template in the editor.
         </div>
         <div id="register_form">
             <fieldset>
-                <form id = "form1" action = "http://api.byway.net.cn/v1/login/" method = "post"> 
-                    <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="    用户名" value = ""/></p>            
-                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="密码" /> <input class="ipt" id="user_password" type="password" style='width: 200px' placeholder="    密码" value = ""/></p>                  
-                    <input id = "submit"  onclick = "login()" type = "button" value = "登   录"/>          
+                <form> 
+                    <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="用户名"/></p>            
+                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="密码" /> <input class="ipt" id="user_password" type="password" style='width: 200px' placeholder="密码"/></p>                  
+                    <a href="shoppage.html"><input id='submit' type="button" value="登  陆"/></a>
                 </form> 
                 <p style="padding-top: 40px; font-size: 17px;color: #878787;">
                     还没有顺道儿账号？
                     <a href="registpage.html" ><input class="rgt" id="regist" type="button" value="注 册"/></a>
+                </p>
+                <p style="padding-top: 40px; font-size: 14px;color: #878787;">———————— 其它登陆方式 ————————</p>
+                <p style="padding-top: 25px;">
+                    <img style="height: 30px" src="Images/icon/emailicon.png"  alt="Email" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img style="height: 30px" src="Images/icon/phoneicon.png"  alt="手机号" /> 
                 </p>
             </fieldset>
         </div>

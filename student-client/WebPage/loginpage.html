@@ -24,8 +24,9 @@ and open the template in the editor.
                 $.ajax({
                     async:false,
                     type:"POST",
-                    url:"http://api.byway.net.cn/v1/login/",
+                    url:"http://127.0.0.1:8000/v1/login/",
                     data:JSON.stringify(o),
+                    xhrFields: { withCredentials:true },
                     success:function(jsonResult){
                         flag = "shoppage.html";
                     },
@@ -34,7 +35,7 @@ and open the template in the editor.
                         alert("登陆失败！");
                     }
                 });
-                window.location.href = flag;
+                // window.location.href = flag;
             }
         </script>
         

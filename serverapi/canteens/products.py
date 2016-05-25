@@ -8,13 +8,13 @@ from util.redis_util import *
 
 def heatgoods(request):
 	if request.method == 'GET':
-		# r = redis.Redis(connection_pool=RConnectionPool())
-		#
-		# heat_goods = r.smembers('heat_products')
+		r = redis.Redis(connection_pool=RConnectionPool())
+
+		heat_goods = r.smembers('heat_products')
 		heat_products = []
 
-		# for good in heat_goods:
-		# 	heat_products.append(eval(good))
+		for good in heat_goods:
+			heat_products.append(eval(good))
 
 		if not heat_products:
 			heat_goods = HeatProduct.objects.all()
@@ -22,7 +22,7 @@ def heatgoods(request):
 				product = good.product_id
 				product_dict = product.to_dict()
 				heat_products.append(product_dict)
-				# r.sadd('heat_products', product_dict)
+				r.sadd('heat_products', product_dict)
 
 		return create_simple_response(200, json.dumps(heat_products))
 

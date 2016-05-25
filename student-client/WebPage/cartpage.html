@@ -32,8 +32,10 @@ and open the template in the editor.
                         type:"get",
                         url:url,
                         success:function(str){
-                            var obj = eval(str);
-                            loadObject(obj,num);
+                            var obj = JSON.parse(str);
+                            if(typeof(obj.length)=='undefined')(loadObject(obj,num);
+                            else
+                                loadJSON(obj,num);
                         },
                         error:function(jsonResult){
                             alert("error");
@@ -45,6 +47,34 @@ and open the template in the editor.
             document.getElementById(div_id).innerHTML = txt;
         }
         function loadObject(arr,num)
+        {
+            var mytime = new Date();
+            //for(i in arr)
+            {
+                txt+='<a onclick = "loadl('+arr.id+')">'+
+                     '<div class="cart_data">'
+                     '<img class="dishpic" src="'+arr.qr_storage_url+'" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>'+
+                     '<span class="di_name">水饺</span>';
+                for(var j = 1;j<=5;j++)
+                {
+                    if(j<=arr.score)
+                        txt+='<img class="rank'+j+'1" src="Images/icon/star1.png" alt=""/>';
+                    else
+                        txt+='<img class="rank'+j+'" src="Images/icon/star.png" alt=""/>';
+                }
+                switch(num)
+                {
+                    case 1:txt+='<span class="di_al">订单已支付</span>';break;
+                    case 2:txt+='<span class="di_al">等待商家接受</span>';break;
+                    case 3:txt+='<span class="di_al">订单已被商家接受</span>';break;
+                    case 6:txt+='<span class="di_al">订单正在被派送</span>';break;
+                }
+                
+                txt+='<span class="di_money">'+arr.total_price+'</span><p class="di_date">'+mytime.toLocaleString()+'</p></div></a>';
+            }
+        }
+
+        function loadJSON(arr,num)
         {
             var mytime = new Date();
             for(i in arr)

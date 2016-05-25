@@ -16,10 +16,6 @@ and open the template in the editor.
         var windows;
         var product;
         var txt = "";
-        function test()
-        {
-            alert("jhhj");
-        }
         //function test = 
         function getData(div_id){
             var div_id = 'shop_list';
@@ -45,9 +41,9 @@ and open the template in the editor.
                                         '<span class="i_di_name">'+jsonp[i].products[j].name+'</span>'+
                                         '<span class="i_di_money">¥'+jsonp[i].products[j].price+'</span>'+
                                         '<span class="i_di_sell">热销'+jsonp[i].products[j].sold_num+'</span>'+  
-                                        '<img onclick = "test()" class = "i_add_cart" src = "Images/icon/add.png" alt = "+"/></div>';
-                                        /*
-                                        '<img onclick = "addToCart('+product+')" class="i_add_cart" src="Images/icon/add.png" alt="＋"/></div>'; */
+                                        /*'<img onclick = "test()" class = "i_add_cart" src = "Images/icon/add.png" alt = "+"/></div>';*/
+                                        
+                                        '<img onclick = "addToCart('+product+')" class="i_add_cart" src="Images/icon/add.png" alt="＋"/></div>'; 
                                 }
                                 k++;
                             }

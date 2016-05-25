@@ -48,20 +48,36 @@ and open the template in the editor.
                 });
                 
         }
+        function loadk(is)
+        {
+            setWindow_id(is);
+            window.location.href = 'windowpage.html';
+        }
         function loadObject(arr,div_id)
         {
             var txt  = "";
-            txt+='<p>店铺：</p>';
+            var flag = false;
             for(i in arr.windows)
             {
-                txt += "<a href='windowpage.html'>"+
+                if( flag = false)
+                {
+                    txt+='<p>店铺：</p>';
+                    flag = true;
+                }
+                txt += '<a onclick = "loadk('+arr.windows[i].id+')">'+
                     "<div class='search_item'>"+       
                     "<span>"+arr.windows[i].name+"</span></div></a>";
             }
-            txt+='<div class="clearfix_head"></div><p>产品</p>';
+            flag = false;
+            txt+='<div class="clearfix_head"></div>';
             for(i in arr.products)
             {
-                txt += "<a href='windowpage.html'>"+
+                if(flag = false)
+                {
+                    txt+='<p>产品：</p>';
+                    flag = true;
+                }
+                txt += '<a onclick = "loadk('+arr.windows[i].id+')">'+
                     "<div class='search_item'>"+       
                     "<span>"+arr.products[i].name+"</span></div></a>";
             }

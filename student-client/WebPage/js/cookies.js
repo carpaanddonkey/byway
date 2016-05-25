@@ -1,4 +1,4 @@
-var window_id;
+var window_id = 1;
 var canteen_id = 1;
 var product;
 function getWindow_id()

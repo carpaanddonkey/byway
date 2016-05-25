@@ -1,5 +1,5 @@
-var window_id;
-var canteen_id;
+var window_id = 1;
+var canteen_id = 1;
 var product = {"picture":"","description":"","price":"","score":"","sold_num":"",
                 "category_id":"","id":"","unit":"","name":""};
 function getProduct(id)

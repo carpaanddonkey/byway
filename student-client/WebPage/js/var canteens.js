@@ -5,7 +5,7 @@ var product;
 
 function load()
 {
-	url = "http://api.shundaoer.net.cn/v1/canteens";
+	url = "http://api.byway.net.cn/v1/canteens";
 	ajax = {url,function(str){
 		canteens = JSON.parse(str);
 	}};

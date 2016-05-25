@@ -20,8 +20,9 @@ def heatgoods(request):
 			heat_goods = HeatProduct.objects.all()
 			for good in heat_goods:
 				product = good.product_id
-				heat_products.append(product.to_dict())
-				r.sadd('heat_products', product.to_dict())
+				product_dict = product.to_dict()
+				heat_products.append(product_dict)
+				r.sadd('heat_products', product_dict)
 
 		return create_simple_response(200, json.dumps(heat_products))
 

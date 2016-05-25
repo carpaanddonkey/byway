@@ -1,4 +1,4 @@
-var window_id = 1;
+var window_id;
 var canteen_id = 1;
 var product;
 function getWindow_id()
@@ -89,10 +89,10 @@ function checkCookie(win){          //窗口号
 
 
 
-function addToCart(product){       //num是商品号，按顺序从1开始  win是窗口号
+function addToCart(str){       //num是商品号，按顺序从1开始  win是窗口号
     var win = getWindow_id();
     var value = getCookie("cart"+win+"com"+product.id);    //当前窗口购物车的cookie
-
+    var product = JSON.parse(str);
     if (value==null || value=="" || value=="undefined" || value =='NaN'){
         setCookie("cart"+win+"com"+product.id,1,365);      //存的是该商品的个数
     }else{       

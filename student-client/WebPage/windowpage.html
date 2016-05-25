@@ -47,9 +47,16 @@ and open the template in the editor.
             var txt = "";
             for(i in arr)
             {
+<<<<<<< HEAD
                 txt+='<div class="window_header"><a href="shoppage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>';
                 txt+='<img class="dishpic" src="'+arr[i].picture+'" alt="食物图片"/>';
                 txt+='<span class="di_name" id="di_name">'+arr[i].name+'</span>';
+=======
+                txt+='<div class="window_header">'+
+                '<a href="shoppage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>'+
+                '<img class="dishpic" id = "dishpic" src="'+arr.picture+'" alt="食物图片"/>'+
+                '<span class="di_name" id="di_name">'+arr.name+'</span>';
+>>>>>>> refs/remotes/origin/developer
                 for(var j = 1;j<=5;j++)
                 {
                     alert("j"+j);

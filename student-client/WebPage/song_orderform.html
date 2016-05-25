@@ -11,6 +11,31 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\orderform_style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+        var o = {"username":"13301052@bjtu.edu.cn","password":"123"};
+            var flag = "0";
+            var url;
+            function login(){
+                var name = document.getElementById("user_name").value;
+                var password = document.getElementById("user_password").value;
+                o["username"] = name;
+                o["password"] = password;
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    url:"http://api.byway.net.cn/v1/login/",
+                    data:JSON.stringify(o),
+                    success:function(jsonResult){
+                        flag = "shoppage.html";
+                    },
+                    error:function(jsonResult){
+                        flag = "loginpage.html";
+                        alert("登陆失败！");
+                    }
+                });
+                window.location.href = flag;
+            }
+        </script>
     </head>
     <body>
         <div class="header">

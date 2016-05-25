@@ -1,19 +1,34 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
- //var windowData ;
-// loadData('http://api.shundaoer.net.cn/v1/home',windowData);
-
+var window_id = 1;
+var canteen_id = 1;
+var product;
+function getWindow_id()
+{
+    return window_id;
+}
+function getCanteen_id()
+{
+    return canteen_id;
+}
+function setCanteen_id(canId)
+{
+    canteen_id = canId;
+}
+function setWindow_id(winId)
+{
+    window_id = winId;
+}
 function initPaypage(win){
-
     cart_money = getCookie("cartmoney"+win);
     document.getElementById('cost_money').innerHTML = '¥ '+ cart_money;
 }
 
-
-function initOrderform(win){        //获取窗口编号  
+function getProduct()
+{
+    product = new JSONArray();
+    
+}
+function initOrderform(){        //获取窗口编号  
+    var win = getWindow_id();
     var cart_money = getCookie("cartmoney"+win);
     var cart_count = getCookie("cartnum"+win);
     document.getElementById('order_money').innerHTML = '¥ '+ cart_money;
@@ -25,7 +40,7 @@ function initOrderform(win){        //获取窗口编号
         if(c!==""){
              var para = document.createElement("p");
              para.className = "menu_cai";
-             para.innerHTML = "<span class=\"menu_name\">"+ i           //i是名字，需要改，cookie里不存
+             para.innerHTML = "<span class=\"menu_name\">"+ product[i].name           //i是名字，需要改，cookie里不存
                      +"</span> <span class=\"menu_cot\">x "+ c +"</span> <span class=\"menu_cost\">"+ 15*c  //15是价格，cookie里不存
                      +" 元</span>";
             document.getElementById("order_cart").appendChild(para); 
@@ -121,7 +136,8 @@ function RedItem(win,num){
     location.reload(true);
 }
 
-function DelAllItem(win){
+function DelAllItem(){
+    var win = getWindow_id();
     var cart_count = getCookie("cartnum"+win);
     for(var i=1;i<cart_count;i++){
         var c_name ="cart"+win+"com"+i;
@@ -132,7 +148,8 @@ function DelAllItem(win){
     }
 }
 
-function DelItem(win,num){
+function DelItem(num){
+    var win = getWindow_id();
     var cart_money = getCookie("cartmoney"+win); 
     var count = getCookie("cart"+win+"com"+num);
     var money = parseInt(cart_money) - 15 * parseInt(count);

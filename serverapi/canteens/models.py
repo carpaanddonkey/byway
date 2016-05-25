@@ -14,6 +14,7 @@ class Canteen(models.Model):
 	status = models.IntegerField(default=1)
 
 	def to_dict(self):
+		self.picture = BASE_SCHEMES + API_BASE + self.picture
 		return model_to_dict(self)
 
 
@@ -25,6 +26,7 @@ class Window(models.Model):
 	sold_num = models.IntegerField(default=0)
 
 	def to_dict(self):
+		self.picture = BASE_SCHEMES + API_BASE + self.picture
 		return model_to_dict(self)
 
 

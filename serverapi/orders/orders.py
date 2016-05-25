@@ -59,7 +59,7 @@ def post_orders(request, order_id=None):
 		return create_simple_response(500, json.dumps(content))
 
 
-@login_required
+# @login_required
 def get_orders(request, order_id=None):
 	r = redis.Redis(connection_pool=RConnectionPool())
 	content = []

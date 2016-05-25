@@ -11,7 +11,7 @@
         <script src = "js/cookies.js"></script>
         <script type = "text/javascript">
         setInterval('change_pic(pic_array);',10000);
-        function llll(){
+        function getMesshall(){
             $.ajax({
                     async:false,
                     type:"get",
@@ -98,15 +98,14 @@
                             txt+='<img class = "rank'+j+'"src="Images/icon/star.png" alt=""/>';
 
                     }
-                    txt+=    
-                    '<span class="di_al">热卖：皮蛋瘦肉粥、紫米粥</span>'+
+                    txt+=
                     '<span class="di_date">销量'+arr[i].sold_num+ '</span></div></a>';
             }
             document.getElementById(div_id).innerHTML = txt;
         }
     </script>
     </head>
-    <body onload="getData('store_body');pic();llll()" >
+    <body onload="getData('store_body');pic();getMesshall()" >
     <div class="header">
         <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>           
         <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>

@@ -33,7 +33,7 @@ and open the template in the editor.
                         url:url,
                         success:function(str){
                             var obj = JSON.parse(str);
-                            if(typeof(obj.length)=='undefined')(loadObject(obj,num);
+                            if(typeof(obj.length)=='undefined')loadObject(obj,num);
                             else
                                 loadJSON(obj,num);
                         },

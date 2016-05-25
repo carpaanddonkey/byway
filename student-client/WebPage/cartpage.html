@@ -18,7 +18,7 @@ and open the template in the editor.
         var txt = "";
         function loadl(is)
         {
-            setOrder_id(is);
+            //setOrder_id(is);
             window.location.href = "orderform.html";
         }
         function getData(div_id){
@@ -32,7 +32,7 @@ and open the template in the editor.
                         type:"get",
                         url:url,
                         success:function(str){
-                            var obj = JSON.parse(str);
+                            var obj = eval(str);
                             loadObject(obj,num);
                         },
                         error:function(jsonResult){
@@ -56,9 +56,9 @@ and open the template in the editor.
                 for(var j = 1;j<=5;j++)
                 {
                     if(j<=arr[i].score)
-                        txt+='<img class="rank'+j+'1" src="Images\icon\star1.png" alt=""/>';
+                        txt+='<img class="rank'+j+'1" src="Images/icon/star1.png" alt=""/>';
                     else
-                        txt+='<img class="rank'+j+'" src="Images\icon\star.png" alt=""/>';
+                        txt+='<img class="rank'+j+'" src="Images/icon/star.png" alt=""/>';
                 }
                 switch(num)
                 {

@@ -27,19 +27,19 @@ function setProduct(obj)
 }
 function getWindow_id()
 {
-    return window_id;
+    return window.window_id;
 }
 function getCanteen_id()
 {
-    return canteen_id;
+    return window.canteen_id;
 }
 function setCanteen_id(canId)
 {
-    canteen_id = canId;
+    window.canteen_id = canId;
 }
 function setWindow_id(winId)
 {
-    window_id = winId;
+    window.window_id = winId;
 }
 function initPaypage(win){
     cart_money = getCookie("cartmoney"+win);

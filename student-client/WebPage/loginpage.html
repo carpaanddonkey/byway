@@ -22,13 +22,11 @@ and open the template in the editor.
                 var password = document.getElementById("user_password").value;
                 o["username"] = name;
                 o["password"] = password;
-                ajax(url,JSON.stringify(o),'POST',su,err);
-                //ajax(url,function(str){
-                  //  flag = "shoppage.html";});
-                /*$.ajax({
+                //ajax(url,JSON.stringify(o),'POST',su,err);
+                $.ajax({
                     async:false,
                     type:"POST",
-                    url:"http://api.byway.net.cn/v1/login/",
+                    url:url,
                     data:JSON.stringify(o),
                     success:function(jsonResult){
                         flag = "shoppage.html";
@@ -37,9 +35,10 @@ and open the template in the editor.
                         flag = "loginpage.html";
                         alert("登陆失败！");
                     }
-                });*/
-              //  window.location.href = flag;
+                });
+                window.location.href = flag;
             }
+            /*
             function su(str)
             {
                 alert(str);
@@ -49,7 +48,7 @@ and open the template in the editor.
             {
                 alert("登陆失败！");
                 window.location.href = "loginpage.html";
-            }
+            }*/
         </script>
         
     </head>

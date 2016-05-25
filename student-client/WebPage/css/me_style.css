@@ -108,7 +108,7 @@ and open the template in the editor.
 }
 
 body{
-    background-color: #f9f9f4;
+    background-color: #F5F5F5;
 }
 
 .title{
@@ -177,91 +177,4 @@ body{
     top:10px;
     right: 12px;
     height: 20px;
-}
-
-.head_me{
-    position: relative;
-    top:20px;
-    height: 80px;
-    background-color: white;
-}
-
-.head_pic{
-    position: absolute;
-    height: 55px;
-    width: 55px;
-    border-radius:50%;
-    left: 20px;
-    top: 14%;
-}
-
-.head_me span{
-    position: absolute;
-    left: 100px;
-    top: 28px;
-    font-family: "微软雅黑";
-    color: #999;
-}
-
-.spf_me{
-    float: right;
-    height: 20px;
-    
-    position: relative;
-    right: 2%;
-    top:36%;
-}
-
-.per_info{
-    padding-top: 20px;
-    position: relative;
-    top:45px;
-    height: 180px;
-    background-color: white;
-}
-
-.per_info span{
-    font-family: "微软雅黑";
-    color: #999;
-}
-.info{
-    padding-left: 20px;
-    padding-top: 15px;
-}
-
-.info input{
-    color: #666;
-    font-family: "微软雅黑";
-    margin-left: 20px;
-    width: 70%;
-}
-
-.per_info input{
-    border: none;
-    border-bottom: 1px #CACACA solid;
-}
-
-.modi_footer{
-    position:fixed;
-    left: 0px;
-    bottom: 0px;
-    font-family: "黑体";
-    text-align: center;
-    width: 100%;
-    height: 28px;
-    background-color: #F5F5F5;
-    font-size: 18px;
-    text-align: center;
-    padding-top: 8px;
-    color: #666;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-color: #CACACA;
-    
-    z-index:100;
-} 
-
-.modi_footer:active{
-    background-color: #08f;
-    color: white;
 }

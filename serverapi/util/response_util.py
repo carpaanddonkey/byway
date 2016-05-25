@@ -8,7 +8,8 @@ API_BASE = r'api.byway.net.cn'
 
 def create_simple_response(code, content):
 	response = HttpResponse()
-	response['Access-Control-Allow-Origin'] = '*'
+	response['Access-Control-Allow-Origin'] = 'null'
+	response['Access-Control-Allow-Credentials'] = 'true'
 	response.status_code = code
 	response.content = content
 	return response

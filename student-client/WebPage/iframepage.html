@@ -11,6 +11,56 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\window_style.css" rel="stylesheet" type="text/css"/>
         <script src="js/cookies.js"></script>
+<<<<<<< HEAD
+=======
+        <script type = "text/javascript">
+        var windows;
+        var product;
+        var txt = "";
+        //function test = 
+        function getData(div_id){
+            var div_id = 'shop_list';
+            url =  'http://api.byway.net.cn/v1/windows/'+getWindow_id()+'/';
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        var jsonp = eval(obj.products_data);
+                        {
+                            txt+='<div class="shop_list" id = "shop_list">';
+                            var k = 1;
+                            for(i in jsonp)
+                            {
+
+                                txt+='<p id = i'+k+'>'+jsonp[i].category+'</p>';
+                                for(j in jsonp[i].products)
+                                {
+                                    product = eval(jsonp[i].products[j]);
+                                    txt+='<div class="i_cart_data">'+'<img class="i_dishpic" src="'+jsonp[i].products[j].picture+'" alt="食物图片"/>'+
+                                        '<span class="i_di_name">'+jsonp[i].products[j].name+'</span>'+
+                                        '<span class="i_di_money">¥'+jsonp[i].products[j].price+'</span>'+
+                                        '<span class="i_di_sell">热销'+jsonp[i].products[j].sold_num+'</span>'+  
+                                        '<img data-bind = "click:function(){addToCart('+product+');}" class="i_add_cart" src="Images/icon/add.png" alt="＋"/></div>'; 
+                                }
+                                k++;
+                            }
+                        }
+                        document.getElementById(div_id).innerHTML = txt;
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                        for(i in jsonResult)
+                        {
+                            alert(i+jsonResult[i]);
+                        }
+                    }
+                });
+        }
+    </script>
+    
+>>>>>>> refs/remotes/origin/developer
     </head>
     <body>
         <div class="shop_list">

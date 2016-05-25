@@ -6,11 +6,15 @@
 var i_pic = 0;
 var num_pic = 2; 
 
+<<<<<<< HEAD
 function change_pic(){
     var pic_array = new Array(num_pic);
     pic_array[0] = "Images/shophot/hot.jpg";
     pic_array[1] = "Images/shophot/hot2.jpg";
     
+=======
+function change_pic(pic_array){
+>>>>>>> refs/remotes/origin/developer
     if(i_pic===num_pic-1)
         i_pic = 0;
     else

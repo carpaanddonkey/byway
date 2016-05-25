@@ -33,7 +33,8 @@ and open the template in the editor.
                         url:url,
                         success:function(str){
                             var obj = JSON.parse(str);
-                            if(typeof(obj.length)=='undefined')loadObject(obj,num);
+                            if(typeof(obj.length)=='undefined')
+                                loadObject(obj,num);
                             else
                                 loadJSON(obj,num);
                         },
@@ -107,7 +108,7 @@ and open the template in the editor.
         <div class="header">
             <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
             <table class="header_table">
-                <tr><td class="header_table_tdleft" style="background-color: rgba(255,255,255,0.3)"> &nbsp已点订单&nbsp </td><td> <a href="cartpage.html">&nbsp历史订单&nbsp</a></td></tr>
+                <tr><td class="header_table_tdleft" style="background-color: rgba(255,255,255,0.3)"> &nbsp已点订单&nbsp </td><td> <a href="cartedpage.html">&nbsp历史订单&nbsp</a></td></tr>
             </table>
             <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>
         </div>

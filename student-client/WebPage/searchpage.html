@@ -59,7 +59,7 @@ and open the template in the editor.
             var flag = false;
             for(i in arr.windows)
             {
-                if(i=='0')break;
+                if(arr.windows.length==0)break;
                 if( flag = false)
                 {
                     txt+='<p>店铺：</p>';
@@ -73,7 +73,7 @@ and open the template in the editor.
             txt+='<div class="clearfix_head"></div>';
             for(i in arr.products)
             {
-                if(i=='0')break;
+                if(arr.windows.length==0)break;
                 if(flag = false)
                 {
                     txt+='<p>产品：</p>';

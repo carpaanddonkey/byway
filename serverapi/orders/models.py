@@ -76,6 +76,7 @@ class Order(models.Model):
 
 	def to_dict(self):
 		order_dict = model_to_dict(self, exclude=['qr_storage_pre'])
+		order_dict['window_icon'] = BASE_SCHEMES + API_BASE + self.window_id.picture
 		order_dict['qr_storage_url'] = self.qr_storage_pre+str(self.id)+'.jpg'
 		return order_dict
 

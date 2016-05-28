@@ -54,6 +54,33 @@
                     pic_array[i] = arr[i].picture;
             change_pic(pic_array);
         }
+        function initData(div_id)
+        {
+
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:'http://api.byway.net.cn/v1/home/',
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        var jsonw = eval(obj.windows_data)
+                        {
+                            for(var i = 1;i<=jsonw.length;i++)
+                            {
+                                loadObject(jsonw,div_id);
+                            }
+                        }
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                        for(i in jsonResult)
+                        {
+                            alert(i+jsonResult[i]);
+                        }
+                    }
+                });
+        }
         function getData(div_id){
             url =  'http://api.byway.net.cn/v1/canteens/'+getCanteen_id()+'/';
             $.ajax({
@@ -81,12 +108,17 @@
                 });
                 
         }
+        function loadwid(is)
+        {
+            setWindow_id(is);
+            window.location.href = "windowpage.html";
+        }
         function loadObject(arr,div_id)
         {
             var txt = "";
             for(i in arr)
             {
-                txt+='<a href="windowpage.html">'+
+                txt+='<a onclick = "loadwid('+arr[i].id+')">'+
                 '<div class="cart_data" style="margin-top: 0px;">'+  
                 '<img class="dishpic" src="'+arr[i].picture+'" alt="食物图片"/>'+'<img class="spf" src="Images/icon/arrow2.png" alt="详情"/>'+
                 '<span class="di_name">'+arr[i].name+'</span>';
@@ -105,7 +137,7 @@
         }
     </script>
     </head>
-    <body onload="getData('store_body');pic();getMesshall()" >
+    <body onload="initData('store_body');pic();getMesshall()" >
     <div class="header">
         <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>           
         <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>
@@ -133,35 +165,13 @@
         <img class="pic_lo"  id="pic_lo" alt=""/>
     </div>
     <div id = "store_body">
-    <a href="windowpage.html" id = "cant_id">
-        <div class="cart_data" style="margin-top: 0px;">        
-                <img class="dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>
-                <span class="di_name">一号窗口</span>
-                <img class="rank1" src="Images\icon\star1.png" alt=""/><img class="rank2" src="Images\icon\star1.png" alt=""/>
-                <img class="rank3" src="Images\icon\star1.png" alt=""/><img class="rank4" src="Images\icon\star1.png" alt=""/>
-                <img class="rank5" src="Images\icon\star.png" alt=""/>     
-                <span class="di_al">热卖：黄焖鸡米饭、云南米线</span>
-                <span class="di_date">销量 1.1 万</span>
-            </div>
-        </a>
-    <a href="windowpage.html">
-        <div class="cart_data" style="margin-top: 0px;">        
-                <img class="dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>
-                <span class="di_name">二号窗口</span>
-                <img class="rank1" src="Images\icon\star1.png" alt=""/><img class="rank2" src="Images\icon\star1.png" alt=""/>
-                <img class="rank3" src="Images\icon\star1.png" alt=""/><img class="rank4" src="Images\icon\star1.png" alt=""/>
-                <img class="rank5" src="Images\icon\star.png" alt=""/>     
-                <span class="di_al">热卖：皮蛋瘦肉粥、紫米粥</span>
-                <span class="di_date">销量 2 万</span>
-            </div>
-        </a>
      </div>  
     <div class="clearfix_foot"></div>
-    <div class="footer" > 
+    <div class="footer">
             <table>
                 <tr >
-                    <td><a href="shoppage.html"  id="present"><img class="mymenu" id="menu_bar" src="Images/icon/shop1.png" alt="菜单" /><br/>菜单</a></td>
-                    <td><a href="cartpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="订单" /><br/>订单</a></td>
+                    <td><a href="shoppage.html" id="present"><img class="mymenu" id="menu_bar" src="Images/icon/shop1.png" alt="菜单" /><br/>菜单</a></td>
+                    <td><a href="cartpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="购物车" /><br/>&nbsp购物车</a></td>
                     <td><a href="songpage.html"><img class="mymenu" id="song_bar" src="Images/icon/song.png" alt="配送"><br/>配送</a> </td>
                     <td><a href="mepage.html"><img class="mymenu" id="me_bar" src="Images/icon/me.png"  alt="我的" /><br/>我的</a></td>
                 </tr>

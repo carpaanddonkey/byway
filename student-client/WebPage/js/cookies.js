@@ -31,7 +31,7 @@ function setCanteen_id(is)
 }
 function getProduct(id)
 {
-    var url = "http://api.byway.net.cn/v1/products/"+id+"/";
+    var url = "http://api.byway.net.cn/v1/products/"+id+"/",
     $.ajax({
         async:false,   
         type:"get",
@@ -203,7 +203,7 @@ function DelAllItem(win){
     var cart_count = getCookie("cartnum"+win);
     var proarr;
     $.ajax({
-        url:'http://api.byway.net.cn/v1/windows/'+win+'/';
+        url:'http://api.byway.net.cn/v1/windows/'+win+'/',
         async:false;
         success:function (str){
             proarr = JSON.parse(str.products_data);

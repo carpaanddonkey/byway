@@ -19,6 +19,7 @@ and open the template in the editor.
         var product;
         var txt = "";
         var nump = 0;
+        var win = 1;
         function getData(div_id){
             ///alert(request.QueryString["id"]);
             url =  'http://api.byway.net.cn/v1/windows/'+1+'/';
@@ -28,7 +29,7 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        var win = obj.window.id;
+                        win = obj.window.id;
                         var jsonw = eval(obj.window)
                         {
                            loadwindow_header(jsonw,div_id);   
@@ -42,9 +43,7 @@ and open the template in the editor.
                                 txt+='<a href="#" onclick="changePages('+num+')"><p>'+jsonp[i].category+'</p></a>';
                                 num++;
                                 for(j in jsonp[i].products)
-                                {
-                                    nump++;
-                                }
+                                    nump++;   
                             }
                             txt+='</div></div>';
                         }
@@ -120,7 +119,7 @@ and open the template in the editor.
     <div class="footer"  onclick="shoppingcart_show()">
         <img class="f_scart" src="Images\icon\shoppingcart.png" alt="购物车"/>
         <span class="f_money" id="f_money">¥ 0</span>
-        <span class="clear_cart" id="clear_cart" onclick="DelAllItem()">清空</span>
+        <span class="clear_cart" id="clear_cart" onclick="DelAllItem(win)">清空</span>
         <a href="orderform.html"><div class="f_pay" id="f_pay">去结算</div></a>
     </div>
     

@@ -148,6 +148,7 @@ function addToCart(win,num){       //num是商品号，按顺序从1开始  win�
     setCookie("cartmoney"+win,money,365);
     //window.parent.location.reload(true);
 }
+
 function addToCart2(win,num){       //num是商品号，按顺序从1开始  win是窗口号
    // win = 1;
     getProduct(num);
@@ -166,6 +167,7 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
     setCookie("cartmoney"+win,money,365);
     window.parent.location.reload(true);
 }
+
 function AddItem2(win,num){
     getProduct(num);
     var cart_money = getCookie("cartmoney"+win); 
@@ -213,10 +215,11 @@ function DelAllItem(win){
     {
         for(j in proarr[i].products)
         {
-        var c_name ="cart"+win+"com"+proarr[i].products[j].id;
-        var c = getCookie(c_name);
-        if(c!==""){
-            DelItem(win,proarr[i].products[j].id);
+            var c_name ="cart"+win+"com"+proarr[i].products[j].id;
+            var c = getCookie(c_name);
+            if(c!==""){
+                DelItem(win,proarr[i].products[j].id);
+            }
         }
     }
 }
@@ -232,6 +235,7 @@ function DelItem(win,num){
     location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }
+
 function DelItem2(win,num){
     getProduct(num);
     var cart_money = getCookie("cartmoney"+win); 
@@ -243,6 +247,7 @@ function DelItem2(win,num){
     location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }
+
 function getCookie(c_name){
     if (document.cookie.length>0){ 
         c_start=document.cookie.indexOf(c_name + "=");

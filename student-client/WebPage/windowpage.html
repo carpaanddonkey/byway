@@ -18,14 +18,18 @@ and open the template in the editor.
         var windows;
         var product;
         var txt = "";
+        var nump = 0;
+        var win = 1;
         function getData(div_id){
-            url =  'http://api.byway.net.cn/v1/windows/'+getWindow_id()+'/';
+            ///alert(request.QueryString["id"]);
+            url =  'http://api.byway.net.cn/v1/windows/'+1+'/';
             $.ajax({
                     async:false,
                     type:"get",
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
+                        win = obj.window.id;
                         var jsonw = eval(obj.window)
                         {
                            loadwindow_header(jsonw,div_id);   
@@ -38,24 +42,22 @@ and open the template in the editor.
                             {
                                 txt+='<a href="#" onclick="changePages('+num+')"><p>'+jsonp[i].category+'</p></a>';
                                 num++;
+                                for(j in jsonp[i].products)
+                                    nump++;   
                             }
-                            txt+='</div><div class="iframe" id="iframe">'+
-                                '<iframe src="iframepage.html"></iframe>'+
-                                '</div></div></div>';
+                            txt+='</div></div>';
                         }
 
                         document.getElementById(div_id).innerHTML = txt;
+                        checkCookie(win,nump);
                         
                     },
                     error:function(jsonResult){
                         alert("error");
-                        for(i in jsonResult)
-                        {
-                            alert(i+jsonResult[i]);
-                        }
                     }
                 });
-                
+            
+               
         }
         function loadwindow_header(arr)
         {
@@ -81,10 +83,12 @@ and open the template in the editor.
         }
     </script>
     </head>
-    <body onload="checkCookie();getData('windows_body')">
+    <body onload="getData('windows_body')">
     <div id = "windows_body">
     </div>
-    
+    <div class="iframe" id="iframe">
+        <iframe src="iframepage.html"></iframe>
+    </div>
     <div class="shopping_cart" id="shopping_cart">
         <table id="table_shoppingcart">
             <colgroup>
@@ -115,7 +119,7 @@ and open the template in the editor.
     <div class="footer"  onclick="shoppingcart_show()">
         <img class="f_scart" src="Images\icon\shoppingcart.png" alt="购物车"/>
         <span class="f_money" id="f_money">¥ 0</span>
-        <span class="clear_cart" id="clear_cart" onclick="DelAllItem()">清空</span>
+        <span class="clear_cart" id="clear_cart" onclick="DelAllItem(win)">清空</span>
         <a href="orderform.html"><div class="f_pay" id="f_pay">去结算</div></a>
     </div>
     

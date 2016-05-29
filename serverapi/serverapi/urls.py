@@ -35,6 +35,7 @@ urlpatterns = patterns('',
     url(r'^v1/order_record/(?P<order_id>\w+)/$', order_record),
                        url(r'^testcelery/', get),
                        url(r'^testsession/', test_session),
+                       url(r'^clearcache/', clear_cache),
 )
 
 if settings.DEBUG:

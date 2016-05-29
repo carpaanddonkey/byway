@@ -13,7 +13,22 @@ var product = {
   "name": "蒜蓉生菜"
 };
 
-
+function getWindow_id()
+{
+    return window_id;
+}
+function setWindow_id(is)
+{
+    window_id = is;
+}
+function getCanteen_id()
+{
+    return canteen_id;
+}
+function setCanteen_id(is)
+{
+    canteen_id = is;
+}
 function getProduct(id)
 {
     var url = "http://api.byway.net.cn/v1/products/"+id+"/";

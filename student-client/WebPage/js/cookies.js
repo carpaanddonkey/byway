@@ -96,7 +96,7 @@ function checkCookie(win,nump){          //窗口号
     var proarr;
     $.ajax({
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
-        async:false;
+        async:false,
         success:function (str){
             proarr = JSON.parse(str.products_data);
         }
@@ -204,7 +204,7 @@ function DelAllItem(win){
     var proarr;
     $.ajax({
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
-        async:false;
+        async:false,
         success:function (str){
             proarr = JSON.parse(str.products_data);
         }

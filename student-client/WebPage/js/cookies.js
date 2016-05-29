@@ -98,7 +98,8 @@ function checkCookie(win,nump){          //窗口号
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
         async:false,
         success:function (str){
-            proarr = JSON.parse(str.products_data);
+            var obj = JSON.parse(str);
+            proarr = eval(obj.products_data);
         }
     });
     for(i in proarr)
@@ -208,7 +209,8 @@ function DelAllItem(win){
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
         async:false,
         success:function (str){
-            proarr = JSON.parse(str.products_data);
+            var obj = JSON.parse(str);
+            proarr = eval(obj.products_data);
         }
     });
     for(i in proarr)

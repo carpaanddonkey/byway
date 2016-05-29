@@ -31,7 +31,7 @@ function setCanteen_id(is)
 }
 function getProduct(id)
 {
-    var url = "http://api.byway.net.cn/v1/products/"+id+"/",
+    var url = "http://api.byway.net.cn/v1/products/"+id+"/";
     $.ajax({
         async:false,   
         type:"get",

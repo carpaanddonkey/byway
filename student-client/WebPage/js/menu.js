@@ -23,8 +23,8 @@ function shoppingcart_show(){
     var al = document.getElementById('shopping_cart').style.display;
     if(al=='none')
         document.getElementById('shopping_cart').style.display = 'inherit';  
-    //else
-        //document.getElementById('shopping_cart').style.display = 'none';  
+    else
+        document.getElementById('shopping_cart').style.display = 'none';  
 }
 
 function qrcode_show(){

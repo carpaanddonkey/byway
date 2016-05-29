@@ -28,7 +28,7 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-
+                        var win = obj.window.id;
                         var jsonw = eval(obj.window)
                         {
                            loadwindow_header(jsonw,div_id);   
@@ -50,6 +50,7 @@ and open the template in the editor.
                         }
 
                         document.getElementById(div_id).innerHTML = txt;
+                        checkCookie(win,nump);
                         
                     },
                     error:function(jsonResult){
@@ -57,7 +58,7 @@ and open the template in the editor.
                     }
                 });
             
-                checkCookie(win,nump);
+               
         }
         function loadwindow_header(arr)
         {

@@ -4,6 +4,7 @@ from datetime import datetime
 
 from canteens.models import *
 from util.qr_util import *
+from util.redis_util import *
 
 # Create your models here.
 
@@ -62,6 +63,15 @@ class Order(models.Model):
 			order_record.save()
 			qr_url = '%s%s/%sorders/%s%s' % (HTTP_SCHEMA, HOST_URL, API_VERSION, str(self.id), '?operation=send')
 			generate_qrcode(qr_url, str(self.id)+'.jpg')
+			# todo: generate order order_product
+			self.gen_order_product()
+			# todo: check if product price is correct
+			self.correct_order_price()
+
+			# next: clear cache
+			r = redis.Redis(connection_pool=RConnectionPool())
+			query_key = 'order:w'+str(self.window_id.id)+':s0'
+			r.delete(query_key)
 			return True
 		except Exception, e:
 			print(e)
@@ -74,11 +84,60 @@ class Order(models.Model):
 		except:
 			return False
 
+	def gen_order_product(self):
+		pro_info = self.product_list.split('_')
+		for info in pro_info:
+			pro_id = info.split('-')[0]
+			num = info.split('-')[1]
+			order_product = OrderProduct()
+			order_product.order_id = self
+			order_product.product_id = Product.objects.get(id=int(pro_id))
+			order_product.product_count = int(num)
+			order_product.save()
+
+	def get_order_details(self):
+		order_details = []
+		order_product = OrderProduct.objects.filter(order_id=self)
+		for item in order_product:
+			order_details.append(item.to_dict())
+		return order_details
+
+	def correct_order_price(self):
+		product_price = sum([x['col_price'] for x in self.get_order_details()])
+		total_price = product_price + self.ship_price - self.promotion
+		if product_price != self.product_price or total_price != self.total_price:
+			self.product_price = product_price
+			self.total_price = total_price
+			self.save()
+
 	def to_dict(self):
 		order_dict = model_to_dict(self, exclude=['qr_storage_pre'])
 		order_dict['window_icon'] = BASE_SCHEMES + API_BASE + self.window_id.picture
 		order_dict['qr_storage_url'] = self.qr_storage_pre+str(self.id)+'.jpg'
+		order_dict['address'] = u'{0}号楼{1}宿舍{2}'.format(str(self.address.dormitory_no),
+													str(self.address.room_no), self.address.address)
+
+		try:
+			deliver = OrderRecord.objects.get(order_id=self).deliver_id
+		except:
+			order_dict['deliver'] = u'暂时无人接单'
+		else:
+			order_dict['deliver'] = deliver.name
+		order_dict['product_details'] = self.get_order_details()
 		return order_dict
+
+
+class OrderProduct(models.Model):
+	order_id = models.ForeignKey(Order)
+	product_id = models.ForeignKey(Product)
+	product_count = models.IntegerField(default=1)
+
+	def to_dict(self):
+		item_info = dict()
+		item_info['product_name'] = self.product_id.name
+		item_info['product_count'] = self.product_count
+		item_info['col_price'] = self.product_id.price * self.product_count
+		return item_info
 
 
 class OrderRecord(models.Model):

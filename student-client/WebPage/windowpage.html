@@ -19,7 +19,8 @@ and open the template in the editor.
         var product;
         var txt = "";
         function getData(div_id){
-            url =  'http://api.byway.net.cn/v1/windows/'+getWindow_id()+'/';
+            ///alert(request.QueryString["id"]);
+            url =  'http://api.byway.net.cn/v1/windows/'+1+'/';
             $.ajax({
                     async:false,
                     type:"get",
@@ -39,9 +40,7 @@ and open the template in the editor.
                                 txt+='<a href="#" onclick="changePages('+num+')"><p>'+jsonp[i].category+'</p></a>';
                                 num++;
                             }
-                            txt+='</div><div class="iframe" id="iframe">'+
-                                '<iframe src="iframepage.html"></iframe>'+
-                                '</div></div></div>';
+                            txt+='</div></div>';
                         }
 
                         document.getElementById(div_id).innerHTML = txt;
@@ -49,10 +48,6 @@ and open the template in the editor.
                     },
                     error:function(jsonResult){
                         alert("error");
-                        for(i in jsonResult)
-                        {
-                            alert(i+jsonResult[i]);
-                        }
                     }
                 });
                 
@@ -81,7 +76,7 @@ and open the template in the editor.
         }
     </script>
     </head>
-    <body onload="checkCookie();getData('windows_body')">
+    <body onload="getData('windows_body')">
     <div id = "windows_body">
     </div>
     

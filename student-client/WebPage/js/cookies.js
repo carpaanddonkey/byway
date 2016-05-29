@@ -85,8 +85,6 @@ function checkCookie(win,nump){          //窗口号
        //分别是窗口商品数 和 窗口购物车总金额
         setCookie("cartnum"+win,nump,365);
         setCookie("cartmoney"+win,0,365); 
-        cart_money = getCookie("cartmoney"+win);   //窗口购物车总金额
-        cart_count = getCookie("cartnum"+win);    //窗口中窗口种类个数
         cart_money = 0;
         cart_count = nump;
     }else{
@@ -95,27 +93,39 @@ function checkCookie(win,nump){          //窗口号
         document.getElementById('clear_cart').style.display = 'block';
     }
 
-    for(var i=1;i<cart_count;i++){
-        var c_name ="cart"+win+"com"+i;
-        //getProduct(i);
-        var c = getCookie(c_name);
-        if(c!==""){
-            var tr = document.createElement("tr");
-            var tdN = document.createElement("td");
-            var tdP = document.createElement("td");
-            var tdC = document.createElement("td");
-            var tdO = document.createElement("td");
-            tdN.innerHTML = product.name;
-            tdC.innerHTML = 
-                    "<span class='am' onclick='RedItem(\""+win+"\",\""+product.name+"\")'>-&nbsp</span>" + c + "<span class='am' onclick='AddItem(\""+win+"\",\""+product[i].name+"\")'>&nbsp+</span>";
-            tdP.innerHTML = product.price;
-            tdO.innerHTML = "<span onclick='DelItem(\""+win+"\",\""+product.name+"\")'>×</span>";
+    var proarr;
+    $.ajax({
+        url:'http://api.byway.net.cn/v1/windows/'+win+'/';
+        async:false;
+        success:function (str){
+            proarr = JSON.parse(str.products_data);
+        }
+    });
+    for(i in proarr)
+    {
+        for(j in proarr[i].products)
+        {
+            var c_name ="cart"+win+"com"+proarr[i].products[j].id;
+            //getProduct(i);
+            var c = getCookie(c_name);
+            if(c!==""){
+                var tr = document.createElement("tr");
+                var tdN = document.createElement("td");
+                var tdP = document.createElement("td");
+                var tdC = document.createElement("td");
+                var tdO = document.createElement("td");
+                tdN.innerHTML = proarr[i].products[j].name;
+                tdC.innerHTML = 
+                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>-&nbsp</span>" + c + "<span class='am' onclick='AddItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>&nbsp+</span>";
+                tdP.innerHTML = proarr[i].products[j].price;
+                tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>×</span>";
             
-            tr.appendChild(tdN);
-            tr.appendChild(tdP);
-            tr.appendChild(tdC);
-            tr.appendChild(tdO);
-            document.getElementById("tablebody").appendChild(tr);          
+                tr.appendChild(tdN);
+                tr.appendChild(tdP);
+                tr.appendChild(tdC);
+                tr.appendChild(tdO);
+                document.getElementById("tablebody").appendChild(tr);          
+            }
         }
     }
 
@@ -140,7 +150,7 @@ function addToCart(win,num){       //num是商品号，按顺序从1开始  win�
 }
 function addToCart2(win,num){       //num是商品号，按顺序从1开始  win是窗口号
    // win = 1;
-    //getProduct(num);
+    getProduct(num);
     //var product = JSON.parse(str);
     var value = getCookie("cart"+win+"com"+product.id);    //当前窗口购物车的cookie
 
@@ -156,9 +166,8 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
     setCookie("cartmoney"+win,money,365);
     window.parent.location.reload(true);
 }
-function AddItem2(str){
-    var win = getWindow_id();
-    var product = JSON.parse(str);
+function AddItem2(win,num){
+    getProduct(num);
     var cart_money = getCookie("cartmoney"+win); 
     var count = getCookie("cart"+win+"com"+product.id);
 
@@ -173,7 +182,8 @@ function AddItem2(str){
     document.getElementById('clear_cart').style.display = 'block';
 }
 
-function RedItem(win,num){
+function RedItem2(win,num){
+    getProduct(num);
     var cart_money = getCookie("cartmoney"+win); 
     var count = getCookie("cart"+win+"com"+num);
     if(parseInt(count)==1){ 
@@ -188,31 +198,25 @@ function RedItem(win,num){
     
     location.reload(true);
 }
-function RedItem2(str){
-    var win = getWindow_id();
-    var product = JSON.parse(str);
-    var cart_money = getCookie("cartmoney"+win); 
-    var count = getCookie("cart"+win+"com"+product.id);
-    if(parseInt(count)==1){ 
-        DelCookie("cart"+win+"com"+product.id);
-    }else{
-        var count = parseInt(count) - 1;
-        setCookie("cart"+win+"com"+product.id,count,365);  
-    }
-    
-    var money = parseInt(cart_money) - product.price; //15是商品价格 还未交互
-    setCookie("cartmoney"+win,money,365);  
-    
-    location.reload(true);
-}
+
 function DelAllItem(win){
-    //var win = getWindow_id();
     var cart_count = getCookie("cartnum"+win);
-    for(var i=1;i<cart_count;i++){
-        var c_name ="cart"+win+"com"+i;
+    var proarr;
+    $.ajax({
+        url:'http://api.byway.net.cn/v1/windows/'+win+'/';
+        async:false;
+        success:function (str){
+            proarr = JSON.parse(str.products_data);
+        }
+    });
+    for(i in proarr)
+    {
+        for(j in proarr[i].products)
+        {
+        var c_name ="cart"+win+"com"+proarr[i].products[j].id;
         var c = getCookie(c_name);
         if(c!==""){
-            DelItem(win,i);
+            DelItem(win,proarr[i].products[j].id);
         }
     }
 }
@@ -228,9 +232,8 @@ function DelItem(win,num){
     location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }
-function DelItem2(str){
-    var win = getWindow_id();
-    var product = JSON.parse(str);
+function DelItem2(win,num){
+    getProduct(num);
     var cart_money = getCookie("cartmoney"+win); 
     var count = getCookie("cart"+win+"com"+product.name);
     var money = parseInt(cart_money) - product.price * parseInt(count);

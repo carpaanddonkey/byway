@@ -220,7 +220,7 @@ function DelAllItem(win){
             var c_name ="cart"+win+"com"+proarr[i].products[j].id;
             var c = getCookie(c_name);
             if(c!==""){
-                DelItem(win,proarr[i].products[j].id);
+                DelItem2(win,proarr[i].products[j].id);
             }
         }
     }
@@ -241,7 +241,7 @@ function DelItem(win,num){
 function DelItem2(win,num){
     getProduct(num);
     var cart_money = getCookie("cartmoney"+win); 
-    var count = getCookie("cart"+win+"com"+product.name);
+    var count = getCookie("cart"+win+"com"+product.id);
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+product.id);

@@ -107,8 +107,8 @@ def get_orders(request, order_id=None):
 	else:
 		# from redis
 		order = r.hgetall('order:'+str(order_id))
-
 		if order:
+			order['product_details'] = eval(order['product_details'])
 			return create_simple_response(200, json.dumps(order))
 
 		# from db

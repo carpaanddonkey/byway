@@ -27,7 +27,6 @@ and open the template in the editor.
                         var obj = JSON.parse(str);
                         var win = obj.window.id;
                         var k = 1;
-                        var nump = 0;
                         var jsonp = eval(obj.products_data);
                         {
                            // txt+='<div class="shop_list" id = "shop_list">';
@@ -42,13 +41,11 @@ and open the template in the editor.
                                         '<span class="i_di_money">¥'+jsonp[i].products[j].price+'</span>'+
                                         '<span class="i_di_sell">热销'+jsonp[i].products[j].sold_num+'</span>'+ 
                                         '<img onclick = "addToCart2('+win+','+jsonp[i].products[j].id+')" class = "i_add_cart" src = "Images/icon/add.png" alt = "＋"/></div>';
-                                        nump++;
                                 }
                                 k++;
                             }
                         }
                         document.getElementById(div_id).innerHTML = txt;
-                        checkCookie(win,nump);
                     },
                     error:function(str){
                         alert("error");

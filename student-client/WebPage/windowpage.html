@@ -18,6 +18,7 @@ and open the template in the editor.
         var windows;
         var product;
         var txt = "";
+        var nump = 0;
         function getData(div_id){
             ///alert(request.QueryString["id"]);
             url =  'http://api.byway.net.cn/v1/windows/'+1+'/';
@@ -27,6 +28,7 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
+
                         var jsonw = eval(obj.window)
                         {
                            loadwindow_header(jsonw,div_id);   
@@ -39,6 +41,10 @@ and open the template in the editor.
                             {
                                 txt+='<a href="#" onclick="changePages('+num+')"><p>'+jsonp[i].category+'</p></a>';
                                 num++;
+                                for(j in jsonp[i].products)
+                                {
+                                    nump++;
+                                }
                             }
                             txt+='</div></div>';
                         }
@@ -50,7 +56,8 @@ and open the template in the editor.
                         alert("error");
                     }
                 });
-                
+            
+                checkCookie(win,nump);
         }
         function loadwindow_header(arr)
         {

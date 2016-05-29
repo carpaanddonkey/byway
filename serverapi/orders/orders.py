@@ -134,7 +134,7 @@ def patch_orders(request, order_id):
 		content['msg'] = u'Request格式有误'
 		return create_simple_response(406, json.dumps(content))
 
-	if order_status_new:
+	if order_status_new == ORDER_PULLED or order_status_new == ORDER_SENDING:
 		order_deliver = request.user.id
 
 	try:

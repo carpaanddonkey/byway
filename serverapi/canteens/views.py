@@ -3,6 +3,7 @@ import json
 
 from models import *
 from util.response_util import *
+from util.redis_util import *
 
 DEFAULT_CANTEEN_ID = 1
 
@@ -53,3 +54,9 @@ def search(request):
 		search_result['products'] = product_result_arr
 
 		return create_simple_response(200, json.dumps(search_result))
+
+
+def clear_cache(request):
+	r = redis.Redis(connection_pool=RConnectionPool())
+	r.flushdb()
+	return HttpResponse(200)

@@ -16,11 +16,12 @@ and open the template in the editor.
         var windows;
         //var product;
         var txt = "";
+        var r = window.location.search;
+            r = r.replace('?','');
         //function test = 
         function getData(div_id){
-            var r = window.location.search;
-            r = r.replace('?','');
-            url =  'http://api.byway.net.cn/v1/windows/'+r+'/';
+            
+            var url =  'http://api.byway.net.cn/v1/windows/'+r+'/';
             $.ajax({
                     async:false,
                     type:"get",

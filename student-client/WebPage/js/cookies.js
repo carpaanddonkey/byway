@@ -191,8 +191,8 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
     var cart_money = getCookie("cartmoney"+win); 
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);
-    checkCookie(win);
-    //window.parent.location.reload(true);
+    //checkCookie(win);
+    window.parent.location.reload(true);
 }
 
 function AddItem2(win,num){
@@ -206,8 +206,8 @@ function AddItem2(win,num){
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
 
-    checkCookie(win);
-    //location.reload(true);
+   // checkCookie(win);
+    location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
     document.getElementById('clear_cart').style.display = 'block';
 }
@@ -225,8 +225,8 @@ function RedItem2(win,num){
     
     var money = parseInt(cart_money) - product.price; //15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
-    checkCookie(win);
-    //location.reload(true);
+    //checkCookie(win);
+    location.reload(true);
 }
 
 function DelAllItem(win){
@@ -272,8 +272,8 @@ function DelItem2(win,num){
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+product.id);
-    checkCookie(win);
-    //location.reload(true);
+    //checkCookie(win);
+    location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }
 

@@ -44,7 +44,7 @@ and open the template in the editor.
                             var num = 1;
                             for(i in jsonp)
                             {
-                                txt+='<a href="#" onclick="changePages('+num+')"><p>'+jsonp[i].category+'</p></a>';
+                                txt+='<a href="#" onclick="changePages('+win+','+num+')"><p>'+jsonp[i].category+'</p></a>';
                                 num++; 
                             }
                             txt+='</div></div>';

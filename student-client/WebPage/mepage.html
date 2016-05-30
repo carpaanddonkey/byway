@@ -11,8 +11,29 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\me_style.css" rel="stylesheet" type="text/css" />
+		<script src = "js/jquery-1.8.2.min.js"></script>
+		<script type = "text/javascript">
+        var url = 'http://api.byway.net.cn/v1/user/';
+            function getData()
+            {
+               $.ajax({
+                    async:true,
+                    type:"get",
+                    url:url,
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        document.getElementById('name').value = obj.name;
+                        document.getElementById('icon').src = obj.icon;
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                    }
+                });
+            }
+        </script>
     </head>
-    <body>
+    <body onload = "getData()">
         
         <div class="headlol">
             <img class="head" src="Images/hh.jpg" alt="head"/>

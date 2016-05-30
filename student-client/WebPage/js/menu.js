@@ -5,6 +5,33 @@
  */
 var i_pic = 0;
 var num_pic = 4; 
+function inittime(){
+    var myDate = new Date();
+    var hours = myDate.getHours();       //获取当前小时数(0-23)
+    var min = myDate.getMinutes();     //获取当前分钟数(0-59)
+    
+    var t_hours = document.getElementById('t_hours');
+    var t_min = document.getElementById('t_min');
+    for(var i = 0;i < t_hours.length;i++){
+        if(t_hours[i].text == hours){            
+            t_hours[i+1].selected = true;       //自动多选一个小时
+            break;
+        }
+        else{
+            t_hours[i].hidden = true;
+        }
+    }
+    
+    for(var i = 0;i < t_min.length;i++){
+        if(t_min[i].text == min){            
+            t_min[i].selected = true;
+            break;
+        }
+    }
+    
+}
+
+
 
 function change_pic(pic_array){
     if(i_pic===num_pic-1)
@@ -13,7 +40,6 @@ function change_pic(pic_array){
         i_pic++;
     document.getElementById('pic_lo').src = pic_array[i_pic];
 }
-
 function changePages(num){
     document.getElementById("iframe").innerHTML = "<iframe src='iframepage.html#i"+num+"'></iframe>";
    
@@ -23,8 +49,8 @@ function shoppingcart_show(){
     var al = document.getElementById('shopping_cart').style.display;
     if(al=='none')
         document.getElementById('shopping_cart').style.display = 'inherit';  
-    //else
-        //document.getElementById('shopping_cart').style.display = 'none';  
+    else
+        document.getElementById('shopping_cart').style.display = 'none';  
 }
 
 function qrcode_show(){

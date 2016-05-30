@@ -62,7 +62,8 @@
                     async:false,
                     type:"POST",
                     url:'http://api.byway.net.cn/v1/ships/',
-                    data:JSON.stringify(o),
+                    //data:JSON.stringify(o),
+                    data:o,
                     xhrFields:{withCredentials:true},
                     success:function(jsonResult){
                         window.location.reload(true);

@@ -1,6 +1,7 @@
 var window_id = 1;
 var canteen_id = 1;
 var k;
+var product_list = "";
 var product = {
   "picture": "http://api.byway.net.cn/media/products/4.jpg",
   "description": "柔嫩的青菜",
@@ -44,7 +45,10 @@ function getProduct(id)
                 }
         });
 }
-
+function getProlist()
+{
+    return product_list;
+}
 
 function initPaypage(win){
     cart_money = getCookie("cartmoney"+win);
@@ -61,7 +65,7 @@ function initOrderform(win){        //获取窗口编号
     var cart_count = getCookie("cartnum"+win);
     document.getElementById('order_money').innerHTML = '¥ '+ cart_money;
     document.getElementById('cost_money').innerHTML = '¥ '+ cart_money;
-    
+    var flag = false;
     var proarr;
     $.ajax({
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
@@ -85,6 +89,13 @@ function initOrderform(win){        //获取窗口编号
                      +"</span> <span class=\"menu_cot\">x "+ c +"</span> <span class=\"menu_cost\">"+ proarr[i].products[j].price*c  //15是价格，cookie里不存
                      +" 元</span>";
                 document.getElementById("order_cart").appendChild(para); 
+                if(flag==false)
+                {
+                    product_list+=proarr[i].products[j].id+'-'+c;
+                    flag = true;
+                }
+                else 
+                    product_list+='_'+proarr[i].products[j].id+'-'+c;
             }
         }
     }

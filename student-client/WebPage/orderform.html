@@ -15,6 +15,8 @@ and open the template in the editor.
         <script src="js/cookies.js"></script>
         <script src="js/menu.js"></script>
         <script type = "text/javascript">
+        var r = window.location.search;
+            r = r.replace('?','');
             var o = {"cateen_id":"",
                     "window_id":"",
                     "product_list":"",
@@ -30,7 +32,7 @@ and open the template in the editor.
             var url = "http://api.byway.net.cn/v1/orders/";
             function login(){
                 o['cateen_id'] = getCanteen_id();
-                o['window_id'] = getWindow_id();
+                o['window_id'] = r;
                 o['product_price'] = document.getElementById("cost_money").innerHTML;
                 o['ship_price'] = 0;
                 o['promotion'] = 0;
@@ -57,6 +59,10 @@ and open the template in the editor.
                 });
                 window.location.href="paypage.html"
             }
+            function loadb()
+            {
+                window.location.href = 'windowpage.html?'+r;
+            }
             /*
             function su(str)
             {
@@ -70,9 +76,9 @@ and open the template in the editor.
             }*/
         </script>
     </head>
-    <body onload="initOrderform(1);inittime();">
+    <body onload="initOrderform(r);inittime();">
         <div class="header">
-            <a href="windowpage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <a onclick = "loadb()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
         </div>
         <div class="clearfix_head"></div>

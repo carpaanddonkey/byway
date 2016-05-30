@@ -19,12 +19,14 @@ and open the template in the editor.
         var product;
         var txt = "";
         var nump = 0;
-        var win = 1;
+        var r = window.location.search;
+        r = r.replace('?','');
+        function loadl()
+        {
+            window.location.href =  'orderform.html?'+r;
+        }
         function getData(div_id){
-            var r = window.location.search;
-            r = r.replace('?','');
             var url =  'http://api.byway.net.cn/v1/windows/'+r+'/';
-            win = r;
             $.ajax({
                     async:false,
                     type:"get",
@@ -119,7 +121,7 @@ and open the template in the editor.
         <img class="f_scart" src="Images\icon\shoppingcart.png" alt="购物车"/>
         <span class="f_money" id="f_money">¥ 0</span>
         <span class="clear_cart" id="clear_cart" onclick="DelAllItem(win)">清空</span>
-        <a href="orderform.html"><div class="f_pay" id="f_pay">去结算</div></a>
+        <a onclick = "loadl()"><div class="f_pay" id="f_pay">去结算</div></a>
     </div>
     
     </body>

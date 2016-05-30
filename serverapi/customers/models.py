@@ -1,5 +1,7 @@
 from django.utils import timezone
 from django.db import models
+from django.forms.models import model_to_dict
+
 
 ISOTIMEFORMAT = '%Y-%m-%d %X'
 
@@ -58,6 +60,12 @@ class Customer(models.Model):
 
 class Ship(models.Model):
 	customer_id = models.ForeignKey(Customer)
+	receiver_name = models.CharField(max_length=50)
+	phone = models.CharField(max_length=20)
 	dormitory_no = models.IntegerField(default=0)
 	room_no = models.IntegerField(default=0)
 	address = models.CharField(max_length=255, default='')
+
+	def to_dict(self):
+		ship_dict = model_to_dict(self)
+		return ship_dict

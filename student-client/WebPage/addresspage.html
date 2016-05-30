@@ -5,38 +5,115 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\me_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script src="js/cookies.js"></script>
+        <script src="js/menu.js"></script>
+        <script type = "text/javascript">
+            var txt = "";
+            var str = '[{"room_no": 419, "phone": "18813090635", "dormitory_no": 16, "address": "\u5317\u4eac\u4ea4\u901a\u5927\u5b6616\u53f7\u697c419", "receiver_name": "\u5ef6\u660a\u5357", "customer_id": 2, "id": 7}, {"room_no": 101, "phone": "18813090635", "dormitory_no": 18, "address": "\u5317\u4eac\u4ea4\u901a\u5927\u5b6618\u53f7\u697c101", "receiver_name": "\u79d1\u6bd4", "customer_id": 2, "id": 8}]';
+            var o = {"room_no": "", "phone": "", "dormitory_no": "", "address": "", "receiver_name": ""};
+            function getData(div_id){
+                var url =  'http://api.byway.net.cn/v1/ships/';
+                $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    success:function(str){
+                        var flag = false;
+                        var obj = JSON.parse(str);
+                        var jsonp = eval(obj);
+                        {
+                           // txt+='<div class="shop_list" id = "shop_list">';
+                            for(i in jsonp)
+                            {
+                                if(flag==false)
+                                {
+                                    txt+='<div class="title">当前地址</div><div class="add">'+
+                                     '<p>收货人：<span>'+jsonp[i].receiver_name+'</span><span class="cus_phone">'+
+                                     jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'十六号宿舍楼414</span></p></div><div class="title">更多地址</div>';
+                                     flag = true;
+                                }
+                                else
+                                {
+                                    txt+='<div class="add"><img src="Images/icon/closeicon.png" alt="del"/>'+
+                                     '<p>收货人：<span>'+jsonp[i].receiver_name+'</span><span class="cus_phone">'+
+                                     jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'十六号宿舍楼414</span></p></div>';
+                                }
+                            }
+                            txt+='</div>';                        
+                        }
+                        document.getElementById(div_id).innerHTML = txt;
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                    }
+                });
+                    
+            }
+            function addAddress()
+            {
+                o['receiver_name'] = document.getElementById('rec_name').value;
+                o['phone'] = document.getElementById('rec_phone').value;
+                o['dormitory_no'] = document.getElementById('rec_dor').value;
+                o['room_no'] = document.getElementById('rec_room').value;
+                o['address'] = document.getElementById('rec_add').value;
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    url:'http://api.byway.net.cn/v1/ships/',
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    success:function(jsonResult){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        window.location.reload(true);
+                    }
+                });
+            }
+        /*
+        <!p><!label class="left">宿舍楼：<!/label>
+            <!select name="宿舍楼" id="t_hours" class = "ipt">
+                    <!option value="1号楼">1号楼<!/option>
+                    <!option value="2号楼">2号楼<!/option>
+                    <!option value="3号楼">3号楼<!/option>
+                    <!option value="4号楼">4号楼<!/option>
+                    <!option value="5号楼">5号楼<!/option>
+                    <!option value="6号楼">6号楼<!/option>
+                    <!option value="7号楼">7号楼<!/option>
+                    <!option value="8号楼">8号楼<!/option>
+                    <!option value="9号楼">9号楼<!/option>
+                    <!option value="10号楼">10号楼<!/option>
+                    <!option value="11号楼">11号楼<!/option>
+                    <!option value="12号楼">12号楼<!/option>
+                    <!option value="13号楼">13号楼<!/option>
+                    <!option value="14号楼">14号楼<!/option>
+                    <!option value="15号楼">15号楼<!/option>
+                    <!option value="16号楼">16号楼<!/option>
+                    <!option value="17号楼">17号楼<!/option>
+                    <!option value="18号楼">18号楼<!/option>
+                    <!option value="19号楼">19号楼<!/option>
+                <!/select>
+            <!label>
+            <!/p>*/
+        </script>
     </head>
-    <body>   
+    <body onload = "getData('address')">   
     <div class="header" >
             <a onclick="javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;我的地址</span>
     </div>
     <div class="clearfix_head"></div>
-    <div class="title">当前地址</div>
-    <div class="add">
-        <p>收货人：<span>王同学</span><span class="cus_phone">13822222222</span></p>
-        <p>送达地址：<span>十六号宿舍楼414</span></p>
+    <div id = "address">
     </div>
-    <div class="title">更多地址</div>
-    <div class="add">
-         <img src="Images/icon/closeicon.png" alt="del"/>
-        <p>收货人：<span>王同学</span><span class="cus_phone">13822222222</span></p>
-       
-        <p>送达地址：<span>十六号宿舍楼414</span></p>
-        
-    </div>
-    <div class="add">
-        <img src="Images/icon/closeicon.png" alt="del"/>
-        <p>收货人：<span>王同学</span><span class="cus_phone">13822222222</span></p>       
-        <p>送达地址：<span>十六号宿舍楼414</span></p>     
-    </div>
-    
-    <div class="add_addr">
-        <img src="Images/icon/add.png" alt="add"/>
-        <p>添加地址</p>
-        <p><span class="left">收货人：</span> <input class="ipt" type="text"/></p>
-        <p><span class="left">手机号：</span> <input class="ipt" type="text"/></p>
-        <p><span class="left">送达地址：</span> <input class="ipt_addr" type="text"/></p>
+        <div class="title">添加地址</div>
+        <div class="add_addr"><a onclick = "addAddress()"><img src="Images/icon/add.png" alt="add"/></a>
+        <p><span class="left" >收货人：</span> <input class="ipt" type="text" id  = "rec_name"/></p>
+        <p><span class="left">手机号：</span> <input class="ipt" type="text" id  = "rec_phone" /></p>
+        <p><span class="left">宿舍楼：&nbsp;&nbsp;&nbsp;</span> <input class="ipt" type="text" id  = "rec_dor" /></p>
+        <p><span class="left">寝室：&nbsp;&nbsp;&nbsp;</span> <input class="ipt" type="text" id  = "rec_room" /></p>
+        <p><span class="left">送达地址：</span> <input class="ipt_addr" type="text" id  = "rec_add"/></p>
     </div>
     </body>
 </html>

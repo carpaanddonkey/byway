@@ -11,12 +11,74 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\orderform_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
         <script src="js/cookies.js"></script>
         <script src="js/menu.js"></script>
+        <script type = "text/javascript">
+        var r = window.location.search;
+            r = r.replace('?','');
+            var o = {"cateen_id":"",
+                    "window_id":"",
+                    "product_list":"",
+                    "product_price":"",
+                    "ship_price":"",
+                    "promotion":"",
+                    "total_price":"",
+                    "address_id":"",
+                    "expect_time":"",
+                    "leave_msg":""
+            }
+            var flag = "0";
+            var url = "http://api.byway.net.cn/v1/orders/";
+            function login(){
+                o['cateen_id'] = getCanteen_id();
+                o['window_id'] = r;
+                o['product_price'] = document.getElementById("cost_money").innerHTML;
+                o['ship_price'] = 0;
+                o['promotion'] = 0;
+                o['total_price'] = document.getElementById("cost_money").innerHTML;
+                o['address_id'] = 1;
+                o['expect_time'] = "1s";
+                o['leave_msg'] = "";
+                o['product_list'] = getProlist();
+                //ajax(url,JSON.stringify(o),'POST',su,err);
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    url:url,
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    success:function(jsonResult){
+                        flag = "shoppage.html";
+                    },
+                    error:function(jsonResult){
+                        flag = "loginpage.html";
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                    }
+                });
+                window.location.href="paypage.html"
+            }
+            function loadb()
+            {
+                window.location.href = 'windowpage.html?'+r;
+            }
+            /*
+            function su(str)
+            {
+                alert(str);
+                window.location.href = "shoppage.html";
+            }
+            function err(str)
+            {
+                alert("登陆失败！");
+                window.location.href = "loginpage.html";
+            }*/
+        </script>
     </head>
-    <body onload="initOrderform(1);inittime();">
+    <body onload="initOrderform(r);inittime();">
         <div class="header">
-            <a href="windowpage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <a onclick = "loadb()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
         </div>
         <div class="clearfix_head"></div>
@@ -139,7 +201,7 @@ and open the template in the editor.
         </div>
         
         <div class="clearfix_foot"></div>
-        <a href="paypage.html"><div class="order_footer">
+        <a onclick = "login();"><div class="order_footer">
             <span>确认下单</span>
         </div></a>
     </body>

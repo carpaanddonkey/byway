@@ -1,6 +1,7 @@
 var window_id = 1;
 var canteen_id = 1;
 var k;
+var product_list = "";
 var product = {
   "picture": "http://api.byway.net.cn/media/products/4.jpg",
   "description": "柔嫩的青菜",
@@ -44,7 +45,10 @@ function getProduct(id)
                 }
         });
 }
-
+function getProlist()
+{
+    return product_list;
+}
 
 function initPaypage(win){
     cart_money = getCookie("cartmoney"+win);
@@ -61,7 +65,7 @@ function initOrderform(win){        //获取窗口编号
     var cart_count = getCookie("cartnum"+win);
     document.getElementById('order_money').innerHTML = '¥ '+ cart_money;
     document.getElementById('cost_money').innerHTML = '¥ '+ cart_money;
-    
+    var flag = false;
     var proarr;
     $.ajax({
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
@@ -85,27 +89,21 @@ function initOrderform(win){        //获取窗口编号
                      +"</span> <span class=\"menu_cot\">x "+ c +"</span> <span class=\"menu_cost\">"+ proarr[i].products[j].price*c  //15是价格，cookie里不存
                      +" 元</span>";
                 document.getElementById("order_cart").appendChild(para); 
+                if(flag==false)
+                {
+                    product_list+=proarr[i].products[j].id+'-'+c;
+                    flag = true;
+                }
+                else 
+                    product_list+='_'+proarr[i].products[j].id+'-'+c;
             }
         }
     }
 }
 
 
-function checkCookie(win,nump){          //窗口号
-    var cart_money = getCookie("cartmoney"+win);   //窗口购物车总金额
-    var cart_count = getCookie("cartnum"+win);    //窗口中窗口种类个数
-    if (cart_money == null || cart_money=="" || cart_money=="undefined" ||cart_money ==0 ||cart_money=='NaN'){
-       //分别是窗口商品数 和 窗口购物车总金额
-        setCookie("cartnum"+win,nump,365);
-        setCookie("cartmoney"+win,0,365); 
-        cart_money = 0;
-        cart_count = nump;
-    }else{
-        document.getElementById('f_money').innerHTML = '¥ '+ cart_money;  
-        document.getElementById('f_pay').style.display = 'block';  
-        document.getElementById('clear_cart').style.display = 'block';
-    }
-
+function checkCookie(win){          //窗口号
+    var nump = 0;
     var proarr;
     $.ajax({
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
@@ -119,6 +117,7 @@ function checkCookie(win,nump){          //窗口号
     {
         for(j in proarr[i].products)
         {
+            nump++;
             var c_name ="cart"+win+"com"+proarr[i].products[j].id;
             //getProduct(i);
             var c = getCookie(c_name);
@@ -141,6 +140,19 @@ function checkCookie(win,nump){          //窗口号
                 document.getElementById("tablebody").appendChild(tr);          
             }
         }
+    }
+    var cart_money = getCookie("cartmoney"+win);   //窗口购物车总金额
+    var cart_count = getCookie("cartnum"+win);    //窗口中窗口种类个数
+    if (cart_money == null || cart_money=="" || cart_money=="undefined" ||cart_money ==0 ||cart_money=='NaN'){
+       //分别是窗口商品数 和 窗口购物车总金额
+        setCookie("cartnum"+win,nump,365);
+        setCookie("cartmoney"+win,0,365); 
+        cart_money = 0;
+        cart_count = nump;
+    }else{
+        document.getElementById('f_money').innerHTML = '¥ '+ cart_money;  
+        document.getElementById('f_pay').style.display = 'block';  
+        document.getElementById('clear_cart').style.display = 'block';
     }
 
 }
@@ -179,6 +191,7 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
     var cart_money = getCookie("cartmoney"+win); 
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);
+    //checkCookie(win);
     window.parent.location.reload(true);
 }
 
@@ -193,6 +206,7 @@ function AddItem2(win,num){
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
 
+   // checkCookie(win);
     location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
     document.getElementById('clear_cart').style.display = 'block';
@@ -211,7 +225,7 @@ function RedItem2(win,num){
     
     var money = parseInt(cart_money) - product.price; //15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
-    
+    //checkCookie(win);
     location.reload(true);
 }
 
@@ -246,8 +260,8 @@ function DelItem(win,num){
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+num);
-    
-    location.reload(true);
+    checkCookie(win);
+    //location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }
 
@@ -258,7 +272,7 @@ function DelItem2(win,num){
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+product.id);
-    
+    //checkCookie(win);
     location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }

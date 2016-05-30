@@ -59,7 +59,7 @@ def post_orders(request, order_id=None):
 		return create_simple_response(500, json.dumps(content))
 
 
-# @login_required
+@login_required
 def get_orders(request, order_id=None):
 	r = redis.Redis(connection_pool=RConnectionPool())
 	content = []
@@ -99,6 +99,13 @@ def get_orders(request, order_id=None):
 				content = order_utils.orders_to_array(order_list)
 				for order in order_list:
 					r.sadd(query_key, order.to_dict())
+		elif query_type == 'me':
+			is_finished = request.GET.get('is_finished', None)
+			if is_finished == 'true':
+				order_list = order_utils.get_order_by_customer(request.user.id, True)
+			else:
+				order_list = order_utils.get_order_by_customer(request.user.id, False)
+			content = order_utils.orders_to_array(order_list)
 		else:
 			content = []
 			pass

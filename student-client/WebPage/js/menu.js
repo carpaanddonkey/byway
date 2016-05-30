@@ -5,7 +5,6 @@
  */
 var i_pic = 0;
 var num_pic = 4; 
-
 function inittime(){
     var myDate = new Date();
     var hours = myDate.getHours();       //获取当前小时数(0-23)
@@ -32,13 +31,14 @@ function inittime(){
     
 }
 
-function change_pic(){
+
+
+function change_pic(pic_array){
     if(i_pic===num_pic-1)
         i_pic = 0;
     else
         i_pic++;
     document.getElementById('pic_lo').src = pic_array[i_pic];
-    
 }
 function changePages(num){
     document.getElementById("iframe").innerHTML = "<iframe src='iframepage.html#i"+num+"'></iframe>";

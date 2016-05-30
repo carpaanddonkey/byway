@@ -62,17 +62,30 @@ function initOrderform(win){        //获取窗口编号
     document.getElementById('order_money').innerHTML = '¥ '+ cart_money;
     document.getElementById('cost_money').innerHTML = '¥ '+ cart_money;
     
-    for(var i=1;i<cart_count;i++){
-        var c_name ="cart"+win+"com"+i;
-       // getProduct(i);
-        var c = getCookie(c_name);
-        if(c!==""){
-             var para = document.createElement("p");
-             para.className = "menu_cai";
-             para.innerHTML = "<span class=\"menu_name\">"+ product.name           //i是名字，需要改，cookie里不存
-                     +"</span> <span class=\"menu_cot\">x "+ c +"</span> <span class=\"menu_cost\">"+ product.price*c  //15是价格，cookie里不存
+    var proarr;
+    $.ajax({
+        url:'http://api.byway.net.cn/v1/windows/'+win+'/',
+        async:false,
+        success:function (str){
+            var obj = JSON.parse(str);
+            proarr = eval(obj.products_data);
+        }
+    });
+    for(i in proarr)
+    {
+        for(j in proarr[i].products)
+        {
+            var c_name ="cart"+win+"com"+proarr[i].products[j].id;
+       
+            var c = getCookie(c_name);
+            if(c!==""){
+                var para = document.createElement("p");
+                para.className = "menu_cai";
+                para.innerHTML = "<span class=\"menu_name\">"+ proarr[i].products[j].name           //i是名字，需要改，cookie里不存
+                     +"</span> <span class=\"menu_cot\">x "+ c +"</span> <span class=\"menu_cost\">"+ proarr[i].products[j].price*c  //15是价格，cookie里不存
                      +" 元</span>";
-            document.getElementById("order_cart").appendChild(para); 
+                document.getElementById("order_cart").appendChild(para); 
+            }
         }
     }
 }

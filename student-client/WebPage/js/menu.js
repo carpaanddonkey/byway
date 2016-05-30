@@ -40,8 +40,8 @@ function change_pic(pic_array){
         i_pic++;
     document.getElementById('pic_lo').src = pic_array[i_pic];
 }
-function changePages(num){
-    document.getElementById("iframe").innerHTML = "<iframe src='iframepage.html#i"+num+"'></iframe>";
+function changePages(win,num){
+    document.getElementById("iframe").innerHTML = "<iframe src='iframepage.html?"+win+"#i"+num+"'></iframe>";
    
 }
 

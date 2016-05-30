@@ -188,3 +188,24 @@ and open the template in the editor.
     top:3%;
     height: 30px;
 }
+.s_m{
+    font-family: "微软雅黑";
+    font-size: 17px;
+}
+
+.s_m2{
+    color: #999;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+select{
+    color: #878787;
+    border:none;
+    font-family: "微软雅黑";
+    font-size: 17px;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+}

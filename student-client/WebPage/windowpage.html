@@ -21,8 +21,10 @@ and open the template in the editor.
         var nump = 0;
         var win = 1;
         function getData(div_id){
-            ///alert(request.QueryString["id"]);
-            url =  'http://api.byway.net.cn/v1/windows/'+1+'/';
+            var r = window.location.search;
+            r = r.replace('?','');
+            url =  'http://api.byway.net.cn/v1/windows/'+r+'/';
+            win = r;
             $.ajax({
                     async:false,
                     type:"get",

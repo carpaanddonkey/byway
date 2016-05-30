@@ -43,15 +43,13 @@ and open the template in the editor.
                             for(i in jsonp)
                             {
                                 txt+='<a href="#" onclick="changePages('+num+')"><p>'+jsonp[i].category+'</p></a>';
-                                num++;
-                                for(j in jsonp[i].products)
-                                    nump++;   
+                                num++; 
                             }
                             txt+='</div></div>';
                         }
 
                         document.getElementById(div_id).innerHTML = txt;
-                        checkCookie(win,nump);
+                        checkCookie(win);
                         document.getElementById('iframe').innerHTML = '<iframe src="iframepage.html?'+r+'"></iframe>;';
                     },
                     error:function(jsonResult){
@@ -89,7 +87,6 @@ and open the template in the editor.
     <div id = "windows_body">
     </div>
     <div class="iframe" id="iframe">
-        <iframe src="iframepage.html"></iframe>
     </div>
     <div class="shopping_cart" id="shopping_cart">
         <table id="table_shoppingcart">

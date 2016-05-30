@@ -15,11 +15,10 @@ and open the template in the editor.
         <script src = "js/menu.js"></script>
         <script src = "js/cookies.js"></script>
         <script type="text/javascript">
-        /*
+        
         var txt = "";
         function loadl(is)
         {
-            //setOrder_id(is);
             window.location.href = "orderform.html";
         }
         function getData(div_id){
@@ -27,7 +26,7 @@ and open the template in the editor.
             {
                 if(num!=4||num!=5)
                 {
-                    url =  'http://api.byway.net.cn/v1/orders/'+num+'/';
+                    url =  'http://api.byway.net.cn//v1/orders?query_type=window&window_id='+1+'&expect_status='+num+'/';
                     $.ajax({
                         async:false,
                         type:"get",
@@ -55,8 +54,8 @@ and open the template in the editor.
             {
                 txt+='<a onclick = "loadl('+arr.id+')">'+
                      '<div class="cart_data">'
-                     '<img class="dishpic" src="'+arr.qr_storage_url+'" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>'+
-                     '<span class="di_name">水饺</span>';
+                     '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>'+
+                     '<span class="di_name">'+arr.window_id+'</span>';
                 for(var j = 1;j<=5;j++)
                 {
                     if(j<=arr.score)
@@ -103,7 +102,6 @@ and open the template in the editor.
                 txt+='<span class="di_money">'+arr[i].total_price+'</span><p class="di_date">'+mytime.toLocaleString()+'</p></div></a>';
             }
         }
-        */
         </script>
     </head>
     <body onload = "getData('cart_body')">

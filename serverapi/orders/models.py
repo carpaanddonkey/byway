@@ -190,6 +190,8 @@ class OrderRecord(models.Model):
 				return False
 		elif status == ORDER_COMPLETED:
 			return self.append_finish_time()
+		elif status == ORDER_WAITING:
+			return True
 		else:
 			return False
 

@@ -14,8 +14,8 @@ and open the template in the editor.
 		<script src = "js/jquery-1.8.2.min.js"></script>
 		<script type = "text/javascript">
         var url = 'http://api.byway.net.cn/v1/user/';
-        var str = '{"status": 1, "name": "", "phone": "18813090635", "token": "bGoKEsTIatX", "score": 0, "mail": "13301052@bjtu.edu.cn", "icon": "/media/usericon/default.jpg"}';
-            function getData()
+        //var str = '{"status": 1, "name": "", "phone": "18813090635", "token": "bGoKEsTIatX", "score": 0, "mail": "13301052@bjtu.edu.cn", "icon": "/media/usericon/default.jpg"}';
+            function getData(div_id)
             {
                $.ajax({
                     async:false,
@@ -24,9 +24,8 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        document.getElementById('name').innerHTML = obj.name;
-                        document.getElementById('icon').src = obj.icon;
-                        
+                        txt+='<img class="head" id = "icon" src="'+obj.icon+'" alt="head"/><img class="whale" src="Images/bwbg.png" alt=""/><span class="username" id = "name">'+obj.name+'</span>'
+                        document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult.responseText);
@@ -36,12 +35,11 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body onload = "getData()">
+    <body onload = "getData('info')">
         
         <div class="headlol">
-            <img class="head" id = 'icon' src="Images/hh.jpg" alt="head"/>
-            <img class="whale" src="Images/bwbg.png" alt=""/>
-            <span class="username" id = 'name'>bluewhale</span>
+            <div id = 'info'>
+            </div>
             <div class="set">
                 <div class="set2">
                 <span class="set_l" onclick="location.href = 'perinfopage.html'">个人信息</span>

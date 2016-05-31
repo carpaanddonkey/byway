@@ -10,7 +10,7 @@
         <script src="js/menu.js"></script>
         <script type = "text/javascript">
             var txt = "";
-            var str = '[{"room_no": 419, "phone": "18813090635", "dormitory_no": 16, "address": "\u5317\u4eac\u4ea4\u901a\u5927\u5b6616\u53f7\u697c419", "receiver_name": "\u5ef6\u660a\u5357", "customer_id": 2, "id": 7}, {"room_no": 101, "phone": "18813090635", "dormitory_no": 18, "address": "\u5317\u4eac\u4ea4\u901a\u5927\u5b6618\u53f7\u697c101", "receiver_name": "\u79d1\u6bd4", "customer_id": 2, "id": 8}]';
+            //var str = '[{"room_no": 419, "phone": "18813090635", "dormitory_no": 16, "address": "\u5317\u4eac\u4ea4\u901a\u5927\u5b6616\u53f7\u697c419", "receiver_name": "\u5ef6\u660a\u5357", "customer_id": 2, "id": 7}, {"room_no": 101, "phone": "18813090635", "dormitory_no": 18, "address": "\u5317\u4eac\u4ea4\u901a\u5927\u5b6618\u53f7\u697c101", "receiver_name": "\u79d1\u6bd4", "customer_id": 2, "id": 8}]';
             var o = {"room_no": "", "phone": "", "dormitory_no": "", "address": "", "receiver_name": ""};
             function getData(div_id){
                 var url =  'http://api.byway.net.cn/v1/ships/';
@@ -18,6 +18,7 @@
                     async:false,
                     type:"get",
                     url:url,
+                    xhrFields:{withCredentials:true},
                     success:function(str){
                         var flag = false;
                         var obj = JSON.parse(str);
@@ -30,14 +31,14 @@
                                 {
                                     txt+='<div class="title">当前地址</div><div class="add">'+
                                      '<p>收货人：<span>'+jsonp[i].receiver_name+'</span><span class="cus_phone">'+
-                                     jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'十六号宿舍楼414</span></p></div><div class="title">更多地址</div>';
+                                     jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'</span></p></div><div class="title">更多地址</div>';
                                      flag = true;
                                 }
                                 else
                                 {
                                     txt+='<div class="add"><img src="Images/icon/closeicon.png" alt="del"/>'+
                                      '<p>收货人：<span>'+jsonp[i].receiver_name+'</span><span class="cus_phone">'+
-                                     jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'十六号宿舍楼414</span></p></div>';
+                                     jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'</span></p></div>';
                                 }
                             }
                             txt+='</div>';                        
@@ -55,13 +56,14 @@
             {
                 o['receiver_name'] = document.getElementById('rec_name').value;
                 o['phone'] = document.getElementById('rec_phone').value;
-                o['dormitory_no'] = document.getElementById('rec_dor').value;
-                o['room_no'] = document.getElementById('rec_room').value;
+                o['dormitory_no'] = parseInt(document.getElementById('rec_dor').value);
+                o['room_no'] = parseInt(document.getElementById('rec_room').value);
                 o['address'] = document.getElementById('rec_add').value;
                 $.ajax({
                     async:false,
                     type:"POST",
                     url:'http://api.byway.net.cn/v1/ships/',
+                    xhrFields:{withCredentials:true},
                     //data:JSON.stringify(o),
                     data:o,
                     xhrFields:{withCredentials:true},

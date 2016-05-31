@@ -176,7 +176,7 @@ class OrderRecord(models.Model):
 		elif status == ORDER_PULLED:
 			if order_deliver_id is not None:
 				deliver = Customer.objects.get(id=order_deliver_id)
-				if self.append_pull_time():
+				if self.append_pull_time() and self.append_send_time():
 					return self.append_deliver(deliver)
 				else:
 					return False

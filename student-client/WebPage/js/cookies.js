@@ -171,11 +171,11 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
         var tdP = document.createElement("td");
         var tdC = document.createElement("td");
         var tdO = document.createElement("td");
-        tdN.innerHTML = proarr[i].products[j].name;
+        tdN.innerHTML = products.name;
         tdC.innerHTML = 
-                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>-&nbsp</span>" +"<span id='count"+proarr[i].products[j].id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>&nbsp+</span>";
-        tdP.innerHTML = proarr[i].products[j].price;
-        tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>×</span>";
+                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+products.id+"\")'>-&nbsp</span>" +"<span id='count"+product.id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+product.id+"\")'>&nbsp+</span>";
+        tdP.innerHTML = products.price;
+        tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+products.id+"\")'>×</span>";
             
         tr.appendChild(tdN);
         tr.appendChild(tdP);

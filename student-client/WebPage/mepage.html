@@ -25,7 +25,7 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        txt+='<img class="head" id = "icon" src="'+obj.icon+'" alt="head"/><img class="whale" src="Images/bwbg.png" alt=""/><span class="username" id = "name">'+obj.name+'</span>'
+                        txt+='<img class="head" src="'+obj.icon+'" alt="head"/><img class="whale" src="Images/bwbg.png" alt=""/><span class="username">'+obj.name+'</span>'
                         document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){

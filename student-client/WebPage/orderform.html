@@ -68,18 +68,26 @@ and open the template in the editor.
             function login(){
                 var t_hours = document.getElementById('t_hours');
                 var t_mins = document.getElementById('t_min');
+                var date = new Date();
+                var current = new Date();
+                date.setHours(t_hours[t_hours.selectedIndex].text);
+                date.setMinutes(t_mins[t_mins.selectedIndex].text);
+                var second = date.getTime()-current.getTime();
+                second = second/60000;
                 o['cateen_id'] = getCanteen_id();
                 o['window_id'] = parseInt(r);
                 var p_price = document.getElementById("cost_money").innerHTML;
                 p_price = p_price.replace('¥ ','');
                 var cost = document.getElementById("cost_money").innerHTML;
                 cost = cost.replace('¥ ','');
+                if (cost==null || cost=="" || cost=="undefined" || cost =='NaN')cost = 0;
+                if (p_price==null || p_price=="" || p_price=="undefined" || p_price =='NaN')p_price = 0;
                 o['product_price'] = parseInt(p_price);
                 o['ship_price'] = 0;
                 o['promotion'] = 0;
                 o['total_price'] = parseInt(cost);
                 o['address_id'] = 1;
-                o['expect_time'] = t_hours[t_hours.selectedIndex].text+":"+t_mins[t_mins.selectedIndex].text;
+                o['expect_time'] = parseInt(second);
                 o['leave_msg'] = "";
                 o['product_list'] = getProlist();
                 //ajax(url,JSON.stringify(o),'POST',su,err);
@@ -125,7 +133,7 @@ and open the template in the editor.
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
         </div>
         <div class="clearfix_head"></div>
-        <div class="cus_info" onclick="location.href = 'addresspage.html'">
+        <div id = "cus_info" class="cus_info" onclick="location.href = 'addresspage.html'">
         </div>
         
         <div class="order_info">

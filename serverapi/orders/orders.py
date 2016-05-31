@@ -135,6 +135,7 @@ def patch_orders(request, order_id):
 
 	try:
 		order_status_new = patch_data.get('new_status', None)
+		order_token = patch_data.get('token', None)
 		# order_deliver = patch_data.get('deliver_id', None)
 	except:
 		content['status'] = 406
@@ -152,7 +153,13 @@ def patch_orders(request, order_id):
 		content['msg'] = u'资源未找到'
 		return create_simple_response(404, json.dumps(content))
 
-	if order.update_order_state(order_status_new) and order_record.update_order_state(order_status_new, order_deliver):
+	if order_status_new == 5:
+		if order_token != '1234':
+			content['status'] = 401
+			content['msg'] = u'订单码不匹配'
+			return create_simple_response(401, json.dumps(content))
+
+	if order.update_order_state(order_status_new) and order_record.update_order_state(order_status_new, order_deliver, order_token):
 		order = Order.objects.get(id=order_id)
 		order_dict = order.to_dict()
 

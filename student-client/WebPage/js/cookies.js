@@ -129,10 +129,11 @@ function checkCookie(win){          //窗口号
                 var tdO = document.createElement("td");
                 tdN.innerHTML = proarr[i].products[j].name;
                 tdC.innerHTML = 
-                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>-&nbsp</span>" + c + "<span class='am' onclick='AddItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>&nbsp+</span>";
+                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>-&nbsp</span>" +"<span id='count"+proarr[i].products[j].id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>&nbsp+</span>";
                 tdP.innerHTML = proarr[i].products[j].price;
                 tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>×</span>";
             
+                tr.id = "row" +proarr[i].products[j].id;
                 tr.appendChild(tdN);
                 tr.appendChild(tdP);
                 tr.appendChild(tdC);
@@ -158,23 +159,6 @@ function checkCookie(win){          //窗口号
 }
 
 
-
-function addToCart(win,num){       //num是商品号，按顺序从1开始  win是窗口号()
-    //getProduct(num);
-    var value = getCookie("cart"+win+"com"+num);    //当前窗口购物车的cookie
-    if (value==null || value=="" || value=="undefined" || value =='NaN'){
-        setCookie("cart"+win+"com"+num,1,365);      //存的是该商品的个数
-    }else{       
-        value = parseInt(value) + 1;
-        setCookie("cart"+win+"com"+num,value,365);       
-    }
-    
-    var cart_money = getCookie("cartmoney"+win); 
-    var money = parseInt(cart_money) + price;//15是商品价格 还未交互
-    setCookie("cartmoney"+win,money,365);
-    //window.parent.location.reload(true);
-}
-
 function addToCart2(win,num){       //num是商品号，按顺序从1开始  win是窗口号
    // win = 1;
     getProduct(num);
@@ -183,16 +167,34 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
 
     if (value==null || value=="" || value=="undefined" || value =='NaN'){
         setCookie("cart"+win+"com"+product.id,1,365);      //存的是该商品的个数
+        var tr = document.createElement("tr");
+        var tdN = document.createElement("td");
+        var tdP = document.createElement("td");
+        var tdC = document.createElement("td");
+        var tdO = document.createElement("td");
+        tdN.innerHTML = product.name;
+        tdC.innerHTML = 
+                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+product.id+"\")'>-&nbsp</span>" +"<span id='count"+product.id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+product.id+"\")'>&nbsp+</span>";
+        tdP.innerHTML = product.price;
+        tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+product.id+"\")'>×</span>";
+            
+        tr.id = "row" +product.id;
+        tr.appendChild(tdN);
+        tr.appendChild(tdP);
+        tr.appendChild(tdC);
+        tr.appendChild(tdO);
+        window.parent.document.getElementById("tablebody").appendChild(tr);
     }else{       
         value = parseInt(value) + 1;
-        setCookie("cart"+win+"com"+product.id,value,365);       
+        setCookie("cart"+win+"com"+product.id,value,365);
+        window.parent.document.getElementById("count"+product.id).innerHTML = value;       
     }
     
     var cart_money = getCookie("cartmoney"+win); 
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);
     //checkCookie(win);
-    window.parent.location.reload(true);
+    window.parent.document.getElementById("f_money").innerHTML = "¥ "+money;
 }
 
 function AddItem2(win,num){
@@ -202,12 +204,13 @@ function AddItem2(win,num){
 
     var count = parseInt(count) + 1;
     setCookie("cart"+win+"com"+product.id,count,365);  
-  
+    
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
-
+    document.getElementById('f_money').innerHTML = '¥ '+ money;
+    document.getElementById('count'+product.id).innerHTML = count;
    // checkCookie(win);
-    location.reload(true);
+    
     document.getElementById('shopping_cart').style.display = 'block'; 
     document.getElementById('clear_cart').style.display = 'block';
 }
@@ -226,7 +229,8 @@ function RedItem2(win,num){
     var money = parseInt(cart_money) - product.price; //15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
     //checkCookie(win);
-    location.reload(true);
+    document.getElementById('f_money').innerHTML = '¥ '+ money;
+    document.getElementById('count'+product.id).innerHTML = count;
 }
 
 function DelAllItem(win){
@@ -253,17 +257,7 @@ function DelAllItem(win){
     }
 }
 
-function DelItem(win,num){
-   // var win = getWindow_id();
-    var cart_money = getCookie("cartmoney"+win); 
-    var count = getCookie("cart"+win+"com"+num);
-    var money = parseInt(cart_money) - product.price * parseInt(count);
-    setCookie("cartmoney"+win,money,365);  
-    DelCookie("cart"+win+"com"+num);
-    checkCookie(win);
-    //location.reload(true);
-    document.getElementById('shopping_cart').style.display = 'block'; 
-}
+
 
 function DelItem2(win,num){
     getProduct(num);
@@ -272,8 +266,9 @@ function DelItem2(win,num){
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+product.id);
+    document.getElementById('row'+product.id).remove();
+    document.getElementById('f_money').innerHTML = '¥ '+ money;
     //checkCookie(win);
-    location.reload(true);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }
 

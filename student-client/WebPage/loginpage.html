@@ -24,22 +24,25 @@ and open the template in the editor.
                 o["password"] = password;
                 //ajax(url,JSON.stringify(o),'POST',su,err);
                 $.ajax({
-                    async:false,
+                    async:true,
                     type:"POST",
                     url:url,
                     data:JSON.stringify(o),
-                    xhrFields: { withCredentials:true },
+                    xhrFields:{withCredentials:true},
+                    crossDomain:true,
                     success:function(jsonResult){
                         flag = "shoppage.html";
+                        window.location.href = flag;
                     },
                     error:function(jsonResult){
                         flag = "loginpage.html";
                         var l = JSON.parse(jsonResult.responseText);
                         alert(l.msg);
                         alert("登陆失败！");
+                        window.location.href = flag;
                     }
                 });
-                window.location.href = flag;
+                
             }
             /*
             function su(str)

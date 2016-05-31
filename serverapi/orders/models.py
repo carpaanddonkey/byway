@@ -166,7 +166,7 @@ class OrderRecord(models.Model):
 				record_dict[key] = value
 		return record_dict
 
-	def update_order_state(self, status, order_deliver_id=None):
+	def update_order_state(self, status, order_deliver_id=None, order_token=None):
 		if status == ORDER_PAYED:
 			return self.append_payment_time()
 		elif status == ORDER_RECEIVED:

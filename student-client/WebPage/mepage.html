@@ -14,6 +14,7 @@ and open the template in the editor.
 		<script src = "js/jquery-1.8.2.min.js"></script>
 		<script type = "text/javascript">
         var url = 'http://api.byway.net.cn/v1/user/';
+        var str = '{"status": 1, "name": "", "phone": "18813090635", "token": "bGoKEsTIatX", "score": 0, "mail": "13301052@bjtu.edu.cn", "icon": "/media/usericon/default.jpg"}';
             function getData()
             {
                $.ajax({
@@ -23,12 +24,13 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        document.getElementById('name').value = obj.name;
+                        document.getElementById('name').innerHTML = obj.name;
                         document.getElementById('icon').src = obj.icon;
                         
                     },
                     error:function(jsonResult){
-                        alert("error");
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
                     }
                 });
             }
@@ -37,9 +39,9 @@ and open the template in the editor.
     <body onload = "getData()">
         
         <div class="headlol">
-            <img class="head" src="Images/hh.jpg" alt="head"/>
+            <img class="head" id = 'icon' src="Images/hh.jpg" alt="head"/>
             <img class="whale" src="Images/bwbg.png" alt=""/>
-            <span class="username">bluewhale</span>
+            <span class="username" id = 'name'>bluewhale</span>
             <div class="set">
                 <div class="set2">
                 <span class="set_l" onclick="location.href = 'perinfopage.html'">个人信息</span>

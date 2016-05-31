@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from canteens.models import *
 from util.qr_util import *
@@ -117,6 +117,10 @@ class Order(models.Model):
 		order_dict['qr_storage_url'] = self.qr_storage_pre+str(self.id)+'.jpg'
 		order_dict['address'] = u'{0}号楼{1}宿舍{2}'.format(str(self.address.dormitory_no),
 													str(self.address.room_no), self.address.address)
+		if self.expect_time > 0:
+			order_dict['expect_time'] = (self.created_at + timedelta(minutes=self.expect_time)).strftime('%Y-%m-%d %H:%M:%S')
+		else:
+			order_dict['expect_time'] = u'尽快送达'
 
 		try:
 			deliver = OrderRecord.objects.get(order_id=self).deliver_id

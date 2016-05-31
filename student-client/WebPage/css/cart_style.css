@@ -61,6 +61,14 @@ body{
     font-size: 10px;
     font-family: "微软雅黑";
 }
+.di_date1{
+    color: #666;
+    position: absolute;
+    top:55px;
+    left: 85px;
+    font-size: 10px;
+    font-family: "微软雅黑";
+}
 
 .di_money{
     position: absolute;

@@ -23,6 +23,7 @@ and open the template in the editor.
                     async:false,
                     type:"get",
                     url:url,
+                    xhrFields:{withCredentials:true},
                     success:function(str){
                         var obj = JSON.parse(str);
                         //var jsonp = eval(obj.products_data)

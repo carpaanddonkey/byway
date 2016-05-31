@@ -11,14 +11,61 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\orderform_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript">
+            var str = '{"if_self_help": "0", "window_icon": "http://api.byway.net.cn/media/windows/1.jpg", "canteen_id": "1", "id": "17", "promotion": "0.0", "nowa_id": "0", "product_price": "48.0", "qr_storage_url": "api.byway.net.cn/media/qrcode/17.jpg", "combo_id": "1_2_0", "customer_id": "2", "status": "0", "if_paid": "0", "deliver": "\u6682\u65f6\u65e0\u4eba\u63a5\u5355", "window_id": "1", "address": "16\u53f7\u697c419\u5bbf\u820d1\u53f7\u5e8a", "window_name": "\u98ce\u5473\u7092\u83dc", "ship_price": "0.0", "total_price": "48.0", "product_details": [{"product_count": 1, "col_price": 10.0, "product_name": "\u7ea2\u70e7\u8106\u9aa8"}, {"product_count": 2, "col_price": 24.0, "product_name": "\u9ebb\u5a46\u8c46\u8150"}, {"product_count": 1, "col_price": 14.0, "product_name": "\u849c\u84c9\u751f\u83dc"}], "leave_msg": "\u4f60\u597d", "product_list": "1-1_3-2_4-1", "expect_time": "\u5c3d\u5feb\u9001\u8fbe"}';
+            var r = window.location.search;
+            r = r.replace('?','');
+            var txt = '';
+            function getData(div_id){
+            var url =  'http://api.byway.net.cn/v1/orders/'+r+'/';
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    xhrFields:{withCredentials:true},
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        //var jsonp = eval(obj.products_data)
+                        {
+                            txt+='<div class="order_al">'+
+                                '<p class="order_al1">'+obj.deliver+'</p>'+
+                                '<p class="order_al2">来个评价吧，帮助我们做得更好</p>'+
+                                '<img class="order_al_pic" src="'+obj.window_icon+'" alt="食物图片"/>'+
+                                '<img class="spf" style="top:90px" src="Images/icon/arrow2.png" alt="详情"/></div>'+
+        
+                                '<div class="order_info">'+
+                                '<p class="order_name">'+obj.window_name+'<input type="button" class="chang_al" value="已送达"/></p><div class="order_menu"><br/>';
+                                for(i in obj["product_details"])
+                                {
+                                    txt+='<p class="menu_cai"><span class="menu_name">'+obj["product_details"][i].product_name+'</span> <span class="menu_cot">x '+obj["product_details"][i].product_count+'</span> <span class="menu_cost">'+obj["product_details"][i].col_price+' 元</span></p>';
+                                }
+                                txt+='<p class="order_money">订单金额：<span>'+obj.product_price+' 元</span></p></div>'+
+                                    '<div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">'+obj.promotion+'  元</span></p></div><div class="cost_info"><p>实付金额： <span class="cost_money">'+obj.total_price+' 元</span></p></div></div>';
+        
+                                txt+='<div class="cus_info" style="margin-top: 20px;"><image src = "'+
+                                    obj.qr_storage_url+
+                                    +'"/></div>'
+                        }
+
+                        document.getElementById(div_id).innerHTML = txt;
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                    }
+                });
+        }
+        </script>
     </head>
-    <body>
+    <body onload = "getData('order_body');">
         <div class="header">
-            <a href="cartpage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <a href="javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
             <img class="scan" src="Images/icon/qrcode.png" alt="scan" onclick="qrcode_show()"/>
         </div>
         <div class="clearfix_head"></div>
+        <div id = "order_body">
         <div class="order_al">
             <p class="order_al1">订单正在配送</p>
             <p class="order_al2">来个评价吧，帮助我们做得更好</p>
@@ -47,9 +94,9 @@ and open the template in the editor.
             <p>送达地址：<span>十六号宿舍楼414</span></p>
             <p>送达时间：<span>4-15 16:59（尽快送达）</span></p>
         </div>
-        
+        </div>
         <div class="clearfix_foot"></div>
-        <a href="cartpage.html">
+        <a href="shoppage.html">
         <div class="order_footer">
             <span>再逛逛</span>
         </div></a> 

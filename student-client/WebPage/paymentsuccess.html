@@ -11,6 +11,14 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\paypage_style.css" rel="stylesheet" type="text/css" />
+        <script type = "text/javascript">
+        var r = window.location.search;
+            r = r.replace('?','');
+        function load()
+        {
+            window.location.href = 'orderpage.html?'+r;
+        }
+        </script>
     </head>
     <body>
         <div class="header">          
@@ -23,7 +31,7 @@ and open the template in the editor.
         </div>
         
         
-        <a href="orderpage.html"><input class="payscbutton" type="button" value="查看订单"/></a>
+        <a onclick = "load()"><input class="payscbutton" type="button" value="查看订单"/></a>
         <a href="shoppage.html"><input class="payscbutton" type="button" value="再逛逛"/></a>
     </body>
 </html>

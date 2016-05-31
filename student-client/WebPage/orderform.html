@@ -32,6 +32,7 @@ and open the template in the editor.
             var url = "http://api.byway.net.cn/v1/orders/";
             function loadadd(div_id){
                 var url =  'http://api.byway.net.cn/v1/ships/';
+                var txt = '';
                 $.ajax({
                     async:false,
                     type:"get",
@@ -72,7 +73,7 @@ and open the template in the editor.
                 var p_price = document.getElementById("cost_money").innerHTML;
                 p_price = p_price.replace('¥ ','');
                 var cost = document.getElementById("cost_money").innerHTML;
-                cost = cost.replace('','');
+                cost = cost.replace('¥ ','');
                 o['product_price'] = parseInt(p_price);
                 o['ship_price'] = 0;
                 o['promotion'] = 0;

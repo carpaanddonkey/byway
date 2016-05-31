@@ -117,6 +117,7 @@ class Order(models.Model):
 		order_dict['qr_storage_url'] = self.qr_storage_pre+str(self.id)+'.jpg'
 		order_dict['address'] = u'{0}号楼{1}宿舍{2}'.format(str(self.address.dormitory_no),
 													str(self.address.room_no), self.address.address)
+		order_dict['created_at'] = self.created_at.strftime('%Y-%m-%d %H:%M:%S')
 		if self.expect_time > 0:
 			order_dict['expect_time'] = (self.created_at + timedelta(minutes=self.expect_time)).strftime('%Y-%m-%d %H:%M:%S')
 		else:

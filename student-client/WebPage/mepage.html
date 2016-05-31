@@ -17,8 +17,9 @@ and open the template in the editor.
             function getData()
             {
                $.ajax({
-                    async:true,
+                    async:false,
                     type:"get",
+                    xhrFields:{withCredentials:true},
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);

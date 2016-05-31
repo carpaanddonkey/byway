@@ -133,6 +133,7 @@ function checkCookie(win){          //窗口号
                 tdP.innerHTML = proarr[i].products[j].price;
                 tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+proarr[i].products[j].id+"\")'>×</span>";
             
+                tr.id = "row" +proarr[i].products[j].id;
                 tr.appendChild(tdN);
                 tr.appendChild(tdP);
                 tr.appendChild(tdC);
@@ -171,12 +172,13 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
         var tdP = document.createElement("td");
         var tdC = document.createElement("td");
         var tdO = document.createElement("td");
-        tdN.innerHTML = products.name;
+        tdN.innerHTML = product.name;
         tdC.innerHTML = 
-                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+products.id+"\")'>-&nbsp</span>" +"<span id='count"+product.id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+product.id+"\")'>&nbsp+</span>";
-        tdP.innerHTML = products.price;
-        tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+products.id+"\")'>×</span>";
+                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+product.id+"\")'>-&nbsp</span>" +"<span id='count"+product.id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+product.id+"\")'>&nbsp+</span>";
+        tdP.innerHTML = product.price;
+        tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+product.id+"\")'>×</span>";
             
+        tr.id = "row" +product.id;
         tr.appendChild(tdN);
         tr.appendChild(tdP);
         tr.appendChild(tdC);
@@ -264,6 +266,8 @@ function DelItem2(win,num){
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+product.id);
+    document.getElementById('row'+product.id).remove();
+    document.getElementById('f_money').innerHTML = '¥ '+ money;
     //checkCookie(win);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }

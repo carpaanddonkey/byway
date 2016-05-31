@@ -15,7 +15,7 @@ and open the template in the editor.
         <script src="js/cookies.js"></script>
         <script src="js/menu.js"></script>
         <script type = "text/javascript">
-        var r = window.location.search;
+            var r = window.location.search;
             r = r.replace('?','');
             var o = {"cateen_id":"",
                     "window_id":"",
@@ -30,15 +30,50 @@ and open the template in the editor.
             }
             var flag = "0";
             var url = "http://api.byway.net.cn/v1/orders/";
+            function loadadd(div_id){
+                var url =  'http://api.byway.net.cn/v1/ships/';
+                $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    success:function(str){
+                        var flag = false;
+                        var obj = JSON.parse(str);
+                        var jsonp = eval(obj);
+                        {
+                            for(i in jsonp)
+                            {
+                                if(flag==false)
+                                {
+                                    txt+='<img class="cood" src="Images/icon/coodicongrey.png" alt="cood:"/>'+
+                                     '<p>收货人：<span>'+jsonp[i].receiver_name+'</span><span class="cus_phone">'+
+                                     jsonp[i].phone+'</span></p><img class="spf" src="Images/icon/arrow2.png" alt="详情"/><p>送达地址：<span>'+jsonp[i].address+'十六号宿舍楼414</span></p>';
+                                     flag = true;
+                                     break;
+                                }
+                            }
+                            txt+='</div>';                        
+                        }
+                        document.getElementById(div_id).innerHTML = txt;
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                    }
+                });
+                    
+            }
             function login(){
+                var t_hours = document.getElementById('t_hours');
+                var t_mins = document.getElementById('t_min');
                 o['cateen_id'] = getCanteen_id();
-                o['window_id'] = r;
-                o['product_price'] = document.getElementById("cost_money").innerHTML;
+                o['window_id'] = parseInt(r);
+                o['product_price'] = parseInt(document.getElementById("cost_money").innerHTML);
                 o['ship_price'] = 0;
                 o['promotion'] = 0;
-                o['total_price'] = document.getElementById("cost_money").innerHTML;
+                o['total_price'] = parseInt(document.getElementById("cost_money").innerHTML);
                 o['address_id'] = 1;
-                o['expect_time'] = "1s";
+                o['expect_time'] = t_hours[t_hours.selectedIndex].text+":"+t_mins[t_mins.selectedIndex].text;
                 o['leave_msg'] = "";
                 o['product_list'] = getProlist();
                 //ajax(url,JSON.stringify(o),'POST',su,err);
@@ -49,15 +84,17 @@ and open the template in the editor.
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
                     success:function(jsonResult){
-                        flag = "shoppage.html";
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                        var num = parseInt(l.href);
+                        window.location.href="paypage.html?window_id="+r+"&order_id="+l.href;
                     },
                     error:function(jsonResult){
-                        flag = "loginpage.html";
                         var l = JSON.parse(jsonResult.responseText);
                         alert(l.msg);
                     }
                 });
-                window.location.href="paypage.html"
+                
             }
             function loadb()
             {
@@ -76,17 +113,13 @@ and open the template in the editor.
             }*/
         </script>
     </head>
-    <body onload="initOrderform(r);inittime();">
+    <body onload="initOrderform(r);inittime();loadadd('cus_info')">
         <div class="header">
             <a onclick = "loadb()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
         </div>
         <div class="clearfix_head"></div>
         <div class="cus_info" onclick="location.href = 'addresspage.html'">
-            <img class="cood" src="Images/icon/coodicongrey.png" alt="cood:"/> 
-            <p>收货人：<span>王同学</span><span class="cus_phone">13822222222</span></p>
-            <img class="spf" src="Images/icon/arrow2.png" alt="详情"/>
-            <p>送达地址：<span>十六号宿舍楼414</span></p>
         </div>
         
         <div class="order_info">

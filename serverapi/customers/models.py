@@ -2,6 +2,8 @@ from django.utils import timezone
 from django.db import models
 from django.forms.models import model_to_dict
 
+from util.response_util import *
+
 
 ISOTIMEFORMAT = '%Y-%m-%d %X'
 
@@ -51,7 +53,7 @@ class Customer(models.Model):
 		customer_dict['name'] = self.name
 		customer_dict['mail'] = self.mail
 		customer_dict['phone'] = self.phone
-		customer_dict['icon'] = self.icon
+		customer_dict['icon'] = BASE_SCHEMES + API_BASE + self.icon
 		customer_dict['score'] = self.score
 		customer_dict['token'] = self.token
 		customer_dict['status'] = self.status

@@ -35,6 +35,7 @@ and open the template in the editor.
                 $.ajax({
                     async:false,
                     type:"get",
+                    xhrFields:{withCredentials:true},
                     url:url,
                     success:function(str){
                         var flag = false;
@@ -68,10 +69,14 @@ and open the template in the editor.
                 var t_mins = document.getElementById('t_min');
                 o['cateen_id'] = getCanteen_id();
                 o['window_id'] = parseInt(r);
-                o['product_price'] = parseInt(document.getElementById("cost_money").innerHTML);
+                var p_price = document.getElementById("cost_money").innerHTML;
+                p_price = p_price.replace('¥ ','');
+                var cost = document.getElementById("cost_money").innerHTML;
+                cost = cost.replace('','');
+                o['product_price'] = parseInt(p_price);
                 o['ship_price'] = 0;
                 o['promotion'] = 0;
-                o['total_price'] = parseInt(document.getElementById("cost_money").innerHTML);
+                o['total_price'] = parseInt(cost);
                 o['address_id'] = 1;
                 o['expect_time'] = t_hours[t_hours.selectedIndex].text+":"+t_mins[t_mins.selectedIndex].text;
                 o['leave_msg'] = "";

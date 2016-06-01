@@ -97,11 +97,23 @@ and open the template in the editor.
         function loadObject(arr)
         {
             //if(arr.status==4)
+            var status;
+                        switch(obj.status)
+                        {
+                            case "0":status = '这枚订单诞生了';break;
+                            case "1":status = '这枚订单已经付款';break;
+                            case "2":status = '这枚订单正在等待商家接单';break;
+                            case "3":status = '这枚订单正在被制作';break;
+                            case "4":status = '这枚订单正在等待好心人配送';break;
+                            case "5":status = '这枚订单已经被配送员取走了';break;
+                            case "6":status = '这枚订单正在被配送';break;
+                            case "7":status = '这枚订单已经完成';break;
+                        }
             {
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
-                '<span class="di_al">这枚订单正在等待好心人</span>'+
+                '<span class="di_al">'+status'+</span>'+
                 '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
             }
         }
@@ -113,10 +125,22 @@ and open the template in the editor.
             {
                 //if(arr[i].status==4)
                 {
+                    var status;
+                        switch(obj.status)
+                        {
+                            case "0":status = '这枚订单诞生了';break;
+                            case "1":status = '这枚订单已经付款';break;
+                            case "2":status = '这枚订单正在等待商家接单';break;
+                            case "3":status = '这枚订单正在被制作';break;
+                            case "4":status = '这枚订单正在等待好心人配送';break;
+                            case "5":status = '这枚订单已经被配送员取走了';break;
+                            case "6":status = '这枚订单正在被配送';break;
+                            case "7":status = '这枚订单已经完成';break;
+                        }
                     txt+='<div class="cart_data">'+
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
-                          '<span class="di_al">这枚订单正在等待好心人</span>'+
+                          '<span class="di_al">'+status+'</span>'+
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             

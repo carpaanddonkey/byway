@@ -117,6 +117,7 @@ class Order(models.Model):
 		order_dict['qr_storage_url'] = self.qr_storage_pre+str(self.id)+'.jpg'
 		order_dict['address'] = u'{0}号楼{1}宿舍{2}'.format(str(self.address.dormitory_no),
 													str(self.address.room_no), self.address.address)
+		order_dict['created_at'] = self.created_at.strftime('%Y-%m-%d %H:%M:%S')
 		if self.expect_time > 0:
 			order_dict['expect_time'] = (self.created_at + timedelta(minutes=self.expect_time)).strftime('%Y-%m-%d %H:%M:%S')
 		else:
@@ -165,7 +166,7 @@ class OrderRecord(models.Model):
 				record_dict[key] = value
 		return record_dict
 
-	def update_order_state(self, status, order_deliver_id=None):
+	def update_order_state(self, status, order_deliver_id=None, order_token=None):
 		if status == ORDER_PAYED:
 			return self.append_payment_time()
 		elif status == ORDER_RECEIVED:
@@ -175,7 +176,7 @@ class OrderRecord(models.Model):
 		elif status == ORDER_PULLED:
 			if order_deliver_id is not None:
 				deliver = Customer.objects.get(id=order_deliver_id)
-				if self.append_pull_time():
+				if self.append_pull_time() and self.append_send_time():
 					return self.append_deliver(deliver)
 				else:
 					return False
@@ -189,6 +190,8 @@ class OrderRecord(models.Model):
 				return False
 		elif status == ORDER_COMPLETED:
 			return self.append_finish_time()
+		elif status == ORDER_WAITING:
+			return True
 		else:
 			return False
 

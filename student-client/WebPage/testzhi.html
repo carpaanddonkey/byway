@@ -20,8 +20,7 @@ and open the template in the editor.
                     async:false,
                     type:"patch",
                     //dataType:"text",
-                    data:o,
-                    dataType:"json",
+                    data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
                     url:url,
                     sucess:function(str){

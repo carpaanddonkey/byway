@@ -14,7 +14,7 @@ and open the template in the editor.
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript">
         setInterval('getData("cart_body");',10000);
-        var txt = "";
+        
         var o = {"new_status":3}
         function update(is)
         {
@@ -40,6 +40,7 @@ and open the template in the editor.
         }
         
         function getData(div_id){
+            var txt = "";
             var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=2';
              $.ajax({
                     async:true,
@@ -86,7 +87,7 @@ and open the template in the editor.
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
                           '<span class="di_al">等待商家接受</span>'+
-                          '<input class="acpt_button" type="button" value="接单并推送" onclick = "update('+arr[i].id+')"/>'+
+                          '<input class="acpt_button" type="button" value="接 单" onclick = "update('+arr[i].id+')"/>'+
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             

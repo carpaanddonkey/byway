@@ -12,7 +12,10 @@ from util.redis_util import *
 
 def orders(request, order_id=None):
 	if request.method == 'POST':
-		return post_orders(request, order_id)
+		if request.POST.get('new_status', None):
+			return patch_orders(request, order_id)
+		else:
+			return post_orders(request, order_id)
 	elif request.method == 'GET':
 		return get_orders(request, order_id)
 	elif request.method == 'PATCH':

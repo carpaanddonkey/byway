@@ -44,7 +44,7 @@ and open the template in the editor.
                 async:false,
                 xhrFields:{withCredentials:true},
                 type:"get",                        
-                url:'http://api.byway.net.cn/v1/orders?query_type=canteen&canteen_id=1&expect_status=2',
+                url:'http://api.byway.net.cn/v1/orders?query_type=canteen&canteen_id=1&expect_status=2/',
                 success:function(str){
                     var obj = JSON.parse(str);
                     if(obj.length!=0){
@@ -62,7 +62,7 @@ and open the template in the editor.
             });
         }
         function getData(div_id){
-            var url =  'http://api.byway.net.cn/v1/orders?query_type=canteen&canteen_id=1&expect_status=2';
+            var url =  'http://api.byway.net.cn/v1/orders?query_type=canteen&canteen_id=1&expect_status=2/';
              $.ajax({
                     async:false,
                     xhrFields:{withCredentials:true},

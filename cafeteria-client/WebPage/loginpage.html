@@ -29,7 +29,6 @@ and open the template in the editor.
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
                     success:function(jsonResult){
-                        Session.Add(o.username,o.password);
                         flag = "shoppage.html";
                         window.location.href = flag;
                     },

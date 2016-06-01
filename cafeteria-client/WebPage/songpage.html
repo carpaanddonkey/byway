@@ -14,16 +14,13 @@ and open the template in the editor.
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript">
         var txt = "";
+        
         function loadl(is)
         {
-            window.location.href = "song_orderform.html?"+is;
-        }
-        function update(is)
-        {
-            alert("jiedanla!");
+            window.location.href = "orderpage.html?"+is;
         }
         function getData(div_id){
-            var url =  'http://api.byway.net.cn/v1/orders?query_type=canteen&canteen_id=1&expect_status=2';
+            var url =  'http://api.byway.net.cn/v1/orders/?query_type=me&is_finshed=false/';
              $.ajax({
                     async:false,
                     xhrFields:{withCredentials:true},
@@ -40,12 +37,11 @@ and open the template in the editor.
                         alert("error");
                    }
                 });
-            
+            document.getElementById(div_id).innerHTML = txt;
         }
         function loadObject(arr)
         {
-           // if(arr.status==2)
-            {
+             {
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+

@@ -16,6 +16,26 @@ and open the template in the editor.
         var r;
         var txt = '';
         //var url = 'http://api.byway.net.cn/v1/orders/?query_type=deliver&canteen_id='+getCanteen_id()+'/';
+        var o = {"new_status":5
+                 "token":"1234"}
+        function update(is)
+        {
+            var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+            $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+        }
         function getMesshall(){
             $.ajax({
                     async:false,
@@ -107,6 +127,7 @@ and open the template in the editor.
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
                           '<span class="di_al">这枚订单正在等待好心人</span>'+
+
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             
@@ -115,9 +136,9 @@ and open the template in the editor.
             }
             //if(flag==true)
         }
-        function loadwid(is)
+        function loadl(is)
         {
-            
+            window.location.href = 'orderpage.html?'+is;
         }
         
             

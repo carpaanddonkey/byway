@@ -13,8 +13,27 @@ and open the template in the editor.
         <link href="css\cart_style.css" rel="stylesheet" type="text/css" />
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript">
+        setInterval('getData("cart_body");',10000);
         var txt = "";
-        
+        var o = {"new_status":3}
+        function update(is)
+        {
+            var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+            $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+        }
         function loadl(is)
         {
             window.location.href = "song_orderform.html?"+is;
@@ -23,7 +42,7 @@ and open the template in the editor.
         function getData(div_id){
             var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=2';
              $.ajax({
-                    async:false,
+                    async:true,
                     xhrFields:{withCredentials:true},
                     type:"get",                        
                     url:url,

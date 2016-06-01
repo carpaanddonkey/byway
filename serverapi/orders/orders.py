@@ -82,7 +82,22 @@ def get_orders(request, order_id=None):
 				content = order_utils.orders_to_array(order_list)
 				for order in order_list:
 					r.sadd(query_key, order.to_dict())
+		elif query_type == 'canteen':
+			canteen_id = request.GET.get('canteen_id', None)
+			expect_status = request.GET.get('expect_status', None)
+			# query_key = 'order:w'+str(window_id)+':s'+str(expect_status)
+			#
+			# # from redis
+			# order_list = r.smembers(query_key)
+			# for order in order_list:
+			# 	content.append(eval(order))
 
+			# from db
+			if not content:
+				order_list = order_utils.get_order_by_canteen(canteen_id, expect_status)
+				content = order_utils.orders_to_array(order_list)
+				# for order in order_list:
+				# 	r.sadd(query_key, order.to_dict())
 		elif query_type == 'deliver':
 			canteen_id = request.GET.get('canteen_id', None)
 			expect_status = ORDER_PUSHED

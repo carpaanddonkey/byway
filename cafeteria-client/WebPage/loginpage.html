@@ -28,7 +28,6 @@ and open the template in the editor.
                     url:url,
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
-                    crossDomain:true,
                     success:function(jsonResult){
                         Session.Add(o.username,o.password);
                         flag = "shoppage.html";

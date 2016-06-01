@@ -84,8 +84,10 @@ and open the template in the editor.
                 {
                     txt+='<div class="cart_data">'+
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
                           '<span class="di_al">这枚订单正在等待好心人</span>'+
+                          '<input class="acpt_button" type="button" value="推 送" onclick = "update('+arr.id+')"/>'+
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             

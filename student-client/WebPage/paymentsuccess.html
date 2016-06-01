@@ -11,16 +11,38 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\paypage_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
         <script type = "text/javascript">
         var r = window.location.search;
             r = r.replace('?','');
+        var o = {"status":0};
+        function update(){
+            var url = 'http://api.byway.net.cn/v1/orders/'+r'/';
+            $.ajax({
+                    async:false,
+                    type:"patch",
+                    data:JSON.stringify(o);
+                    xhrFields:{withCredentials:true},
+                    contentType:'application/json',
+                    url:url,
+                    xhr: function() {
+                        return window.XMLHttpRequest == null || new window.XMLHttpRequest().addEventListener == null ? new window.ActiveXObject("Microsoft.XMLHTTP"): $.ajaxSettings.xhr();
+                    }
+                    success:function(str){
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                    }
+                });
+        }
         function load()
         {
             window.location.href = 'orderpage.html?'+r;
         }
         </script>
     </head>
-    <body>
+    <body onload = "update()">
         <div class="header">          
             <span class="theme" >&nbsp;&nbsp;支付成功</span>
         </div>

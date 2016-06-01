@@ -69,7 +69,7 @@ and open the template in the editor.
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
-                '<span class="di_al">这枚订单正在等待好心人</span>'+
+                '<span class="di_al">这枚订单正在被制作</span>'+
                 '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
                 //document.getElementById(div_id).innerHTML = txt;
             }
@@ -87,7 +87,7 @@ and open the template in the editor.
 
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
                           '<input class="acpt_button" type="button" value="推 送" onclick = "update('+arr[i].id+')"/>'+
-                          '<span class="di_al">这枚订单正在等待好心人</span>'+
+                          '<span class="di_al">这枚订单正在被制作</span>'+
 
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;

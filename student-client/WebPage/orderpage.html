@@ -17,6 +17,7 @@ and open the template in the editor.
             var r = window.location.search;
             r = r.replace('?','');
             var txt = '';
+            var status = '';
             var o2 = {"new_status":7};
             var o = {"new_status":7,"token":"1234"};
             function update(is)
@@ -68,7 +69,7 @@ and open the template in the editor.
                     xhrFields:{withCredentials:true},
                     success:function(str){
                         var obj = JSON.parse(str);
-                        var status = '';
+                        
                         switch(obj.status)
                         {
                             case "0":status = '这枚订单诞生了';break;

@@ -109,7 +109,6 @@ and open the template in the editor.
                     }
                 });
 
-                DelAllItem(getCanteen_id());  //清空购物车
             }
             function loadb()
             {
@@ -144,7 +143,7 @@ and open the template in the editor.
                 <div id="order_cart">
                 
                 </div>
-                <p class="order_money">运费：<span>¥  0 </span></p>
+                <p class="order_money">订单运费：<span>¥  0 </span></p>
                 <p class="order_money">订单金额：<span id="order_money"></span></p>
             </div>
             <div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">¥  0 </span></p></div>
@@ -152,7 +151,7 @@ and open the template in the editor.
         </div>
         <div  class="order_info">
             <p class="pay_method">支付方式：
-                <input type="radio" value="alipay"/><img src="Images/icon/alipay.png" alt="alipay" />
+                <input class="radio_pay"  checked="checked" type="radio" value="alipay"/><img src="Images/icon/alipay.png" alt="alipay" />
             </p>
             <br/>
             <p>期望送达时间：

@@ -19,6 +19,7 @@ and open the template in the editor.
             $.ajax({
                     async:false,
                     type:"patch",
+                    datatype:json,
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
                     url:url,

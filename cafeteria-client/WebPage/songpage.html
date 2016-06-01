@@ -29,10 +29,14 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        if(typeof(obj.length)=='undefined')
-                            loadObject(obj);
-                        else
-                            loadJSON(obj);
+                        if(obj.length!=0){
+                            if(typeof(obj.length)=='undefined')
+                                loadObject(obj);
+                            else
+                                loadJSON(obj);
+                        }
+
+                        document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
                         alert("error");
@@ -48,7 +52,7 @@ and open the template in the editor.
                 '<span class="di_al">等待商家接受</span>'+
                 '<input class="acpt_button" type="button" value="接单并推送" onclick = "update('+arr.id+')"/>'+
                 '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
-                document.getElementById(div_id).innerHTML = txt;
+                //document.getElementById(div_id).innerHTML = txt;
             }
         }
 
@@ -71,7 +75,7 @@ and open the template in the editor.
                 
             }
            // if(flag==true)
-              document.getElementById(div_id).innerHTML = txt;
+              //document.getElementById(div_id).innerHTML = txt;
         }
         </script>
     </head>

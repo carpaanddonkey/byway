@@ -12,7 +12,8 @@ from util.redis_util import *
 
 def orders(request, order_id=None):
 	if request.method == 'POST':
-		if request.POST.get('new_status', None):
+		data = json.loads(request.body)
+		if data.get('new_status', None):
 			return patch_orders(request, order_id)
 		else:
 			return post_orders(request, order_id)

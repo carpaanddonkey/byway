@@ -18,7 +18,7 @@ and open the template in the editor.
             var url = 'http://api.byway.net.cn/v1/orders/'+17+'/';
             $.ajax({
                     async:false,
-                    type:"patch",
+                    type:"PATCH",
                     //dataType:"text",
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},

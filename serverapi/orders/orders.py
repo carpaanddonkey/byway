@@ -146,6 +146,27 @@ def get_orders(request, order_id=None):
 				content = order_utils.orders_to_array(order_list)
 				# for order in order_list:
 				# 	r.sadd(query_key, order.to_dict())
+		elif query_type == 'mhassent':
+			expect_status = ORDER_COMPLETED
+			# query_key = 'order:w'+str(window_id)+':s'+str(expect_status)
+			#
+			# # from redis
+			# order_list = r.smembers(query_key)
+			# for order in order_list:
+			# 	content.append(eval(order))
+
+			# from db
+			if not content:
+				order_rec_list = OrderRecord.objects.filter(deliver_id=Customer.objects.get(id=request.user.id))
+				order_list_full = [x.order_id for x in order_rec_list]
+				order_list = []
+				for item in order_list_full:
+					if item.status == expect_status:
+						order_list.append(item)
+
+				content = order_utils.orders_to_array(order_list)
+				# for order in order_list:
+				# 	r.sadd(query_key, order.to_dict())
 		else:
 			content = []
 			pass

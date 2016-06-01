@@ -18,7 +18,7 @@ def orders(request, order_id=None):
 	elif request.method == 'PATCH':
 		return patch_orders(request, order_id)
 	else:
-		pass
+		return patch_orders(request, order_id)
 
 
 @login_required

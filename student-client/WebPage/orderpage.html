@@ -91,13 +91,18 @@ and open the template in the editor.
                                     txt+='<p class="menu_cai"><span class="menu_name">'+obj["product_details"][i].product_name+'</span> <span class="menu_cot">x '+obj["product_details"][i].product_count+'</span> <span class="menu_cost">'+obj["product_details"][i].col_price+' 元</span></p>';
                                 }
                                 txt+='<p class="order_money">订单金额：<span>'+obj.product_price+' 元</span></p></div>'+
-                                    '<div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">'+obj.promotion+'  元</span></p></div><div class="cost_info"><p>实付金额： <span class="cost_money">'+obj.total_price+' 元</span></p>
-                                        <p>备注： <span class="cost_money">'+obj.leave_msg+' 元</span></p></div></div>';
+                                    '<div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">'+obj.promotion+'  元</span></p></div><div class="cost_info"><p>实付金额： <span class="cost_money">'+obj.total_price+' 元</span></p>'+
+                                        '<p>备注： <span class="cost_money">'+obj.leave_msg+' 元</span></p></div></div>';
                                 if(obj.status==3){
                                     txt+='<a onclick = "update('+obj.id+')"><div class="order_footer"><span>接单</span></div></a>';
-                                }
+                                } 
                                 if(obj.status>3){
-                                    txt+='<p>配送人：<span>'+obj.deliver+'</span></p>'
+                                    txt+='<div class="cus_info" style="margin-top: 20px;">'+
+                                        '<img class="cood_song" src="Images/icon/coodicongrey.png" alt="cood:"/>'+
+                                        '<p>配送人：<span>'+obj.deliver+'</span></p>'+
+                                        '<p>下单时间：<span>'+obj.created_at+'</span></p>'+
+                                        '<p>送达地址：<span>'+obj.address+'</span></p>'+
+                                        '<p>希望送达时间：<span>'+obj.expect_time+'</span></p></div>'
                                 }
                         }
 

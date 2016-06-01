@@ -17,6 +17,25 @@ and open the template in the editor.
             var r = window.location.search;
             r = r.replace('?','');
             var txt = '';
+            var o = {"new_status":7}
+            function update(is)
+            {
+                var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+            }
             function getData(div_id){
             var url =  'http://api.byway.net.cn/v1/orders/'+r+'/';
             $.ajax({
@@ -35,7 +54,7 @@ and open the template in the editor.
                                 '<img class="spf" style="top:90px" src="Images/icon/arrow2.png" alt="详情"/></div>'+
         
                                 '<div class="order_info">'+
-                                '<p class="order_name">'+obj.window_name+'<input type="button" class="chang_al" value="确认送达"/></p><div class="order_menu"><br/>';
+                                '<p class="order_name">'+obj.window_name+'<input type="button" class="chang_al" value="确认送达" onclick = "update('+r+')"/></p><div class="order_menu"><br/>';
                                 for(i in obj["product_details"])
                                 {
                                     txt+='<p class="menu_cai"><span class="menu_name">'+obj["product_details"][i].product_name+'</span> <span class="menu_cot">x '+obj["product_details"][i].product_count+'</span> <span class="menu_cost">'+obj["product_details"][i].col_price+' 元</span></p>';
@@ -74,7 +93,7 @@ and open the template in the editor.
         </div>
         
         <div class="order_info">
-            <p class="order_name">云南米线 <input type="button" class="chang_al" value="确认送达"/></p>
+            <p class="order_name">云南米线 <input type="button" class="chang_al" value="已送达"/></p>
             <div class="order_menu">
                 <br/>
                 <p class="menu_cai"><span class="menu_name">鱼丸米线</span> <span class="menu_cot">x 1</span> <span class="menu_cost">12 元</span></p>

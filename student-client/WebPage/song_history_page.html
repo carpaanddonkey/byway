@@ -18,12 +18,8 @@ and open the template in the editor.
         {
             window.location.href = "song_orderform.html?"+is;
         }
-        function update()
-        {
-
-        }
         function getData(div_id){
-            var url =  'http://api.byway.net.cn/v1/orders?query_type=canteen&canteen_id=1&expect_status=7';
+            var url =  'http://api.byway.net.cn/v1/orders/?query_type=mhassent';
              $.ajax({
                     async:false,
                     xhrFields:{withCredentials:true},
@@ -37,7 +33,6 @@ and open the template in the editor.
                             else
                                 loadJSON(obj);
                         }
-
                         document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
@@ -53,8 +48,8 @@ and open the template in the editor.
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
-                '<span class="di_al">这枚订单正在等待好心人</span>'+
-                '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
+                '<span class="di_al">这枚订单已被确认送达啦</span>'+
+                '<p class="di_date">送达时间：'+arr.finish_time+'</p></div>';
                 //document.getElementById(div_id).innerHTML = txt;
             }
         }
@@ -69,8 +64,8 @@ and open the template in the editor.
                     txt+='<div class="cart_data">'+
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
-                          '<span class="di_al">这枚订单正在等待好心人</span>'+
-                          '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
+                          '<span class="di_al">这枚订单已被确认送达啦</span>'+
+                          '<p class="di_date">期望送达时间：'+arr[i].finish_time+'</p></div>';
                   //  flag = true;
             
                 }
@@ -84,15 +79,14 @@ and open the template in the editor.
     <body onload = "getData('cart_body')">
         <div class="header">
             <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
-            <table class="header_table" style="left: 14%;">
+            <table class="header_table" style="left: 24%;">
                 <tr>
-                    <td class="header_table_tdleft" > <a href="songpage.html">&nbsp待接订单&nbsp</a></td>
-                    <td class="header_table_tdleft" ><a href="song_taken_page.html">&nbsp待送订单&nbsp</a></td>
-                    <td class="header_table_tdleft"><a href="song_3_page.html">&nbsp配送订单&nbsp</a></td>
-                    <td  style="background-color: rgba(255,255,255,0.3)"><a href="song_history_page.html">&nbsp历史订单&nbsp</a></td>
+                    <td class="header_table_tdleft"><a href="songpage.html"> &nbsp待送订单&nbsp </a></td>
+                    <td  class="header_table_tdleft"  ><a href="song_taken_page.html">&nbsp已接订单&nbsp</a></td>
+                    <td style="background-color: rgba(255,255,255,0.3)">&nbsp历史订单&nbsp</a></td>
                 </tr>
             </table>
-            <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>
+            <img class="scan" src="Images/icon/scanicon.png" alt="scan"/>
         </div>
         <div class="clearfix_head"></div>
         

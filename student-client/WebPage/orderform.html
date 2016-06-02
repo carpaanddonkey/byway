@@ -28,16 +28,15 @@ and open the template in the editor.
                     "expect_time":"",
                     "leave_msg":""
             }
-            var flag = "0";
-            var url = "http://api.byway.net.cn/v1/orders/";
+            
             function loadadd(div_id){
-                var url =  'http://api.byway.net.cn/v1/ships/';
+        
                 var txt = '';
                 $.ajax({
                     async:false,
                     type:"get",
                     xhrFields:{withCredentials:true},
-                    url:url,
+                    url:'http://api.byway.net.cn/v1/ships/',
                     success:function(str){
                         var flag = false;
                         var obj = JSON.parse(str);
@@ -94,21 +93,22 @@ and open the template in the editor.
                 $.ajax({
                     async:false,
                     type:"POST",
-                    url:url,
+                    url:'http://api.byway.net.cn/v1/orders/',
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
                     success:function(jsonResult){
                         var l = JSON.parse(jsonResult);
-                        alert(l.msg);
-                        var num = parseInt(l.href);
-                        window.location.href="paypage.html?window_id="+r+"&order_id="+l.href;
+                        //alert(l.msg);
+                        var num = l.href;
+                        num = num.replace('api.byway.net.cn/v1/orders/','');
+                        window.location.href="paypage.html?"+num;
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult.responseText);
                         alert(l.msg);
                     }
                 });
-
+                
             }
             function loadb()
             {
@@ -129,7 +129,7 @@ and open the template in the editor.
     </head>
     <body onload="initOrderform(r);inittime();loadadd('cus_info')">
         <div class="header">
-            <a onclick = "loadb()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <a onclick = "javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
         </div>
         <div class="clearfix_head"></div>
@@ -143,7 +143,7 @@ and open the template in the editor.
                 <div id="order_cart">
                 
                 </div>
-                <p class="order_money">订单运费：<span>¥  0 </span></p>
+                <p class="order_money">运费：<span>¥  0 </span></p>
                 <p class="order_money">订单金额：<span id="order_money"></span></p>
             </div>
             <div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">¥  0 </span></p></div>
@@ -151,7 +151,7 @@ and open the template in the editor.
         </div>
         <div  class="order_info">
             <p class="pay_method">支付方式：
-                <input class="radio_pay"  checked="checked" type="radio" value="alipay"/><img src="Images/icon/alipay.png" alt="alipay" />
+                <input type="radio" value="alipay"/><img src="Images/icon/alipay.png" alt="alipay" />
             </p>
             <br/>
             <p>期望送达时间：

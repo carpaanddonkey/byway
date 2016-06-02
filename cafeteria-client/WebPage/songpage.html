@@ -13,17 +13,37 @@ and open the template in the editor.
         <link href="css\cart_style.css" rel="stylesheet" type="text/css" />
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript">
-        var txt = "";
-        
+        setInterval('getData("cart_body");',10000);
+        var txt = '';
+        var o = {"new_status":3}
+        function update(is)
+        {
+            var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+            $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+        }
         function loadl(is)
         {
             window.location.href = "song_orderform.html?"+is;
         }
         
         function getData(div_id){
+            txt = '';
             var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=2';
              $.ajax({
-                    async:false,
+                    async:true,
                     xhrFields:{withCredentials:true},
                     type:"get",                        
                     url:url,
@@ -49,8 +69,8 @@ and open the template in the editor.
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
-                '<span class="di_al">等待商家接受</span>'+
-                '<input class="acpt_button" type="button" value="接单并推送" onclick = "update('+arr.id+')"/>'+
+                '<span class="di_al">这枚订单正在等待商家接单</span>'+
+                '<a onclick = "update('+arr.id+')"><input class="acpt_button" type="button" value="接 单" /></a>'+
                 '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
                 //document.getElementById(div_id).innerHTML = txt;
             }
@@ -66,8 +86,8 @@ and open the template in the editor.
                     txt+='<div class="cart_data">'+
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
-                          '<span class="di_al">等待商家接受</span>'+
-                          '<input class="acpt_button" type="button" value="接单并推送" onclick = "update('+arr[i].id+')"/>'+
+                          '<span class="di_al">这枚订单正在等待商家接单</span>'+
+                          '<a onclick = "update('+arr[i].id+')"><input class="acpt_button" type="button" value="接 单" /></a>'+
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             
@@ -96,25 +116,7 @@ and open the template in the editor.
         
         
         <div id="cart_body">
-            <a href="song_orderform.html">
-            <div class="cart_data">
-                <img class="dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
-                <span class="di_name">水饺</span>
-                <span class="di_al">这枚订单正在等待好心人</span>
-                <input class="acpt_button" type="button" value="接单并推送"/>
-                <p class="di_date">期望送达时间：今日19:11前</p>
-            </div>
-            </a>
-            <a href="song_orderform.html">
-            <div class="cart_data">
-                <img class="dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/>
-                <span class="di_name">牛肉粉</span>
-                <span class="di_al">这枚订单正在等待好心人</span>
-                <input class="acpt_button" type="button" value="接 单"/>
-                <p class="di_date">期望送达时间：今日19:31前</p>
-            </div>
-            </a>
-           
+            
         </div>      
         <div class="clearfix_foot"></div>
         <div class="footer">

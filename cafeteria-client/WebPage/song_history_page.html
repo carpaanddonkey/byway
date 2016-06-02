@@ -18,10 +18,6 @@ and open the template in the editor.
         {
             window.location.href = "song_orderform.html?"+is;
         }
-        function update()
-        {
-
-        }
         function getData(div_id){
             var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=7';
              $.ajax({
@@ -37,7 +33,6 @@ and open the template in the editor.
                             else
                                 loadJSON(obj);
                         }
-
                         document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
@@ -54,7 +49,7 @@ and open the template in the editor.
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
                 '<span class="di_al">这枚订单正在等待好心人</span>'+
-                '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
+                '<p class="di_date">送达时间：'+arr.finish_time+'</p></div>';
                 //document.getElementById(div_id).innerHTML = txt;
             }
         }
@@ -97,24 +92,7 @@ and open the template in the editor.
         <div class="clearfix_head"></div>
         
         <div id="cart_body">
-            <a href="song_orderform.html">
-            <div class="cart_data">
-                <img class="dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
-                <span class="di_name">水饺</span>
-                <span class="di_in">王同学 1888888888</span>
-                <span class="di_al">十二号宿舍楼</span>
-                <p class="di_date">送达时间：今日19:11前</p>
-            </div>
-            </a>
-            <a href="song_orderform.html">
-            <div class="cart_data">
-                <img class="dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
-                <span class="di_name">水饺</span>
-                <span class="di_in">王同学 1888888888</span>
-                <span class="di_al">十二号宿舍楼</span>
-                <p class="di_date">送达时间：今日19:11前</p>
-            </div>
-            </a>
+             
         </div>      
         <div class="clearfix_foot"></div>
         <div class="footer">

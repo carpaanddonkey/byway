@@ -11,52 +11,143 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\orderform_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript">
+            var str = '{"if_self_help": "0", "window_icon": "http://api.byway.net.cn/media/windows/1.jpg", "canteen_id": "1", "id": "17", "promotion": "0.0", "nowa_id": "0", "product_price": "48.0", "qr_storage_url": "api.byway.net.cn/media/qrcode/17.jpg", "combo_id": "1_2_0", "customer_id": "2", "status": "0", "if_paid": "0", "deliver": "\u6682\u65f6\u65e0\u4eba\u63a5\u5355", "window_id": "1", "address": "16\u53f7\u697c419\u5bbf\u820d1\u53f7\u5e8a", "window_name": "\u98ce\u5473\u7092\u83dc", "ship_price": "0.0", "total_price": "48.0", "product_details": [{"product_count": 1, "col_price": 10.0, "product_name": "\u7ea2\u70e7\u8106\u9aa8"}, {"product_count": 2, "col_price": 24.0, "product_name": "\u9ebb\u5a46\u8c46\u8150"}, {"product_count": 1, "col_price": 14.0, "product_name": "\u849c\u84c9\u751f\u83dc"}], "leave_msg": "\u4f60\u597d", "product_list": "1-1_3-2_4-1", "expect_time": "\u5c3d\u5feb\u9001\u8fbe"}';
+            var r = window.location.search;
+            r = r.replace('?','');
+            var txt = '';
+            var status = '';
+            var o2 = {"new_status":7};
+            var o = {"new_status":7,"token":"1234"};
+            function update(is)
+            {
+                var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+            }
+            function update2(is)
+            {
+                var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o2),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+            }
+            function loadl(is)
+            {
+                window.location.href = 'locflowpage.html?'+is;
+            }
+            function getData(div_id){
+            var url =  'http://api.byway.net.cn/v1/orders/'+r+'/';
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    xhrFields:{withCredentials:true},
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        
+                        switch(obj.status)
+                        {
+                            case "0":status = '这枚订单诞生了';break;
+                            case "1":status = '这枚订单已经付款';break;
+                            case "2":status = '这枚订单正在等待商家接单';break;
+                            case "3":status = '这枚订单正在被制作';break;
+                            case "4":status = '这枚订单正在等待好心人配送';break;
+                            case "5":status = '这枚订单已经被配送员取走了';break;
+                            case "6":status = '这枚订单正在被配送';break;
+                            case "7":status = '这枚订单已经完成';break;
+                        }
+                        //var jsonp = eval(obj.products_data)
+                        {
+                            txt+='<div class="order_al">'+
+                                '<p class="order_al1">'+status+'</p>'+
+                                '<p class="order_al2">来个评价吧，帮助我们做得更好</p>'+
+                                '<img class="order_al_pic" src="'+obj.window_icon+'" alt="食物图片"/>'+
+                                '<a onclick = "loadl('+r+')"><img class="spf" style="top:90px" src="Images/icon/arrow2.png" alt="详情" /></a></div>'+
+        
+                                '<div class="order_info">'+
+                                '<p class="order_name">'+obj.window_name+'<input type="button" class="chang_al" value="确认送达" onclick = "update('+r+')"/></p><div class="order_menu"><br/>';
+                                for(i in obj["product_details"])
+                                {
+                                    txt+='<p class="menu_cai"><span class="menu_name">'+obj["product_details"][i].product_name+'</span> <span class="menu_cot">x '+obj["product_details"][i].product_count+'</span> <span class="menu_cost">'+obj["product_details"][i].col_price+' 元</span></p>';
+                                }
+                                txt+='<p class="order_money">订单金额：<span>'+obj.product_price+' 元</span></p></div>'+
+                                    '<div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">'+obj.promotion+'  元</span></p></div><div class="cost_info"><p>实付金额： <span class="cost_money">'+obj.total_price+' 元</span></p>'+
+                                        '<p>备注： <span class="cost_money">'+obj.leave_msg+'</span></p></div></div>';
+                                txt+='<div class="cus_info" style="margin-top: 20px;">'+
+                                        '<img class="cood_song" src="Images/icon/coodicongrey.png" alt="cood:"/>'+
+                                        '<p>配送人：<span>'+obj.deliver+'</span></p>'+
+                                        '<p>下单时间：<span>'+obj.created_at+'</span></p>'+
+                                        '<p>送达地址：<span>'+obj.address+'</span></p>'+
+                                        '<p>希望送达时间：<span>'+obj.expect_time+'</span></p></div>';
+                                if(obj.status==4){
+                                    txt+='<a onclick = "update('+obj.id+')"><div class="order_footer"><span>接 单</span></div></a>';
+                                } 
+                                //if(obj.status>3){
+                                    
+                                //}
+                        }
+
+                        document.getElementById(div_id).innerHTML = txt;
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                    }
+                });
+        }
+        </script>
     </head>
-    <body>
+    <body onload = "getData('order_body');">
         <div class="header">
-            <a href="songpage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <a href="javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;订单详情</span>
             <img class="scan" src="Images/icon/qrcode.png" alt="scan" onclick="qrcode_show()"/>
         </div>
         <div class="clearfix_head"></div>
-        <div class="order_al">
-            <p class="order_al1">这枚订单正在等待好心人</p>
-            <p class="order_al2">取单地点：四食堂2号窗口</p>
-            <img class="order_al_pic" src="Images/dishes/fen.jpg" alt="食物图片"/>
-            <img class="spf" style="top:90px" src="Images/icon/arrow2.png" alt="详情"/>
+        <div id = "order_body">
+         
         </div>
-        <div class="cus_info" style="margin-top: 20px;">
-            <img class="cood_song" src="Images/icon/coodicongrey.png" alt="cood:"/> 
-            <p>点单人：<span>李同学</span><span class="cus_phone">13822222222</span></p>
-            <p>订单编号：<span>2222222222</span></p>
-            <p>送达地址：<span>十六号宿舍楼414</span></p>
-            <p>送达时间：<span>4-15 16:59（尽快送达）</span></p>
-        </div>
-        <div class="order_info">
-            <p class="order_name">云南米线</p>
-            <div class="order_menu">
-                <br/>
-                <p class="menu_cai"><span class="menu_name">鱼丸米线</span> <span class="menu_cot">x 1</span> <span class="menu_cost">12 元</span></p>
-                <p class="menu_cai"><span class="menu_name">青菜</span> <span class="menu_cot">x 1</span> <span class="menu_cost">1 元</span></p>
-                <p class="menu_cai"><span class="menu_name">牛丸</span> <span class="menu_cot">x 1</span> <span class="menu_cost">2 元</span></p>
-                <p class="order_money">订单金额：<span>15 元</span></p>
-            </div>
-            <div class="discount_info"><p><span class="discount_type">优惠券</span> <span class="discount_amt">2 元</span></p></div>
-            <div class="cost_info"><p>实付金额： <span class="cost_money">13 元</span></p></div>
-        </div>
-        
         <div class="clearfix_foot"></div>
-        <a href="songpage.html">
+        <a href="shoppage.html">
         <div class="order_footer">
-            <span>接单</span>
-        </div></a>
-        
-        <div class="qrcode" id="qrcode">
-            <img class="close" src="Images/icon/closeicon.png" alt="close" onclick="qrcode_none()"/>
-            <p>订单号：123444444</p>
-            <img class="qrcode_pic" src="Images/2dimensionalcode.jpg" alt="qrcode"/>        
-        </div>
-        
-        <script src="js/menu.js"></script>
+            <span>再逛逛</span>
+        </div></a> 
+
+    
+    <div class="qrcode" id="qrcode">
+        <img class="close" src="Images/icon/closeicon.png" alt="close" onclick="qrcode_none()"/>
+        <p>订单号：123444444</p>
+        <img class="qrcode_pic" src="Images/2dimensionalcode.jpg" alt="qrcode"/>        
+    </div>
+   
+    <script src="js/menu.js"></script>
+    
     </body>
 </html>
+
+

@@ -76,9 +76,9 @@ def get_orders(request, order_id=None):
 			query_key = 'order:w'+str(window_id)+':s'+str(expect_status)
 
 			# from redis
-			order_list = r.smembers(query_key)
-			for order in order_list:
-				content.append(eval(order))
+			# order_list = r.smembers(query_key)
+			# for order in order_list:
+			# 	content.append(eval(order))
 
 			# from db
 			if not content:
@@ -108,9 +108,9 @@ def get_orders(request, order_id=None):
 			query_key = 'order:c'+str(canteen_id)+':s'+str(expect_status)
 
 			# from redis
-			order_list = r.smembers(query_key)
-			for order in order_list:
-				content.append(eval(order))
+			# order_list = r.smembers(query_key)
+			# for order in order_list:
+			# 	content.append(eval(order))
 
 			# from db
 			if not content:
@@ -174,7 +174,8 @@ def get_orders(request, order_id=None):
 		return create_simple_response(200, json.dumps(content))
 	else:
 		# from redis
-		order = r.hgetall('order:'+str(order_id))
+		# order = r.hgetall('order:'+str(order_id))
+		order = None
 		if order:
 			order['product_details'] = eval(order['product_details'])
 			return create_simple_response(200, json.dumps(order))

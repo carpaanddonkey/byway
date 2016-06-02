@@ -20,7 +20,6 @@ and open the template in the editor.
                  "token":"1234"}
         function update(is)
         {
-            var flag = false;
             var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
             $.ajax({
                     async:false,
@@ -28,15 +27,13 @@ and open the template in the editor.
                     data:JSON.stringify(o),
                     xhrFields:{withCredentials:true},
                     url:url,
-                    sucess:function(str){
-                        flag = true;
+                    sucess:function(str){                        
                         window.location.reload(true);
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult);
                         alert(l.msg);
                     }
-                    alert(flag);
                 });
         }
         function getMesshall(){

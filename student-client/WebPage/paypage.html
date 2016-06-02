@@ -16,13 +16,32 @@ and open the template in the editor.
         <script type = "text/javascript">
         var r = window.location.search;
             r = r.replace('?','');
+        var winid   = 1;
+        function getwin()
+        {
+            var url = 'http://api.byway.net.cn/v1/orders/'+r+'/';
+                $.ajax({
+                    async:false,
+                    type:"get",
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        var p = JSON.parse(str);
+                        winid = p.window_id;
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+        }
         function load()
         {
             window.location.href = 'paymentsuccess.html?'+r;
         }
         </script>
     </head>
-    <body onload="initPaypage(1)">
+    <body onload="initPaypage(winid)">
         <div class="header">
             <a onclick = "javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;付款详情</span>

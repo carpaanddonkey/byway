@@ -32,27 +32,31 @@ and open the template in the editor.
                             '<div class="chunk">'+
                             '<span class="state">订单提交成功</span>'+
                             '<span class="dsp">订单号：'+obj.order_id+'</span>'+
-                            '<span class="time">'+obj.payment_time+'</span>'+
-                            '<span class="p">|</span>'+
-                        '</div>'+
-                        '<div class="chunk">'+
-                            '<span class="state">订单被接受</span>'
-                            '<span class="dsp">订单号：'+obj.order_id+'</span>'+
-                            '<span class="time">'+obj.receive_time+'</span>'+
-                            '<span class="p">|</span>'+
-                        '</div>'+
-                        '<div class="chunk">'+
-                            '<span class="state">订单开始配送</span>'
-                            '<span class="dsp">订单号：'+obj.order_id+'</span>'+
-                            '<span class="time">'+obj.send_time+'</span>'+
-                            '<span class="p">|</span>'+
-                        '</div>'+
-                        '<div class="chunk">'+
-                            '<span class="state">订单已送达</span>'
-                            '<span class="dsp">订单号：'+obj.order_id+'</span>'+
-                            '<span class="time">'+obj.finish_time+'</span>'+
-                            '<span class="p">|</span>'+
-                        '</div></div>';
+                            '<span class="time">'+obj.payment_time+'</span></div>';
+                        if(obj.status>=3)
+                        {
+                            txt+='<div class="chunk">'+
+                                    '<span class="p">|</span>'+
+                                    '<span class="state">订单被接受</span>'
+                                    '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                    '<span class="time">'+obj.receive_time+'</span></div>';
+
+                            if(obj.status>=5){
+                                txt+='<div class="chunk">'+
+                                    '<span class="p">|</span>'+
+                                    '<span class="state">订单开始配送</span>'
+                                    '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                    '<span class="time">'+obj.obj.send_time+'</span></div>';
+                                if(obj.status==7){
+                                    txt+='<div class="chunk">'+
+                                        '<span class="p">|</span>'+
+                                        '<span class="state">订单已送达</span>'
+                                        '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                        '<span class="time">'+obj.finish_time+'</span></div>';
+                                }
+                            }
+
+                        }
                         document.getElementById(div_id).innerHTML = txt;
                         
                     },

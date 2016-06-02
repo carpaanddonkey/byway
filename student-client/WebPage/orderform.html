@@ -28,7 +28,7 @@ and open the template in the editor.
                     "expect_time":"",
                     "leave_msg":""
             }
-            var flag = "0";
+            
             function loadadd(div_id){
         
                 var txt = '';
@@ -98,10 +98,10 @@ and open the template in the editor.
                     xhrFields:{withCredentials:true},
                     success:function(jsonResult){
                         var l = JSON.parse(jsonResult);
-                        alert(l.msg);
+                        //alert(l.msg);
                         var num = l.href;
                         num = num.replace('api.byway.net.cn/v1/orders/','');
-                        window.location.href="paypage.html?"+num;
+                        window.location.href="paypage.html?"+num+"&"+r;
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult.responseText);

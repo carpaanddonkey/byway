@@ -30,6 +30,7 @@ and open the template in the editor.
                             loadObject(obj);
                         else
                             loadJSON(obj);
+                        document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
                         alert("error");

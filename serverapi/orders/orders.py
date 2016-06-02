@@ -126,7 +126,7 @@ def get_orders(request, order_id=None):
 				order_list = order_utils.get_order_by_customer(request.user.id, False)
 			content = order_utils.orders_to_array(order_list)
 		elif query_type == 'msending':
-			expect_status = ORDER_SENDING
+			expect_status = ORDER_PULLED
 			# query_key = 'order:w'+str(window_id)+':s'+str(expect_status)
 			#
 			# # from redis

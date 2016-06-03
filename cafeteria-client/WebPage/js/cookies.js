@@ -75,6 +75,8 @@ function addToCart(num , win){       //num是商品号，按顺序从1开始  wi
 
     if (value==null || value=="" || value=="undefined" || value =='NaN'){
         setCookie("cart"+win+"com"+num,1,365);      //存的是该商品的个数
+            tr.id = "w" + num;
+
             var tr = document.createElement("tr");
             var tdN = document.createElement("td");
             var tdP = document.createElement("td");

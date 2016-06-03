@@ -11,8 +11,97 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\cart_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript">
+        var txt = "";
+        var o = {"new_status":4}
+        function update(is)
+        {
+            var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
+            $.ajax({
+                    async:false,
+                    type:"POST",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+        }
+        function loadl(is)
+        {
+            window.location.href = "song_orderform.html?"+is;
+        }
+        
+        function getData(div_id){
+            var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=3';
+             $.ajax({
+                    async:false,
+                    xhrFields:{withCredentials:true},
+                    type:"get",                        
+                    url:url,
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        if(obj.length!=0){
+                            if(typeof(obj.length)=='undefined')
+                                loadObject(obj);
+                            else
+                                loadJSON(obj);
+                        }
+
+                        document.getElementById(div_id).innerHTML = txt;
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                   }
+                });
+            
+        }
+        function loadObject(arr)
+        {
+            //if(arr.status==4)
+            {
+                txt+='<div class="cart_data">'+
+                '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
+                '<span class="di_name">'+arr.window_name+'</span>'+
+                '<span class="di_al">这枚订单正在被制作</span>'+
+                '<a onclick = "update('+arr.id+')"><input class="acpt_button" type="button" value="推 送" /></a>'+
+                '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
+                //document.getElementById(div_id).innerHTML = txt;
+            }
+        }
+
+        function loadJSON(arr)
+        {
+           // var flag = false;
+            for(i in arr)
+            {
+                //if(arr[i].status==4)
+                {
+                    txt+='<div class="cart_data">'+
+                          '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
+
+                          '<span class="di_name">'+arr[i].window_name+'</span>'+
+                          '<a onclick = "update('+arr[i].id+')"><input class="acpt_button" type="button" value="推 送" /></a>'+
+                          '<span class="di_al">这枚订单正在被制作</span>'+
+
+                          '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
+                  //  flag = true;
+            
+                }
+                
+            }
+            //if(flag==true)
+             // document.getElementById(div_id).innerHTML = txt;
+        }
+        </script>
     </head>
-    <body>
+    <body onload = "getData('cart_body')">
         <div class="header">
             <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
             <table class="header_table" style="left: 14%;">
@@ -28,26 +117,7 @@ and open the template in the editor.
         <div class="clearfix_head"></div>
         
         <div id="cart_body">
-            <a href="song_orderform.html">
-            <div class="cart_data">
-                <img class="dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
-                <span class="di_name">水饺</span>
-                <span class="di_in">王同学 1888888888</span>
-                <span class="di_al">十二号宿舍楼</span>
-                <input class="acpt_button" type="button" value="送 达"/>
-                <p class="di_date">期望送达时间：今日19:11前</p>
-            </div>
-            </a>
-            <a href="song_orderform.html">
-            <div class="cart_data">
-                <img class="dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
-                <span class="di_name">水饺</span>
-                <span class="di_in">王同学 1888888888</span>
-                <span class="di_al">十二号宿舍楼</span>
-                <input class="acpt_button" type="button" value="送 达"/>
-                <p class="di_date">期望送达时间：今日19:11前</p>
-            </div>
-            </a>
+            
         </div>      
         <div class="clearfix_foot"></div>
         <div class="footer">

@@ -6,6 +6,12 @@ from orders.models import *
 
 class OrderUtils(object):
 
+	def get_order_by_canteen(self, canteen_id, status=None):
+		if status is None:
+			return Order.objects.filter(canteen_id=canteen_id)
+		else:
+			return Order.objects.filter(canteen_id=canteen_id, status=status)
+
 	def get_order_by_window(self, window_id, status=None):
 		if status is None:
 			return Order.objects.filter(window_id=window_id)

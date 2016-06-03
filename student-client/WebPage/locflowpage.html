@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>顺道儿——订单状态</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css\general_style.css" rel="stylesheet" type="text/css" />
+        <link href="css\locflow_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script src="js/menu.js"></script>
+        <script type = "text/javascript"> 
+            var txt = '';
+            var r = window.location.search;
+            r = r.replace('?','');
+            var str = '{"push_time": "2016-06-02 09:41:24", "payment_time": null, "order_id": 78, "receive_time": "2016-06-02 09:41:22", "pull_time": "2016-06-02 09:41:32", "send_time": "2016-06-02 09:41:33", "finish_time": "2016-06-02 09:42:20", "deliver_id": 2, "id": 77}';
+            function getData(div_id){
+                var url =  'http://api.byway.net.cn/v1/order_record/'+r+'/';
+                $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    xhrFields:{withCredentials:true},
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        txt+=
+                        '<div class="title">物流详情</div>'+
+                        '<div class="chunks">'+
+                            '<div class="chunk">'+
+                            '<span class="state">订单提交成功</span>'+
+                            '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                            //'<span class="time">'+obj.payment_time+'</span>
+                            '<span class="p">|</span></div>';
+                        if(obj.receive_time==null)
+                        {
+                            txt+='<div class="chunk_now">'+
+                                    '<span class="state">订单被接受</span>'+
+                                    '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                    //'<span class="time">'+obj.receive_time+'</span>'+
+                                    '<span class="p">|</span>'+
+                                    '<span class="dot">● ● ●</span></div>';
+                        }
+                        else{
+                            txt+='<div class="chunk">'+
+                                    '<span class="state">订单被接受</span>'+
+                                    '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                    '<span class="time">'+obj.receive_time+'</span>'+
+                                    '<span class="p">|</span></div>'; 
+                            
+                            if(obj.send_time==null)
+                            {
+                                txt+='<div class="chunk_now">'+
+                                    '<span class="state">订单正在制作</span>'+
+                                    '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                    //'<span class="time">'+obj.send_time+'</span>'+
+                                    '<span class="p">|</span>'+
+                                    '<span class="dot">● ● ●</span></div>';
+                            }
+                            else{
+                                txt+='<div class="chunk">'+
+                                    '<span class="state">订单开始配送</span>'+
+                                    '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                    '<span class="time">'+obj.send_time+'</span>'+
+                                    '<span class="p">|</span></div>';   
+                                if(obj.finish_time==null)
+                                {
+                                    txt+='<div class="chunk_now">'+
+                                        '<span class="state">订单已完成</span>'+
+                                        '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                        //'<span class="time">'+obj.finish_time+'</span>'+
+                                        '<span class="p">|</span>'+
+                                        '<span class="dot">● ● ●</span></div>';
+                                }
+                                else{
+                                    txt+='<div class="chunk">'+
+                                        '<span class="state">订单已完成</span>'+
+                                        '<span class="dsp">订单号：'+obj.order_id+'</span>'+
+                                        '<span class="time">'+obj.finish_time+'</span>'+
+                                        '<span class="p">|</span></div>';   
+                                    
+                                } 
+                            }  
+                            
+                        }
+                       
+                        txt+='</div>'
+                        document.getElementById(div_id).innerHTML = txt;
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                    }
+                });
+            }
+
+        </script> 
+    </head>
+    <body onload = "getData('main_body')">   
+    <div class="header">
+            <a onclick = "javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <span class="theme" >&nbsp;&nbsp;订单状态</span>
+    </div>
+    <div class="clearfix_head"></div>
+    <div class="main_body" id = "main_body">
+        
+    </div>
+    </body>
+</html>
+
+

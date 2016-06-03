@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -14,9 +14,10 @@ and open the template in the editor.
 		<script src = "js/jquery-1.8.2.min.js"></script>
 		<script type = "text/javascript">
         var url = 'http://api.byway.net.cn/v1/user/';
-        var str = '{"status": 1, "name": "", "phone": "18813090635", "token": "bGoKEsTIatX", "score": 0, "mail": "13301052@bjtu.edu.cn", "icon": "/media/usericon/default.jpg"}';
-            function getData()
+        //var str = '{"status": 1, "name": "", "phone": "18813090635", "token": "bGoKEsTIatX", "score": 0, "mail": "13301052@bjtu.edu.cn", "icon": "/media/usericon/default.jpg"}';
+            function getData(div_id)
             {
+                var txt = "";
                $.ajax({
                     async:false,
                     type:"get",
@@ -24,9 +25,8 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        document.getElementById('name').innerHTML = obj.name;
-                        document.getElementById('icon').src = obj.icon;
-                        
+                        txt+='<img class="head" src="'+obj.icon+'" alt="head"/><img class="whale" src="Images/bwbg.png" alt=""/><span class="username">'+obj.name+'</span>'
+                        document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult.responseText);
@@ -36,12 +36,11 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body onload = "getData()">
+    <body onload = "getData('info')">
         
         <div class="headlol">
-            <img class="head" id = 'icon' src="Images/hh.jpg" alt="head"/>
-            <img class="whale" src="Images/bwbg.png" alt=""/>
-            <span class="username" id = 'name'>bluewhale</span>
+            <div id = 'info'>
+            </div>
             <div class="set">
                 <div class="set2">
                 <span class="set_l" onclick="location.href = 'perinfopage.html'">个人信息</span>
@@ -73,7 +72,7 @@ and open the template in the editor.
             <table>
                 <tr>
                     <td><a href="shoppage.html"><img class="mymenu" id="menu_bar" src="Images/icon/shop.png" alt="菜单" /><br/>菜单</a></td>
-                    <td><a href="cartpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="购物车" /><br/>&nbsp购物车</a></td>
+                    <td><a href="cartpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="订单" /><br/>&nbsp订单</a></td>
                     <td><a href="songpage.html"><img class="mymenu" id="song_bar" src="Images/icon/song.png" alt="配送"><br/>配送</a> </td>
                     <td><a href="mepage.html"  id="present"><img class="mymenu" id="me_bar" src="Images/icon/me1.png"  alt="我的" /><br/>我的</a></td>
                 </tr>

@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '*)20@jwz*c^80_j6h@&w@$b@m-07$xnrw!ec$7y^^wpi)zk^md'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -98,6 +98,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = BYWAY_URL + '/student/loginpage.html'
+ALLOWED_HOSTS = '*'
 
 import djcelery
 

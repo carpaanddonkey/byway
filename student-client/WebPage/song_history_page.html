@@ -6,44 +6,22 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>顺道儿——购物车</title>
+        <title>顺道儿学生端——历史订单</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css\general_style.css" rel="stylesheet" type="text/css" />
         <link href="css\cart_style.css" rel="stylesheet" type="text/css" />
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript">
-        setInterval('getData("cart_body");',10000);
-        var txt = '';
-        var o = {"new_status":3}
-        function update(is)
-        {
-            var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
-            $.ajax({
-                    async:false,
-                    type:"POST",
-                    data:JSON.stringify(o),
-                    xhrFields:{withCredentials:true},
-                    url:url,
-                    sucess:function(str){
-                        window.location.reload(true);
-                    },
-                    error:function(jsonResult){
-                        var l = JSON.parse(jsonResult);
-                        alert(l.msg);
-                    }
-                });
-        }
+        var txt = "";
         function loadl(is)
         {
             window.location.href = "song_orderform.html?"+is;
         }
-        
         function getData(div_id){
-            txt = '';
-            var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=2';
+            var url =  'http://api.byway.net.cn/v1/orders/?query_type=mhassent';
              $.ajax({
-                    async:true,
+                    async:false,
                     xhrFields:{withCredentials:true},
                     type:"get",                        
                     url:url,
@@ -55,77 +33,78 @@ and open the template in the editor.
                             else
                                 loadJSON(obj);
                         }
-
                         document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
                         alert("error");
                    }
                 });
+            
         }
         function loadObject(arr)
         {
-             {
+            //if(arr.status==4)
+            {
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
-                '<span class="di_al">这枚订单正在等待商家接单</span>'+
-                '<a onclick = "update('+arr.id+')"><input class="acpt_button" type="button" value="接 单" /></a>'+
-                '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
+                '<span class="di_al">这枚订单已被确认送达啦</span>'+
+                '<p class="di_date">送达时间：'+arr.finish_time+'</p></div>';
                 //document.getElementById(div_id).innerHTML = txt;
             }
         }
 
         function loadJSON(arr)
         {
-            //var flag = false;
+           // var flag = false;
             for(i in arr)
             {
-                //if(arr[i].status==2)
+                //if(arr[i].status==4)
                 {
                     txt+='<div class="cart_data">'+
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
-                          '<span class="di_al">这枚订单正在等待商家接单</span>'+
-                          '<a onclick = "update('+arr[i].id+')"><input class="acpt_button" type="button" value="接 单" /></a>'+
-                          '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
+                          '<span class="di_al">这枚订单已被确认送达啦</span>'+
+                          '<p class="di_date">期望送达时间：'+arr[i].finish_time+'</p></div>';
                   //  flag = true;
             
                 }
                 
             }
-           // if(flag==true)
-              //document.getElementById(div_id).innerHTML = txt;
+            //if(flag==true)
+             // document.getElementById(div_id).innerHTML = txt;
         }
         </script>
     </head>
     <body onload = "getData('cart_body')">
         <div class="header">
             <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
-            <table class="header_table" style="left: 14%;">
+            <table class="header_table" style="left: 24%;">
                 <tr>
-                    <td class="header_table_tdleft" style="background-color: rgba(255,255,255,0.3)"> &nbsp待接订单&nbsp </td>
-                    <td class="header_table_tdleft"><a href="song_taken_page.html">&nbsp待送订单&nbsp</a></td>
-                    <td class="header_table_tdleft"><a href="song_taken_page.html">&nbsp配送订单&nbsp</a></td>
-                    <td><a href="song_history_page.html">&nbsp历史订单&nbsp</a></td>
+                    <td class="header_table_tdleft"><a href="songpage.html"> &nbsp待送订单&nbsp </a></td>
+                    <td  class="header_table_tdleft"  ><a href="song_taken_page.html">&nbsp已接订单&nbsp</a></td>
+                    <td style="background-color: rgba(255,255,255,0.3)">&nbsp历史订单&nbsp</a></td>
                 </tr>
             </table>
-            <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>
+            <img class="scan" src="Images/icon/scanicon.png" alt="scan"/>
         </div>
         <div class="clearfix_head"></div>
         
-        
         <div id="cart_body">
-            
+             
         </div>      
         <div class="clearfix_foot"></div>
         <div class="footer">
             <table>
                 <tr >
-                    <td><a href="shoppage.html" ><img class="mymenu" id="menu_bar" src="Images/icon/shop.png" alt="菜单" /><br/>菜单</a></td>
-                    <td><a href="songpage.html" id="present"><img class="mymenu" id="cart_bar" src="Images/icon/cart1.png" alt="订单" /><br/>&nbsp订单</a></td>               
+                    <td><a href="shoppage.html"><img class="mymenu" id="menu_bar" src="Images/icon/shop.png" alt="菜单" /><br/>菜单</a></td>
+                    <td><a href="cartpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="购物车" /><br/>&nbsp订单</a></td>
+                    <td><a href="songpage.html"    id="present"><img class="mymenu" id="song_bar" src="Images/icon/song1.png" alt="配送"><br/>配送</a> </td>
+                    <td><a href="mepage.html"><img class="mymenu" id="me_bar" src="Images/icon/me.png"  alt="我的" /><br/>我的</a></td>
                 </tr>
             </table>
         </div>
     </body>
 </html>
+
+

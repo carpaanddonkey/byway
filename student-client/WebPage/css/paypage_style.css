@@ -35,7 +35,7 @@ and open the template in the editor.
 }
 
 .paybutton,.payscbutton{
-    margin-left: 13%;
+    margin-left: 10.5%;
     background-color: #08f;
     color: white;
     text-align: center;
@@ -84,6 +84,6 @@ select::-ms-expand { display: none; }
 
 .paymenticon{
     height:90px;
-    margin-left: 39%;
+    margin-left: 38%;
     margin-top: 15%;
 }

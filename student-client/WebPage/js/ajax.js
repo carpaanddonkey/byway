@@ -27,7 +27,6 @@ function ajax(url,o,type, fnSucc, fnFaild)
   //4.接收服务器的返回
   oAjax.onreadystatechange=function ()
   {
-    alert(oAjax.readyState);
     if(oAjax.readyState==4) //完成
     {
       if(oAjax.status==201)  //成功

@@ -16,26 +16,6 @@ and open the template in the editor.
         var r;
         var txt = '';
         //var url = 'http://api.byway.net.cn/v1/orders/?query_type=deliver&canteen_id='+getCanteen_id()+'/';
-        var o = {"new_status":5,
-                 "token":"1234"}
-        function update(is)
-        {
-            var url = 'http://api.byway.net.cn/v1/orders/'+is+'/';
-            $.ajax({
-                    async:false,
-                    type:"POST",
-                    data:JSON.stringify(o),
-                    xhrFields:{withCredentials:true},
-                    url:url,
-                    sucess:function(str){                        
-                        window.location.reload(true);
-                    },
-                    error:function(jsonResult){
-                        var l = JSON.parse(jsonResult);
-                        alert(l.msg);
-                    }
-                });
-        }
         function getMesshall(){
             $.ajax({
                     async:false,
@@ -61,10 +41,10 @@ and open the template in the editor.
         function initData(div_id)
         {       
             $.ajax({
-                async:false,
+                async:true,
                 xhrFields:{withCredentials:true},
                 type:"get",                        
-                url:'http://api.byway.net.cn/v1/orders/?query_type=deliver&canteen_id=1',
+                url:'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=2',
                 success:function(str){
                     var obj = JSON.parse(str);
                     if(obj.length!=0){
@@ -82,9 +62,9 @@ and open the template in the editor.
             });
         }
         function getData(div_id){
-            var url =  'http://api.byway.net.cn/v1/orders/?query_type=deliver&canteen_id='+getCanteen_id();
+            var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=2';
              $.ajax({
-                    async:false,
+                    async:true,
                     xhrFields:{withCredentials:true},
                     type:"get",                        
                     url:url,
@@ -112,8 +92,7 @@ and open the template in the editor.
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
                 '<span class="di_al">这枚订单正在等待好心人</span>'+
-                '<input class="acpt_button" type="button" value="接 单" onclick = "update('+arr.id+')"/>'+
-                '<p class="di_date">送达地址：'+arr.address+'</p></div>';
+                '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
             }
         }
 
@@ -128,8 +107,7 @@ and open the template in the editor.
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
                           '<span class="di_al">这枚订单正在等待好心人</span>'+
-                          '<input class="acpt_button" type="button" value="接 单" onclick = "update('+arr[i].id+')"/>'+
-                          '<p class="di_date">送达地址：'+arr[i].address+'</p></div>';
+                          '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             
                 }
@@ -137,9 +115,9 @@ and open the template in the editor.
             }
             //if(flag==true)
         }
-        function loadl(is)
+        function loadwid(is)
         {
-            window.location.href = 'orderpage.html?'+is;
+            
         }
         
             
@@ -147,8 +125,8 @@ and open the template in the editor.
     </head>
     <body onload = "initData('cart_body');getMesshall()">
         <div class="header">
-            <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
-            <table class="header_table" style="left: 22%;">
+            <img class="back" style="height: 24px;padding-top: 7px;" src="Images/icon/white_logoicon.png" alt=""/>
+            <table class="header_table" style="left: 24%;">
                 <tr>
                     <td class="header_table_tdleft" style="background-color: rgba(255,255,255,0.3)"> &nbsp待送订单&nbsp </td>
                     <td  class="header_table_tdleft"><a href="song_taken_page.html">&nbsp已接订单&nbsp</a></td>
@@ -172,7 +150,34 @@ and open the template in the editor.
         </div>
         
         <div id="cart_body">
-             
+            <a href="song_orderform.html">
+            <div class="cart_data">
+                <img class="dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
+                <span class="di_name">水饺</span>
+                <span class="di_al">这枚订单正在等待好心人</span>
+                <input class="acpt_button" type="button" value="接 单"/>
+                <p class="di_date">期望送达时间：今日19:11前</p>
+            </div>
+            </a>
+            <a href="song_orderform.html">
+            <div class="cart_data">
+                <img class="dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/>
+                <span class="di_name">牛肉粉</span>
+                <span class="di_al">这枚订单正在等待好心人</span>
+                <input class="acpt_button" type="button" value="接 单"/>
+                <p class="di_date">期望送达时间：今日19:31前</p>
+            </div>
+            </a>
+            <a href="song_orderform.html">
+            <div class="cart_data">
+                <img class="dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/>
+                <span class="di_name">皮蛋瘦肉粥</span>
+                <span class="di_al">这枚订单正在等待好心人</span>
+                <input class="acpt_button" type="button" value="接 单"/>
+                <p class="di_date">期望送达时间：今日19:51前</p>
+            </div>
+            </a>
+           
         </div>      
         <div class="clearfix_foot"></div>
         <div class="footer">
@@ -187,5 +192,3 @@ and open the template in the editor.
         </div>
     </body>
 </html>
-
-

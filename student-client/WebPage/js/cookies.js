@@ -13,7 +13,6 @@ var product = {
   "unit": "桶",
   "name": "蒜蓉生菜"
 };
-
 function getWindow_id()
 {
     return window_id;
@@ -36,6 +35,7 @@ function getProduct(id)
     $.ajax({
         async:false,   
         type:"get",
+        xhrFields:{withCredentials:true},
         url:url,
         success:function(str){
             product = JSON.parse(str);
@@ -44,6 +44,24 @@ function getProduct(id)
             alert("error");
                 }
         });
+}
+function getWindow(id)
+{
+    var url = "http://api.byway.net.cn/v1/windows/"+id+"/";
+    var w;
+    $.ajax({
+        async:false,   
+        type:"get",
+        xhrFields:{withCredentials:true},
+        url:url,
+        success:function(str){
+            w = JSON.parse(str);
+                },
+        error:function(jsonResult){
+            alert("error");
+                }
+        });
+    return w;
 }
 function getProlist()
 {
@@ -67,14 +85,17 @@ function initOrderform(win){        //获取窗口编号
     document.getElementById('cost_money').innerHTML = '¥ '+ cart_money;
     var flag = false;
     var proarr;
+    var win_name;
     $.ajax({
         url:'http://api.byway.net.cn/v1/windows/'+win+'/',
         async:false,
         success:function (str){
             var obj = JSON.parse(str);
+            win_name = obj.window.name;
             proarr = eval(obj.products_data);
         }
     });
+    document.getElementById('order_name').innerHTML = win_name;
     for(i in proarr)
     {
         for(j in proarr[i].products)
@@ -164,26 +185,26 @@ function addToCart2(win,num){       //num是商品号，按顺序从1开始  win
     getProduct(num);
     //var product = JSON.parse(str);
     var value = getCookie("cart"+win+"com"+product.id);    //当前窗口购物车的cookie
-
     if (value==null || value=="" || value=="undefined" || value =='NaN'){
         setCookie("cart"+win+"com"+product.id,1,365);      //存的是该商品的个数
-        var tr = document.createElement("tr");
-        var tdN = document.createElement("td");
-        var tdP = document.createElement("td");
-        var tdC = document.createElement("td");
-        var tdO = document.createElement("td");
-        tdN.innerHTML = product.name;
-        tdC.innerHTML = 
-                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+product.id+"\")'>-&nbsp</span>" +"<span id='count"+product.id+"'>"+ c + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+product.id+"\")'>&nbsp+</span>";
-        tdP.innerHTML = product.price;
-        tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+product.id+"\")'>×</span>";
+        //var tr = document.createElement("tr");
+        //var tdN = document.createElement("td");
+        //var tdP = document.createElement("td");
+        //var tdC = document.createElement("td");
+        //var tdO = document.createElement("td");
+        //tdN.innerHTML = product.name;
+        //tdC.innerHTML = 
+                    "<span class='am' onclick='RedItem2(\""+win+"\",\""+product.id+"\")'>-&nbsp</span>" +"<span id='count"+product.id+"'>"+ value + "</span><span class='am' onclick='AddItem2(\""+win+"\",\""+product.id+"\")'>&nbsp+</span>";
+        //tdP.innerHTML = product.price;
+        //tdO.innerHTML = "<span onclick='DelItem2(\""+win+"\",\""+product.id+"\")'>×</span>";
             
-        tr.id = "row" +product.id;
-        tr.appendChild(tdN);
-        tr.appendChild(tdP);
-        tr.appendChild(tdC);
-        tr.appendChild(tdO);
-        window.parent.document.getElementById("tablebody").appendChild(tr);
+        //tr.id = "row" +product.id;
+        //tr.appendChild(tdN);
+        //tr.appendChild(tdP);
+        //tr.appendChild(tdC);
+        //tr.appendChild(tdO);
+        //window.parent.document.getElementById("tablebody").appendChild(tr);
+        window.parent.location.reload(true);
     }else{       
         value = parseInt(value) + 1;
         setCookie("cart"+win+"com"+product.id,value,365);
@@ -205,10 +226,12 @@ function AddItem2(win,num){
     var count = parseInt(count) + 1;
     setCookie("cart"+win+"com"+product.id,count,365);  
     
+
     var money = parseInt(cart_money) + product.price;//15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
-    document.getElementById('f_money').innerHTML = '¥ '+ money;
-    document.getElementById('count'+product.id).innerHTML = count;
+    location.reload(true);
+    //document.getElementById('f_money').innerHTML = '¥ '+ money;
+    //document.getElementById('count'+product.id).innerHTML = count;
    // checkCookie(win);
     
     document.getElementById('shopping_cart').style.display = 'block'; 
@@ -221,6 +244,7 @@ function RedItem2(win,num){
     var count = getCookie("cart"+win+"com"+num);
     if(parseInt(count)==1){ 
         DelCookie("cart"+win+"com"+num);
+
     }else{
         var count = parseInt(count) - 1;
         setCookie("cart"+win+"com"+num,count,365);  
@@ -229,8 +253,9 @@ function RedItem2(win,num){
     var money = parseInt(cart_money) - product.price; //15是商品价格 还未交互
     setCookie("cartmoney"+win,money,365);  
     //checkCookie(win);
-    document.getElementById('f_money').innerHTML = '¥ '+ money;
-    document.getElementById('count'+product.id).innerHTML = count;
+    location.reload(true);
+    //document.getElementById('f_money').innerHTML = '¥ '+ money;
+    //document.getElementById('count'+product.id).innerHTML = count;
 }
 
 function DelAllItem(win){
@@ -266,8 +291,9 @@ function DelItem2(win,num){
     var money = parseInt(cart_money) - product.price * parseInt(count);
     setCookie("cartmoney"+win,money,365);  
     DelCookie("cart"+win+"com"+product.id);
-    document.getElementById('row'+product.id).remove();
-    document.getElementById('f_money').innerHTML = '¥ '+ money;
+    location.reload(true);
+    //document.getElementById('row'+product.id).remove();
+    //document.getElementById('f_money').innerHTML = '¥ '+ money;
     //checkCookie(win);
     document.getElementById('shopping_cart').style.display = 'block'; 
 }

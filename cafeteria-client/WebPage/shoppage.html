@@ -1,68 +1,174 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>顺道儿——菜单</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css\general_style.css" rel="stylesheet" type="text/css" />
-        <link href="css\shop_style.css" rel="stylesheet" type="text/css"/>
-        <link href="css\cart_style.css" rel="stylesheet" type="text/css" />
-        <script src="js/menu.js"></script>
+        <link href="css/general_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/shop_style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/cart_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script src = "js/menu.js"></script>
+        <script src = "js/cookies.js"></script>
+        <script type = "text/javascript">
+        setInterval('change_pic(pic_array);',10000);
+        function getMesshall(){
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:'http://api.byway.net.cn/v1/canteens/',
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        var hds = document.getElementById('messhall');
+                        for(i in obj)
+                        {
+                            var y = document.createElement('option');
+                            y.text = obj[i].name;
+                            hds.add(y,null);
+                        }  
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                    }
+                });
+        }
+        var url;
+        function pic()
+        {
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:'http://api.byway.net.cn/v1/heatproducts/',
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        loadh(obj);   
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                    }
+                });
+        }
+        function loadh(arr)
+        {
+            pic_array = new Array(4);
+                for(i in arr)
+                    pic_array[i] = arr[i].picture;
+            change_pic(pic_array);
+        }
+        function initData(div_id)
+        {
+
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:'http://api.byway.net.cn/v1/home/',
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        var jsonw = eval(obj.windows_data)
+                        {
+                            for(var i = 1;i<=jsonw.length;i++)
+                            {
+                                loadObject(jsonw,div_id);
+                            }
+                        }
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                        for(i in jsonResult)
+                        {
+                            alert(i+jsonResult[i]);
+                        }
+                    }
+                });
+        }
+        function getData(div_id){
+            url =  'http://api.byway.net.cn/v1/canteens/'+getCanteen_id()+'/';
+            $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        var jsonw = eval(obj.windows_data)
+                        {
+                            for(var i = 1;i<=jsonw.length;i++)
+                            {
+                                loadObject(jsonw,div_id);
+                            }
+                        }
+                        
+                    },
+                    error:function(jsonResult){
+                        alert("error");
+                        for(i in jsonResult)
+                        {
+                            alert(i+jsonResult[i]);
+                        }
+                    }
+                });
+                
+        }
+        function loadwid(is)
+        {
+            window.location.href = 'windowpage.html?'+is;
+        }
+        function loadObject(arr,div_id)
+        {
+            var txt = "";
+            for(i in arr)
+            {
+                txt+='<a onclick = "loadwid('+arr[i].id+')">'+
+                '<div class="cart_data" style="margin-top: 0px;">'+  
+                '<img class="dishpic" src="'+arr[i].picture+'" alt="食物图片"/>'+'<img class="spf" src="Images/icon/arrow2.png" alt="详情"/>'+
+                '<span class="di_name">'+arr[i].name+'</span>';
+                    for(var j = 1;j<=5;j++)
+                    {
+                        if(j<=arr[i].score)
+                         txt+='<img class = "rank'+j+'" src="Images/icon/star1.png" alt=""/>';
+                        else
+                            txt+='<img class = "rank'+j+'"src="Images/icon/star.png" alt=""/>';
+
+                    }
+                    txt+=
+                    '<span class="di_date">销量'+arr[i].sold_num+ '</span></div></a>';
+            }
+            document.getElementById(div_id).innerHTML = txt;
+        }
+    </script>
     </head>
-    <body onload="javascript:setInterval('change_pic();',10000);change_pic()" >   
+    <body onload="initData('store_body');pic();getMesshall()" >
     <div class="header">
-        <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>           
+        <img class="back" style="height: 24px;padding-top: 7px;" src="Images/icon/white_logoicon.png" alt=""/>           
         <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>
         <img src="Images/icon/coodicon.png" alt="cood:" class="cood"/> 
-        <select id="messhall">
-            <option>学活一层</option>
-            <option>学活二层</option>
-            <option>四食堂一层</option>
+        <select id="messhall" onchange = "change()">
         </select>
+        <script type="text/javascript">
+            function change()
+            {
+                setCanteen_id(document.getElementById('messhall').selectedIndex+1);
+                getData('store_body');
+            }
+        </script>
     </div>
     <div class="clearfix_head"></div>
+
     <div>
         <a href="searchpage.html"><input type="text" class="search" placeholder="搜索热门菜品"/></a>
     </div>
     
     <div class="pic_box"> 
         <div class="pic_menu">
-            <a onclick="change_pic()"><img src="Images/icon/change.png" alt="change"/> </a>
+            <a onclick="pic()"><img src="Images/icon/change.png" alt="change"/> </a>
         </div>       
         <img class="pic_lo"  id="pic_lo" alt=""/>
     </div>
-    
-	<a href="windowpage.html">
-	    <div class="cart_data" style="margin-top: 0px;">		
-                <img class="dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>
-                <span class="di_name">一号窗口</span>
-                <img class="rank1" src="Images\icon\star1.png" alt=""/><img class="rank2" src="Images\icon\star1.png" alt=""/>
-                <img class="rank3" src="Images\icon\star1.png" alt=""/><img class="rank4" src="Images\icon\star1.png" alt=""/>
-                <img class="rank5" src="Images\icon\star.png" alt=""/>     
-                <span class="di_date">销量 1.1 万</span>
-            </div>
-        </a>
-
-    <a href="windowpage.html">
-	    <div class="cart_data" style="margin-top: 0px;">		
-                <img class="dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/><img class="spf" src="Images/icon/arrow2.png" alt="详情"/>
-                <span class="di_name">二号窗口</span>
-                <img class="rank1" src="Images\icon\star1.png" alt=""/><img class="rank2" src="Images\icon\star1.png" alt=""/>
-                <img class="rank3" src="Images\icon\star1.png" alt=""/><img class="rank4" src="Images\icon\star1.png" alt=""/>
-                <img class="rank5" src="Images\icon\star.png" alt=""/>     
-                <span class="di_date">销量 2 万</span>
-            </div>
-        </a>
-       
+    <div id = "store_body">
+     </div>  
     <div class="clearfix_foot"></div>
     <div class="footer" > 
             <table>
-                <tr >
+                <tr style="text-align: center;font-size: 9px;">
                     <td><a href="shoppage.html"  id="present"><img class="mymenu" id="menu_bar" src="Images/icon/shop1.png" alt="菜单" /><br/>菜单</a></td>
                     <td><a href="songpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="订单" /><br/>订单</a></td>
                 </tr>

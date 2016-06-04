@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css\window_style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/window_style.css" rel="stylesheet" type="text/css"/>
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script src="js/cookies.js"></script>
         <script type = "text/javascript">
@@ -41,7 +41,7 @@ and open the template in the editor.
                                 {
                                     txt+='<div class="i_cart_data">'+'<img class="i_dishpic" src="'+jsonp[i].products[j].picture+'" alt="食物图片"/>'+
                                         '<span class="i_di_name">'+jsonp[i].products[j].name+'</span>'+
-                                        '<span class="i_di_money">¥'+jsonp[i].products[j].price+'</span>'+
+                                        '<span class="i_di_money">¥ '+jsonp[i].products[j].price+'</span>'+
                                         '<span class="i_di_sell">热销'+jsonp[i].products[j].sold_num+'</span>'+ 
                                         '<img onclick = "addToCart2('+win+','+jsonp[i].products[j].id+')" class = "i_add_cart" src = "Images/icon/add.png" alt = "＋"/></div>';
                                 }

@@ -6,19 +6,20 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>顺道儿——购物车</title>
+        <title>顺道儿食堂端——历史订单</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/general_style.css" rel="stylesheet" type="text/css" />
         <link href="css/cart_style.css" rel="stylesheet" type="text/css" />
         <script src = "js/jquery-1.8.2.min.js"></script>
-        <script type = "text/javascript">
-        var r;
-        var txt = '';
-        //var url = 'http://api.byway.net.cn/v1/orders/?query_type=deliver&canteen_id='+getCanteen_id()+'/';
-
+        <script type="text/javascript">
+        var txt = "";
+        function loadl(is)
+        {
+            window.location.href = "song_orderform.html?"+is;
+        }
         function getData(div_id){
-            var url =  'http://api.byway.net.cn/v1/orders/?query_type=msending';
+            var url =  'http://api.byway.net.cn/v1/orders/?query_type=canteen&canteen_id=1&expect_status=7';
              $.ajax({
                     async:false,
                     xhrFields:{withCredentials:true},
@@ -26,10 +27,12 @@ and open the template in the editor.
                     url:url,
                     success:function(str){
                         var obj = JSON.parse(str);
-                        if(typeof(obj.length)=='undefined')
-                            loadObject(obj);
-                        else
-                            loadJSON(obj);
+                        if(obj.length!=0){
+                            if(typeof(obj.length)=='undefined')
+                                loadObject(obj);
+                            else
+                                loadJSON(obj);
+                        }
                         document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
@@ -45,9 +48,9 @@ and open the template in the editor.
                 txt+='<div class="cart_data">'+
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
-                '<span class="di_al">这枚订单正在配送</span>'+
-                '<input class="acpt_button" type="button" value="已送达" />'+
-                '<p class="di_date">期望送达时间：'+arr.expect_time+'</p></div>';
+                '<span class="di_al">这枚订单正在等待好心人</span>'+
+                '<p class="di_date">送达时间：'+arr.finish_time+'</p></div>';
+                //document.getElementById(div_id).innerHTML = txt;
             }
         }
 
@@ -61,35 +64,30 @@ and open the template in the editor.
                     txt+='<div class="cart_data">'+
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
-                          '<span class="di_al">这枚订单正在配送</span>'+
-                          '<input class="acpt_button" type="button" value="已送达" />'+
+                          '<span class="di_al">这枚订单正在等待好心人</span>'+
                           '<p class="di_date">期望送达时间：'+arr[i].expect_time+'</p></div>';
                   //  flag = true;
             
                 }
                 
             }
+            //if(flag==true)
+             // document.getElementById(div_id).innerHTML = txt;
         }
-        function loadl(is)
-        {
-            window.location.href = 'orderpage.html?'+is;
-        }
-        
-        
-            
         </script>
     </head>
     <body onload = "getData('cart_body')">
         <div class="header">
-            <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
-            <table class="header_table" style="left: 24%;">
+            <img class="back" style="height: 24px;padding-top: 7px;" src="Images/icon/white_logoicon.png" alt=""/>
+            <table class="header_table" style="left: 14%;">
                 <tr>
-                    <td class="header_table_tdleft"><a href="songpage.html"> &nbsp待送订单&nbsp </a></td>
-                    <td  class="header_table_tdleft"  style="background-color: rgba(255,255,255,0.3)"><a href="song_taken_page.html">&nbsp已接订单&nbsp</a></td>
-                    <td><a href="song_history_page.html">&nbsp历史订单&nbsp</a></td>
+                    <td class="header_table_tdleft" > <a href="songpage.html">&nbsp待接订单&nbsp</a></td>
+                    <td class="header_table_tdleft" ><a href="song_taken_page.html">&nbsp待送订单&nbsp</a></td>
+                    <td class="header_table_tdleft"><a href="song_3_page.html">&nbsp配送订单&nbsp</a></td>
+                    <td  style="background-color: rgba(255,255,255,0.3)"><a href="song_history_page.html">&nbsp历史订单&nbsp</a></td>
                 </tr>
             </table>
-            <img class="scan" src="Images/icon/scanicon.png" alt="scan"/>
+            <a href="camerapage.html"><img class="scan" src="Images/icon/scanicon.png" alt="scan"/></a>
         </div>
         <div class="clearfix_head"></div>
         
@@ -100,12 +98,12 @@ and open the template in the editor.
         <div class="footer">
             <table>
                 <tr >
-                    <td><a href="shoppage.html" id="present"><img class="mymenu" id="menu_bar" src="Images/icon/shop.png" alt="菜单" /><br/>菜单</a></td>
-                    <td><a href="cartpage.html"><img class="mymenu" id="cart_bar" src="Images/icon/cart.png" alt="购物车" /><br/>&nbsp购物车</a></td>
-                    <td><a href="songpage.html"><img class="mymenu" id="song_bar" src="Images/icon/song1.png" alt="配送"><br/>配送</a> </td>
-                    <td><a href="mepage.html"><img class="mymenu" id="me_bar" src="Images/icon/me.png"  alt="我的" /><br/>我的</a></td>
+                    <td><a href="shoppage.html" ><img class="mymenu" id="menu_bar" src="Images/icon/shop.png" alt="菜单" /><br/>菜单</a></td>
+                    <td><a href="songpage.html" id="present"><img class="mymenu" id="cart_bar" src="Images/icon/cart1.png" alt="订单" /><br/>&nbsp订单</a></td>               
                 </tr>
             </table>
         </div>
     </body>
 </html>
+
+

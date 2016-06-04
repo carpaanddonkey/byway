@@ -9,13 +9,42 @@ and open the template in the editor.
         <title>付款信息</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css\general_style.css" rel="stylesheet" type="text/css" />
-        <link href="css\paypage_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/general_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/paypage_style.css" rel="stylesheet" type="text/css" />
         <script src="js/cookies.js"></script>
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script type = "text/javascript">
+        var r = window.location.search;
+            r = r.replace('?','');
+        var winid   = 1;
+        function getwin()
+        {
+            var url = 'http://api.byway.net.cn/v1/orders/'+r;
+                $.ajax({
+                    async:false,
+                    type:"get",
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        var p = JSON.parse(str);
+                        winid = p.window_id;
+                        initPaypage(winid)
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                       }
+                });
+        }
+        function load()
+        {
+            window.location.href = 'paymentsuccess.html?'+r;
+        }
+        </script>
     </head>
-    <body onload="initPaypage(1)">
+    <body onload="getwin();">
         <div class="header">
-            <a href="orderform.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
+            <a onclick = "javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;付款详情</span>
         </div>
         <div class="clearfix_head"></div>
@@ -32,7 +61,7 @@ and open the template in the editor.
                     <span class="cost_money" id="cost_money">13 元</span></p></div>
         </div>
         <div class="clearfix_foot"></div>
-        <a href="paymentsuccess.html"><input class="paybutton" type="button" value="确认付款"/></a>
+        <a onclick = "load()"><input class="paybutton" type="button" value="确认付款"/></a>
     </body>
 </html>
 

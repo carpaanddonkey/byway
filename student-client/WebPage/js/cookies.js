@@ -69,7 +69,7 @@ function getProlist()
 }
 
 function initPaypage(win){
-    cart_money = getCookie("cartmoney"+win);
+    var cart_money = getCookie("cartmoney"+win);
     document.getElementById('cost_money').innerHTML = '¥ '+ cart_money;
 }
 /*

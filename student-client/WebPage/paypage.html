@@ -16,7 +16,6 @@ and open the template in the editor.
         <script type = "text/javascript">
         var r = window.location.search;
             r = r.replace('?','');
-        var winid   = 1;
         function getwin()
         {
             var url = 'http://api.byway.net.cn/v1/orders/'+r;
@@ -27,8 +26,8 @@ and open the template in the editor.
                     url:url,
                     sucess:function(str){
                         var p = JSON.parse(str);
-                        winid = p.window_id;
-                        initPaypage(winid)
+                        var winid = p.window_id;
+                        initPaypage(winid);
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult);

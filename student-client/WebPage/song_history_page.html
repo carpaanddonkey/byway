@@ -49,7 +49,7 @@ and open the template in the editor.
                 '<img class="dishpic" src="'+arr.window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr.id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                 '<span class="di_name">'+arr.window_name+'</span>'+
                 '<span class="di_al">这枚订单已被确认送达啦</span>'+
-                '<p class="di_date">送达时间：'+arr.finish_time+'</p></div>';
+                '<p class="di_date">送达时间：'+arr.finished_time+'</p></div>';
                 //document.getElementById(div_id).innerHTML = txt;
             }
         }
@@ -65,7 +65,7 @@ and open the template in the editor.
                           '<img class="dishpic" src="'+arr[i].window_icon+'" alt="食物图片"/><a onclick = "loadl('+arr[i].id+')"><img class="spf" src="Images/icon/arrow2.png" alt="详情"/></a>'+
                           '<span class="di_name">'+arr[i].window_name+'</span>'+
                           '<span class="di_al">这枚订单已被确认送达啦</span>'+
-                          '<p class="di_date">期望送达时间：'+arr[i].finish_time+'</p></div>';
+                          '<p class="di_date">送达时间：'+arr[i].finished_time+'</p></div>';
                   //  flag = true;
             
                 }

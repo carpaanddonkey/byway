@@ -25,9 +25,9 @@ and open the template in the editor.
                     xhrFields:{withCredentials:true},
                     url:url,
                     sucess:function(str){
-                        var p = JSON.parse(str);
-                        var winid = p.window_id;
-                        initPaypage(winid);
+                        //var p = JSON.parse(str);
+                        //var winid = p.window_id;
+                        initPaypage(str.window_id);
                     },
                     error:function(jsonResult){
                         var l = JSON.parse(jsonResult);

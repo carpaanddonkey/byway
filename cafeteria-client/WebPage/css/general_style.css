@@ -20,7 +20,7 @@ and open the template in the editor.
     height: 40px;
     width: 100%;
     color: white;
-    font-family: "楷体";
+    font-family: "kaiti";
     font-size: 17px;
     
     clear: both;
@@ -41,7 +41,7 @@ and open the template in the editor.
 
 .clearfix_head{  height: 40px; }  .clearfix_foot{  height: 45px;}
 .theme{
-    font-family: "黑体";
+    font-family: "simhei";
     position: fixed;
     top: 11px;
     font-size: 16px;
@@ -62,7 +62,7 @@ and open the template in the editor.
     position:fixed;
     left: 0px;
     bottom: 0px;
-    font-family: "黑体";
+    font-family:"simhei";
     text-align: center;
     width: 100%;
     height: 43px;
@@ -109,13 +109,13 @@ and open the template in the editor.
     left: 33%;
     height: 23px;
     font-size: 13px;
-    font-family: "黑体";
+    font-family: "simhei";
     
 }
 
 .header_table a{
     font-size: 13px;
-    font-family: "黑体";
+    font-family:"simhei";
     text-decoration: none;
     color: white;
 }

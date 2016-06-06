@@ -98,7 +98,9 @@ and open the template in the editor.
                                 '<a onclick = "loadl('+r+')"><img class="spf" style="top:90px" src="Images/icon/arrow2.png" alt="详情" /></a></div>'+
         
                                 '<div class="order_info">'+
-                                '<p class="order_name">'+obj.window_name+'<input type="button" class="chang_al" value="确认送达" onclick = "update('+r+')"/></p><div class="order_menu"><br/>';
+                                '<p class="order_name">'+obj.window_name;
+								if(obj.status!=7&&obj.status!='7')
+									txt+='<input type="button" class="chang_al" value="确认送达" onclick = "update('+r+')"/></p><div class="order_menu"><br/>';
                                 for(i in obj["product_details"])
                                 {
                                     txt+='<p class="menu_cai"><span class="menu_name">'+obj["product_details"][i].product_name+'</span> <span class="menu_cot">x '+obj["product_details"][i].product_count+'</span> <span class="menu_cost">'+obj["product_details"][i].col_price+' 元</span></p>';
@@ -112,7 +114,7 @@ and open the template in the editor.
                                         '<p>下单时间：<span>'+obj.created_at+'</span></p>'+
                                         '<p>送达地址：<span>'+obj.address+'</span></p>'+
                                         '<p>希望送达时间：<span>'+obj.expect_time+'</span></p></div>';
-                                if(obj.status==4){
+                                if(obj.status==4||obj.status=='4'){
                                     txt+='<a onclick = "update('+obj.id+')"><div class="order_footer"><span>接 单</span></div></a>';
                                 } 
                                 //if(obj.status>3){

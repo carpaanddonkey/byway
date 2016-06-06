@@ -16,23 +16,20 @@ and open the template in the editor.
         <script type = "text/javascript">
         var r = window.location.search;
             r = r.replace('?','');
-        function getwin()
-        {
-            var url = 'http://api.byway.net.cn/v1/orders/'+r;
-                $.ajax({
+        function getData(){
+            var url =  'http://api.byway.net.cn/v1/orders/'+r+'/';
+            $.ajax({
                     async:false,
                     type:"get",
-                    xhrFields:{withCredentials:true},
                     url:url,
-                    sucess:function(str){
-                        //var p = JSON.parse(str);
-                        //var winid = p.window_id;
-                        initPaypage(str.window_id);
+                    xhrFields:{withCredentials:true},
+                    success:function(str){
+                        var obj = JSON.parse(str);
+						initPaypage(obj.window_id); 
                     },
                     error:function(jsonResult){
-                        var l = JSON.parse(jsonResult);
-                        alert(l.msg);
-                       }
+                        alert("error");
+                    }
                 });
         }
         function load()
@@ -41,7 +38,7 @@ and open the template in the editor.
         }
         </script>
     </head>
-    <body onload="getwin();">
+    <body onload="getData()">
         <div class="header">
             <a onclick = "javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;付款详情</span>

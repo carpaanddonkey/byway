@@ -129,6 +129,8 @@ class Order(models.Model):
 			order_dict['deliver'] = u'暂时无人接单'
 		else:
 			order_dict['deliver'] = deliver.name
+		if self.status == ORDER_COMPLETED:
+			order_dict['finished_time'] = OrderRecord.objects.get(order_id=self).finish_time.strftime('%m-%d %H:%M')
 		order_dict['product_details'] = self.get_order_details()
 		return order_dict
 

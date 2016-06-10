@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -11,66 +10,59 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/window_style.css" rel="stylesheet" type="text/css"/>
+        <script src = "js/jquery-1.8.2.min.js"></script>
         <script src="js/cookies.js"></script>
+        <script type = "text/javascript">
+        var windows;
+        //var product;
+        var txt = "";
+        var r = window.location.search;
+            r = r.replace('?','');
+        //function test = 
+        function getData(div_id){
+            
+            var url =  'http://api.byway.net.cn/v1/windows/'+r+'/';
+            $.ajax({
+                    async:true,
+                    type:"get",
+                    url:url,
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        var win = obj.window.id;
+                        var k = 1;
+                        var jsonp = eval(obj.products_data);
+                        {
+                           // txt+='<div class="shop_list" id = "shop_list">';
+                            for(i in jsonp)
+                            {
+
+                                txt+='<p id = "i'+k+'">'+jsonp[i].category+'</p>';
+                                for(j in jsonp[i].products)
+                                {
+                                    txt+='<div class="i_cart_data">'+'<img class="i_dishpic" src="'+jsonp[i].products[j].picture+'" alt="食物图片"/>'+
+                                        '<span class="i_di_name">'+jsonp[i].products[j].name+'</span>'+
+                                        '<span class="i_di_money">¥ '+jsonp[i].products[j].price+'</span>'+
+                                        '<span class="i_di_sell">热销'+jsonp[i].products[j].sold_num+'</span>'+ 
+                                        '<img onclick = "addToCart2('+win+','+jsonp[i].products[j].id+')" class = "i_add_cart" src = "Images/icon/add.png" alt = "＋"/></div>';
+                                }
+                                k++;
+                            }
+                        }
+                        document.getElementById(div_id).innerHTML = txt;
+                    },
+                    error:function(str){
+                        alert("error");
+                    }
+                });
+        }
+    </script>
+    
     </head>
-    <body>
-        <div class="shop_list">
-            <p id="i1">经典鸡米饭</p>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/>
-                <span class="i_di_name">黄焖鸡米饭</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(1,1)"/>
-            </div>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/>
-                <span class="i_di_name">绿焖米饭</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(2,1)"/>
-            </div>
-            <p id="i2">云南米线</p>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/dumpling.jpg" alt="食物图片"/>
-                <span class="i_di_name">鱼丸</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(3,1)"/>
-            </div>
+    <body onload = "getData('shop_list')">
+        <div class="shop_list" id = 'shop_list'>
             
-            
-            <p id="i3">鸡米饭</p>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/>
-                <span class="i_di_name">黄焖鸡米饭</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(4,1)"/>
-            </div>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/>
-                <span class="i_di_name">绿焖米饭</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(5,1)"/>
-            </div>
-            
-            <p id="i4">米线</p>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/fen.jpg" alt="食物图片"/>
-                <span class="i_di_name">黄焖鸡米饭</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(6,1)"/>
-            </div>
-            <div class="i_cart_data">
-                <img class="i_dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/>
-                <span class="i_di_name">绿焖米饭</span>  
-                <span class="i_di_money">¥ 15</span>
-                <span class="i_di_sell">热销 15 份</span>  
-                <img class="i_add_cart" src="Images/icon/add.png" alt="＋" onclick="addToCart(7,1)"/>
-            </div>
         </div>
+        
     </body>
+
 </html>

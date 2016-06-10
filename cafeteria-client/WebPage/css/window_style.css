@@ -192,6 +192,8 @@ iframe{
 }
 
 .i_add_cart{
+    display: none;
+
     height: 18px;
     position: absolute;
     left: 88%;;

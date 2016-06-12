@@ -25,14 +25,21 @@ def post_ships(request):
 	room_no = ship_data.get('room_no', 0)
 	address = ship_data.get('address', u'无')
 
-	ship_info = Ship()
-	ship_info.customer_id = Customer.objects.get(id=request.user.id)
-	ship_info.receiver_name = receiver_name
-	ship_info.phone = phone
-	ship_info.dormitory_no = dormitory_no
-	ship_info.room_no = room_no
-	ship_info.address = address
-	ship_info.save()
+	# support del
+	is_del = ship_data.get('is_del', 0)
+
+	if is_del == 0:
+		ship_info = Ship()
+		ship_info.customer_id = Customer.objects.get(id=request.user.id)
+		ship_info.receiver_name = receiver_name
+		ship_info.phone = phone
+		ship_info.dormitory_no = dormitory_no
+		ship_info.room_no = room_no
+		ship_info.address = address
+		ship_info.save()
+	else:
+		ship_id = ship_data.get('address_id')
+		Ship.objects.get(id=ship_id).delete()
 
 	content = dict()
 	content['status'] = 201

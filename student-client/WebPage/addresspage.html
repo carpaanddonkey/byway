@@ -36,7 +36,7 @@
                                 }
                                 else
                                 {
-                                    txt+='<div class="add"><img src="Images/icon/closeicon.png" alt="del"/>'+
+                                    txt+='<div class="add"><a onclick = "delAddress('+json[i].id+')"><img src="Images/icon/closeicon.png" alt="del"/></a>'+
                                      '<p>收货人：<span>'+jsonp[i].receiver_name+'</span><span class="cus_phone">'+
                                      jsonp[i].phone+'</span></p><p>送达地址：<span>'+jsonp[i].address+'</span></p></div>';
                                 }
@@ -52,6 +52,22 @@
                 });
                     
             }
+			function delAddress(Add_id)
+			{
+                $.ajax({
+                    async:false,
+                    type:"POST",
+                    url:'http://api.byway.net.cn/v1/ships/',
+                    xhrFields:{withCredentials:true},
+                    data:JSON.stringify(Add_id),
+                    success:function(jsonResult){
+                        window.location.reload(true);
+                    },
+                    error:function(jsonResult){
+                        window.location.reload(true);
+                    }
+                });
+			}
             function addAddress()
             {
                 o['receiver_name'] = document.getElementById('rec_name').value;

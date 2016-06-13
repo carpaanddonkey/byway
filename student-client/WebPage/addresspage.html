@@ -54,11 +54,13 @@
             }
 			function delAddress(add_is)
 			{
+				var del = {"is_del":1,"address_id":""};
+				del['address_id'] = add_is;
 				$.ajax({
                     async:false,
                     type:"POST",
                     url:'http://api.byway.net.cn/v1/ships/',
-                    data:JSON.stringify(add_is),
+                    data:JSON.stringify(del),
                     xhrFields:{withCredentials:true},
                     success:function(jsonResult){
                         window.location.reload(true);

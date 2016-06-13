@@ -1,0 +1,76 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2016-6-12, 23:08:18
+    Author     : Bluewhale
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+   
+}
+.window_header{
+    position: fixed;
+    background-color: #92c1ef;
+    height: 320px;
+    width: 100%;
+    color: white;
+    font-family: "楷体";
+    font-size: 17px;
+    
+    clear: both;
+    z-index: 100;
+}
+
+.back{
+    position: absolute;
+    padding-top: 17px;
+    padding-left: 17px;
+    height: 15px;
+}
+
+.dishpic{
+    position: absolute;
+    left: 15%;
+    top:100px;
+    height: 60%;
+    width: 70%;
+}
+.di_name{
+    position: absolute;
+    top:40px;
+    left: 15%;
+    
+    font-family: "simhei";
+    color: white;
+    font-size: 16px;
+}
+.di_al{
+    position: absolute;
+    top:350px;
+    left: 15%;
+    font-size: 15px;
+    color: #323232;
+    font-family: "simhei";
+}
+
+.di_sell{
+    color: #F8F8F8;
+    position: absolute;
+    top:70px;
+    left: 15%;
+    font-size: 13px;
+    font-family: "simhei";
+}
+
+.rank1,.rank2,.rank3,.rank4,.rank5{
+    position: absolute;
+    top:40px;
+    height: 15px;
+}
+
+.rank1{left: 60%;} .rank2{left: 64%;} .rank3{left: 68%;} .rank4{left: 72%;}.rank5{left: 76%;}

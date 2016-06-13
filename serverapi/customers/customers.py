@@ -46,11 +46,17 @@ def post_customer(request):
 	mail = customer_data.get('mail', None)
 	phone = customer_data.get('phone', None)
 	password = customer_data.get('password', None)
+	name = customer_data.get('name', u'狗蛋儿')
 
 	if mail is None or password is None or phone is None:
 		content = dict()
 		content['status'] = 422
 		content['msg'] = u'信息缺失'
+		return create_simple_response(422, json.dumps(content))
+	if str(mail).split('@')[-1] != 'bjtu.edu.cn':
+		content = dict()
+		content['status'] = 422
+		content['msg'] = u'邮箱不符,现阶段只对北京交大邮箱开放注册'
 		return create_simple_response(422, json.dumps(content))
 
 	new_customer = Customer()
@@ -58,6 +64,7 @@ def post_customer(request):
 	new_customer.phone = phone
 	new_customer.password = password
 	new_customer.token = generate_token()
+	new_customer.name = name
 	if_signed = new_customer.signup_customer()
 
 	if if_signed:

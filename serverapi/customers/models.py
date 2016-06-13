@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from django.utils import timezone
 from django.db import models
 from django.forms.models import model_to_dict
+from django.contrib.auth.models import User
 
 from util.response_util import *
 
@@ -28,7 +31,12 @@ class Customer(models.Model):
 		customer_by_phone = self.get_customer_by_phone()
 		if customer_by_mail is None and customer_by_phone is None:
 			self.save()
-			return True
+			# 检查是否和auth_user冲突
+			if not User.objects.filter(id=self.id):
+				return True
+			else:
+				self.delete()
+				return False
 		else:
 			return False
 

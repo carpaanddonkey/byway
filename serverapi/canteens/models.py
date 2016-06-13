@@ -48,6 +48,7 @@ class Product(models.Model):
 	def to_dict(self):
 		self.picture = BASE_SCHEMES + API_BASE + self.picture
 		product_dict = model_to_dict(self)
+		product_dict['window_id'] = self.category_id.window_id.id
 		return product_dict
 
 

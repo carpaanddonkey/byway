@@ -28,9 +28,10 @@ def get_customer(request, customer_id=None):
 			validate_token = request.GET.get('token', None)
 			Customer.objects.filter(id=int(customer_id), token=validate_token).update(status=1)
 			new_user = User.objects.create_user(customer.mail, customer.mail, customer.password)
+			User.objects.filter(email=customer.mail).update(id=customer_id)
 			content['status'] = 201
 			content['msg'] = u'验证成功'
-			return create_simple_response(201, json.dumps(content))
+			return create_simple_response(201, u'验证成功')
 		else:
 			content = customer.to_dict()
 			return create_simple_response(200, json.dumps(content))
@@ -38,7 +39,7 @@ def get_customer(request, customer_id=None):
 		print(e)
 		content['status'] = 404
 		content['msg'] = '未找到'
-		return create_simple_response(404, json.dumps(content))
+		return create_simple_response(404, u'失败')
 
 
 def post_customer(request):

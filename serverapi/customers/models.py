@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.utils import timezone
 from django.db import models
 from django.forms.models import model_to_dict
@@ -30,7 +32,7 @@ class Customer(models.Model):
 		if customer_by_mail is None and customer_by_phone is None:
 			self.save()
 			# 检查是否和auth_user冲突
-			if User.objects.filter(id=self.id):
+			if not User.objects.filter(id=self.id):
 				return True
 			else:
 				self.delete()

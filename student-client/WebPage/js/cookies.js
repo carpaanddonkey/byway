@@ -179,8 +179,23 @@ function checkCookie(win){          //窗口号
 
 }
 
+function stopBubble(e){             //阻止事件冒泡和浏览器默认行为
+    //如果提供了事件对象，则这是一个非IE浏览器 
+    if ( e && e.stopPropagation ) 
+        e.stopPropagation(); 
+    else 
+        window.event.cancelBubble = true; 
+    
+    if ( e && e.preventDefault ) 
+        e.preventDefault(); 
+    else 
+        window.event.returnValue = false; 
+    return false; 
+}
 
 function addToCart2(win,num){       //num是商品号，按顺序从1开始  win是窗口号
+    stopBubble(event);
+
    // win = 1;
     getProduct(num);
     //var product = JSON.parse(str);

@@ -172,12 +172,12 @@
                         var mk = new BMap.Marker(r.point);
                         map.addOverlay(mk);
                         map.panTo(r.point);
-                        disXUEHUO = map.getDistance(point,pointDONGQUSHITANG);
+                        disXUEHUO = map.getDistance(point,pointXUEHUO);
                         disYISHITANG = map.getDistance(point,pointYISHITANG);
                         disDONGQUSHITANG = map.getDistance(point,pointDONGQUSHITANG);
 
-                        alert('您的位置：'+r.point.lng+','+r.point.lat + "/n" + disXUEHUO +
-                              '/n' + disYISHITANG +'/n'+ disDONGQUSHITANG);
+                        alert('您的位置：'+r.point.lng+','+r.point.lat + "\n学活" + disXUEHUO +
+                              '\n一食堂' + disYISHITANG +'\n东区食堂'+ disDONGQUSHITANG);
 
 
                     }

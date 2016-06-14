@@ -179,8 +179,8 @@
                         disDONGQUSHITANG = map.getDistance(pointCurrent,pointDONGQUSHITANG);
                          
                         var max;
-                        if (disXUEHUO>=disYISHITANG>=disDONGQUSHITANG||disXUEHUO>=disDONGQUSHITANG>=disYISHITANG) max = "学活食堂";
-                            else if (disYISHITANG>=disXUEHUO>=disDONGQUSHITANG||disYISHITANG>=disDONGQUSHITANG>=disXUEHUO) max = "一食堂";
+                        if (disXUEHUO>=disYISHITANG&&disXUEHUO>=disDONGQUSHITANG) max = "学活食堂";
+                            else if (disYISHITANG>=disXUEHUO&&disYISHITANG>=disDONGQUSHITANG) max = "一食堂";
                             else max = "东区食堂";
 
                         var select = document.getElementById("messhall");  

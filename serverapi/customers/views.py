@@ -30,6 +30,8 @@ def post_login(request):
 		content['msg'] = u'用户名或密码为空'
 		return create_simple_response(422, json.dumps(content))
 	else:
+		if 'cafeteria' in request.path:
+			pass
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			if user.is_active:

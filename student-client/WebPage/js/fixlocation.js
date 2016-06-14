@@ -25,4 +25,3 @@
     //BMAP_STATUS_PERMISSION_DENIED 没有权限。对应数值“6”。(自 1.1 新增)
     //BMAP_STATUS_SERVICE_UNAVAILABLE   服务不可用。对应数值“7”。(自 1.1 新增)
     //BMAP_STATUS_TIMEOUT   超时。对应数值“8”。(自 1.1 新增)
-</script>

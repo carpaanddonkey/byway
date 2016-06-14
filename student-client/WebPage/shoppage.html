@@ -177,9 +177,23 @@
                         disXUEHUO = map.getDistance(pointCurrent,pointXUEHUO);
                         disYISHITANG = map.getDistance(pointCurrent,pointYISHITANG);
                         disDONGQUSHITANG = map.getDistance(pointCurrent,pointDONGQUSHITANG);
+                         
+                        var max;
+                        if (disXUEHUO>=disYISHITANG>=disDONGQUSHITANG||disXUEHUO>=disDONGQUSHITANG>=disYISHITANG) max = "学活食堂";
+                            else if (disYISHITANG>=disXUEHUO>=disDONGQUSHITANG||disYISHITANG>=disDONGQUSHITANG>=disXUEHUO) max = "一食堂";
+                            else max = "东区食堂";
+
+                        var select = document.getElementById("messhall");  
+                        for(var i=0; i<select.options.length; i++){  
+                            if(select.options[i].innerHTML == max){  
+                                select.options[i].selected = true;  
+                                break;  
+                            }  
+                        }  
+
 
                         alert('您的位置：'+r.point.lng+','+r.point.lat + "\n学活" + disXUEHUO +
-                              '\n一食堂' + disYISHITANG +'\n东区食堂'+ disDONGQUSHITANG);
+                              '\n一食堂' + disYISHITANG +'\n东区食堂'+ disDONGQUSHITANG + '\n' + max);
 
 
                     }

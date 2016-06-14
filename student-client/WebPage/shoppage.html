@@ -156,10 +156,15 @@
 
         <div id="allmap"></div>
         <script type="text/javascript">
+
                 // 百度地图API功能
                 var map = new BMap.Map("allmap");
-                var point = new BMap.Point(100.331398,39.897445);
-                map.centerAndZoom(point,12);
+                var point = new BMap.Point(116.344917,39.956254);
+                map.centerAndZoom(point,17);
+
+                var pointXUEHUO = new BMap.Point(116.344917,39.956254);    //学活餐厅坐标
+                var pointYISHITANG = new BMap.Point(116.349831,39.958812);   //一食堂坐标
+                var pointDONGQUSHITANG = new BMap.Point(116.352732,39.954105);   //东区食堂坐标
 
                 var geolocation = new BMap.Geolocation();
                 geolocation.getCurrentPosition(function(r){
@@ -167,7 +172,14 @@
                         var mk = new BMap.Marker(r.point);
                         map.addOverlay(mk);
                         map.panTo(r.point);
-                        alert('您的位置：'+r.point.lng+','+r.point.lat);
+                        disXUEHUO = map.getDistance(point,pointDONGQUSHITANG);
+                        disYISHITANG = map.getDistance(point,pointYISHITANG);
+                        disDONGQUSHITANG = map.getDistance(point,pointDONGQUSHITANG);
+
+                        alert('您的位置：'+r.point.lng+','+r.point.lat + "/n" + disXUEHUO
+                              '/n' + disYISHITANG +'/n'+ disDONGQUSHITANG);
+
+
                     }
                     else {
                         alert('failed'+this.getStatus());

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>顺道儿——购物车</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/general_style.css" type="text/css" />
+        <link href="css/cart_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript">
+        var o = {"new_status":3}
+        function update(){
+            var url = 'http://api.byway.net.cn/v1/orders/'+17+'/';
+            $.ajax({
+                    async:false,
+                    type:"POST",
+                    //dataType:"text",
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    url:url,
+                    sucess:function(str){
+                        alert("pp");
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult);
+                        alert(l.msg);
+                    }
+                });
+        }
+        </script>
+    </head>
+    <body onload = "update()">
+        <select name="t_hours" id="t_hours" >
+                    <option value="1">1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                    <option>0</option>
+                </select>
+    </body>
+</html>

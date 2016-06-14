@@ -9,8 +9,8 @@ and open the template in the editor.
         <title>顺道儿——登录</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css\welcome_style.css" rel="stylesheet" type="text/css" />
-        <link href="css\general_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/welcome_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/general_style.css" rel="stylesheet" type="text/css" />
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script src = "js/ajax.js"></script>
         <script type = "text/javascript">
@@ -24,22 +24,25 @@ and open the template in the editor.
                 o["password"] = password;
                 //ajax(url,JSON.stringify(o),'POST',su,err);
                 $.ajax({
-                    async:false,
+                    async:true,
                     type:"POST",
                     url:url,
                     data:JSON.stringify(o),
-                    xhrFields: { withCredentials:true },
+                    xhrFields:{withCredentials:true},
+                    crossDomain:true,
                     success:function(jsonResult){
                         flag = "shoppage.html";
+                        window.location.href = flag;
                     },
                     error:function(jsonResult){
                         flag = "loginpage.html";
                         var l = JSON.parse(jsonResult.responseText);
                         alert(l.msg);
                         alert("登陆失败！");
+                        window.location.href = flag;
                     }
                 });
-                window.location.href = flag;
+                
             }
             /*
             function su(str)
@@ -57,7 +60,7 @@ and open the template in the editor.
     </head>
     <body>
         <div class="header">
-            <img class="back" style="height: 24px;padding-top: 7px;" src="Images\icon\white_logoicon.png" alt=""/>
+            <img class="back" style="height: 24px;padding-top: 7px;" src="Images/icon/white_logoicon.png" alt=""/>
             <span class="theme" >&nbsp;&nbsp;BYWAY</span>
         </div>
         <div id="register_form">

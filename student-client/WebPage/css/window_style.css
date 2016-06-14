@@ -66,7 +66,7 @@ iframe{
 
 .window_header{
     position: fixed;
-    background-color: rgba(155,155,255,0.8);
+    background-color: #92c1ef;
     height: 150px;
     width: 100%;
     color: white;
@@ -196,6 +196,18 @@ iframe{
     position: absolute;
     left: 88%;;
     top: 43px;
+    transition:All 0.4s ease-in-out; 
+    -webkit-transition:All 0.4s ease-in-out; 
+    -moz-transition:All 0.4s ease-in-out;
+    -o-transition:All 0.4s ease-in-out;
+}
+
+.i_add_cart:hover{
+    transform:rotate(360deg) scale(1.2);   
+    -webkit-transform:rotate(360deg) scale(1.2);  
+    -moz-transform:rotate(360deg) scale(1.2); 
+    -o-transform:rotate(360deg) scale(1.2);  
+    -ms-transform:rotate(360deg) scale(1.2);
 }
 .f_scart{
     position: absolute;

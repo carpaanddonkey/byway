@@ -3,10 +3,35 @@
         <title>顺道儿——我的信息</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css\general_style.css" rel="stylesheet" type="text/css" />
-        <link href="css\me_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/general_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/me_style.css" rel="stylesheet" type="text/css" />
+        <script src = "js/jquery-1.8.2.min.js"></script>
+        <script>
+        var str = '{"status": 1, "name": "", "phone": "18813090635", "token": "bGoKEsTIatX", "score": 0, "mail": "13301052@bjtu.edu.cn", "icon": "/media/usericon/default.jpg"}';
+        var url = 'http://api.byway.net.cn/v1/user/';
+            function getData()
+            {
+               $.ajax({
+                    async:false,
+                    type:"get",
+                    url:url,
+                    xhrFields:{withCredentials:true},
+                    success:function(str){
+                        var obj = JSON.parse(str);
+                        document.getElementById('name').value = obj.name;
+                        document.getElementById('icon').src = obj.icon;
+                        document.getElementById('phone').value = obj.phone;
+                        document.getElementById('mail').value = obj.mail;
+                    },
+                    error:function(jsonResult){
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                    }
+                });
+            }
+        </script>
     </head>
-    <body>   
+    <body onload = "getData()">   
     <div class="header">
             <a href="mepage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;我的信息</span>
@@ -14,16 +39,15 @@
     <div class="clearfix_head"></div>
      
     <div class="head_me">
-        <img class="head_pic" src="Images/hh.jpg" alt="head"/>
+        <img id = "icon" class="head_pic" src="Images/hh.jpg" alt="head"/>
         <span>编辑头像</span>
         <img class="spf_me" src="Images/icon/arrow2.png" alt="详情"/>
     </div>
     
     <div class="per_info">
-        <div class="info"> <span>用户名</span> <input type="text" value="bluewhale"/> </div>
-        <div class="info"> <span>手机号</span> <input type="text" value="18811111111"/> </div>
-        <div class="info"> <span>性&nbsp;&nbsp;&nbsp;别</span> <input type="text" value="女"/> </div>
-        <div class="info"> <span>学&nbsp;&nbsp;&nbsp;校</span> <input type="text" value="北京交通大学"/> </div>
+        <div class="info" > <span >用户名</span> <input type="text" value="bluewhale" id = "name"/> </div>
+        <div class="info" > <span >手机号</span> <input type="text" value="18811111111" id = "phone"/> </div>
+        <div class="info" > <span>邮&nbsp;&nbsp;&nbsp;箱</span> <input type="text" value="北京交通大学" id = "mail"/> </div>
     </div>
     
     <div class="clearfix_foot"></div>

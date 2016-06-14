@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+
 from django.utils import timezone
 from django.db import models
+from django.forms.models import model_to_dict
+from django.contrib.auth.models import User
+
+from util.response_util import *
+
 
 ISOTIMEFORMAT = '%Y-%m-%d %X'
 
@@ -24,7 +31,12 @@ class Customer(models.Model):
 		customer_by_phone = self.get_customer_by_phone()
 		if customer_by_mail is None and customer_by_phone is None:
 			self.save()
-			return True
+			# 检查是否和auth_user冲突
+			if not User.objects.filter(id=self.id):
+				return True
+			else:
+				self.delete()
+				return False
 		else:
 			return False
 
@@ -49,7 +61,7 @@ class Customer(models.Model):
 		customer_dict['name'] = self.name
 		customer_dict['mail'] = self.mail
 		customer_dict['phone'] = self.phone
-		customer_dict['icon'] = self.icon
+		customer_dict['icon'] = BASE_SCHEMES + API_BASE + self.icon
 		customer_dict['score'] = self.score
 		customer_dict['token'] = self.token
 		customer_dict['status'] = self.status
@@ -58,6 +70,12 @@ class Customer(models.Model):
 
 class Ship(models.Model):
 	customer_id = models.ForeignKey(Customer)
+	receiver_name = models.CharField(max_length=50)
+	phone = models.CharField(max_length=20)
 	dormitory_no = models.IntegerField(default=0)
 	room_no = models.IntegerField(default=0)
 	address = models.CharField(max_length=255, default='')
+
+	def to_dict(self):
+		ship_dict = model_to_dict(self)
+		return ship_dict

@@ -4,10 +4,53 @@
         <title>用户注册——顺道儿</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css\welcome_style.css" rel="stylesheet" type="text/css" />
-        <link href="css\general_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/welcome_style.css" rel="stylesheet" type="text/css" />
+        <link href="css/general_style.css" rel="stylesheet" type="text/css" />
+		<script src = "js/jquery-1.8.2.min.js"></script>
+        <script type = "text/javascript">
+            var o = {"username":"","useremail":"","userphone":"","userpassword":""};
+            var flag = "0";
+            var url = "http://api.byway.net.cn/v1/login/";
+            function registe(){
+                var name = document.getElementById("user_name").value;
+                var password = document.getElementById("user_password").value;
+                var email = document.getElementById("user_email").value;
+				var phone = document.getElementById("user_phone").value;
+				var passwordrt = document.getElementById("passwordrt").value;
+				if(password!=passwordrt)
+				{
+				
+					return;
+				}
+				o["username"] = name;
+                o["password"] = password;
+				o[""]  = ;
+                //ajax(url,JSON.stringify(o),'POST',su,err);
+                $.ajax({
+                    async:true,
+                    type:"POST",
+                    url:url,
+                    data:JSON.stringify(o),
+                    xhrFields:{withCredentials:true},
+                    crossDomain:true,
+                    success:function(jsonResult){
+                        flag = "shoppage.html";
+                        window.location.href = flag;
+                    },
+                    error:function(jsonResult){
+                        flag = "loginpage.html";
+                        var l = JSON.parse(jsonResult.responseText);
+                        alert(l.msg);
+                        alert("登陆失败！");
+                        window.location.href = flag;
+                    }
+                });
+                
+            }
+            
+        </script>
     </head>
-    <body>
+    <body >
         <div class="header">
             <a href="loginpage.html"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
             <span class="theme" >&nbsp;&nbsp;注 册</span>
@@ -15,12 +58,12 @@
         <div id="register_form">
             <fieldset>
                 <form> 
-                    <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="用户名"/></p>  
-                    <p><img class="icon" src="Images/icon/emailicon.png"  alt="Email" /> <input class="ipt" id="user_email" type="text" style='width: 200px' placeholder="Email"/></p>
-                    <p><img class="icon" src="Images/icon/phoneicon.png"  alt="手机号" /> <input class="ipt" id="user_phone" type="text" style='width: 200px' placeholder="手机号码"/></p>
-                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="密码" /> <input class="ipt" id="user_password" type="password" style='width: 200px' placeholder="密码"/></p>
-                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="确认密码" /> <input class="ipt" id="user_passwordrpt" type="password" style='width: 200px' placeholder="确认密码"/></p>
-                    <input id='submit' type="submit" value="注 册"/>
+                    <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="    用户名"/></p>  
+                    <p><img class="icon" src="Images/icon/emailicon.png"  alt="Email" /> <input class="ipt" id="user_email" type="text" style='width: 200px' placeholder="    Email"/></p>
+                    <p><img class="icon" src="Images/icon/phoneicon.png"  alt="手机号" /> <input class="ipt" id="user_phone" type="text" style='width: 200px' placeholder="    手机号码"/></p>
+                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="密码" /> <input class="ipt" id="user_password" type="password" style='width: 200px' placeholder="     密码"/></p>
+                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="确认密码" /> <input class="ipt" id="user_passwordrpt" type="password" style='width: 200px' placeholder="    确认密码"/></p>
+                    <input id = "submit"  onclick = "registe()" type = "button" value = "登   录"/>  
                 </form> 
             </fieldset>
         </div>

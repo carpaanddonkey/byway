@@ -20,7 +20,7 @@ body {
 
 
 .title{
-    font-family:"楷体";
+    font-family:"kaiti";
     padding: 18px;
     font-size: 22px;
     color: #595959;
@@ -49,7 +49,7 @@ body {
     border-radius: 2px;
     color: white;
     font-size: 14px;  
-    font-family: "黑体";
+    font-family: "simhei";
 }
 #submit:focus{
     background-color: lightskyblue;
@@ -63,7 +63,7 @@ body {
 
 fieldset{
     padding-top: 45%;
-    font-family: "黑体";
+    font-family: "simhei";
     border: 0px;
     text-align: center;
 }
@@ -73,9 +73,24 @@ fieldset{
     background-color: white;
     font-size: 17px;
     color: #08f;
-    font-family:黑体;
+    font-family:"simhei";
 }
 
 .rgt:focus{
     color: deepskyblue;
+}
+
+.hint{
+    color: tomato;
+    font-size: 14px;
+    font-family:"simhei";
+    text-align: center;
+    padding-right:40px;
+}
+
+.error{
+    color:tomato;
+    position:absolute;
+    padding-top:20px;
+    padding-left:5px;
 }

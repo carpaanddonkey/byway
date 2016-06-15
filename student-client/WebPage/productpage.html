@@ -11,22 +11,47 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/product_style.css" rel="stylesheet" type="text/css"/>
         <script src="js/menu.js"></script>
+		<script type = "text/javascript">
+        
+        var product;
+        var txt = "";
+        var r = window.location.search;
+            r = r.replace('?','');
+        function getData(div_id){
+            var url = "http://api.byway.net.cn/v1/products/"+r+"/";
+			$.ajax({
+			async:false,   
+			type:"get",
+			xhrFields:{withCredentials:true},
+			url:url,
+            success:function(str){
+				product = JSON.parse(str);
+				txt+=' <a onclick="javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>'+
+					 '<img class="dishpic" src="'+product.picture+'" alt="食物图片"/>'+
+					 '<span class="di_name" id="di_name">'+product.name+'</span>';
+				for(var j = 1;j<=5;j++)
+                {
+                    if(j<=product.score)
+                        txt+='<img class = "rank'+j+'" src="Images/icon/star1.png" alt=""/>';
+                    else
+                        txt+='<img class = "rank'+j+'"src="Images/icon/star.png" alt=""/>';
+                }  
+				txt+='<span class="di_sell">销量 '+product.sold_num+'</span>';
+				txt+='<span class="di_al">介绍：'+product.description+'</br> </br>'+
+					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吃···</br> </br>'+
+					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吃···</br> </br>'+
+					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吃···</span>';
+				document.getElementById(div_id).innerHTML = txt;
+                },
+				error:function(str){
+				alert("error");
+				}
+            });
+	</script>
+
     </head>
-    <body>   
-    <div class="window_header">
-        <a onclick="javascript:window.history.back()"><img class="back" src="Images/icon/arrow.png" alt="返回"/></a>
-        <img class="dishpic" src="Images/dishes/zhou.jpg" alt="食物图片"/>
-        <span class="di_name" id="di_name">鱼丸米线</span>
-        <img class="rank1" src="Images\icon\star1.png" alt=""/><img class="rank2" src="Images\icon\star1.png" alt=""/>
-        <img class="rank3" src="Images\icon\star1.png" alt=""/><img class="rank4" src="Images\icon\star1.png" alt=""/>
-        <img class="rank5" src="Images\icon\star.png" alt=""/>     
-        <span class="di_sell">销量 1.1 万</span>
-    </div>
-    
-        <span class="di_al">介绍：一碗好吃的鱼丸米线</br> </br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吃···</br> </br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吃···</br> </br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吃···</span>
-    
+    <body onload = "getData('window_header')">   
+		<div class="window_header">
+		</div>
     </body>
 </html>

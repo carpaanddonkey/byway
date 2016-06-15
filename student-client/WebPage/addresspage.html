@@ -46,8 +46,7 @@
                         document.getElementById(div_id).innerHTML = txt;
                     },
                     error:function(jsonResult){
-                        var l = JSON.parse(jsonResult.responseText);
-                        alert(l.msg);
+                        alert("error");
                     }
                 });
                     
@@ -77,6 +76,13 @@
                 o['dormitory_no'] = parseInt(document.getElementById('rec_dor').value);
                 o['room_no'] = parseInt(document.getElementById('rec_room').value);
                 o['address'] = document.getElementById('rec_add').value;
+				var phone = document.getElementById('rec_phone').value;
+				var pattern2 = /(13\d|14[57]|15[^4,\D]|17[678]|18\d)\d{8}|170[059]\d{7}/;
+				if(!pattern2.test(phone))
+				{
+					showerr('errphone');
+					return;
+				}
                 $.ajax({
                     async:false,
                     type:"POST",
@@ -91,6 +97,11 @@
                     }
                 });
             }
+			function showerr(span_id)
+		   {
+			document.getElementById('errorInfo').style.visibility = 'visible';
+			document.getElementById(span_id).style.visibility = 'visible';
+		   }
         /*
         <!p><!label class="left">宿舍楼：<!/label>
             <!select name="宿舍楼" id="t_hours" class = "ipt">
@@ -129,7 +140,8 @@
         <div class="title">添加地址</div>
         <div class="add_addr"><a onclick = "addAddress()"><img src="Images/icon/add.png" alt="add"/></a>
         <p><span class="left" >收货人：</span> <input class="ipt" type="text" id  = "rec_name"/></p>
-        <p><span class="left">手机号：</span> <input class="ipt" type="text" id  = "rec_phone" /></p>
+        <p><span class="left">手机号：</span> <input class="ipt" type="text" id  = "rec_phone" />
+        <span id = 'errphone' style = "visibility:hidden;color:tomato;padding-left:5px;" class="error">× 错误的号码</span></p>
         <p><span class="left">宿舍楼：</span> <input class="ipt" type="text" id  = "rec_dor" /></p>
         <p><span class="left">寝室：&nbsp;&nbsp;&nbsp;</span> <input class="ipt" type="text" id  = "rec_room" /></p>
         <p><span class="left">送达地址：</span> <input class="ipt_addr" type="text" id  = "rec_add"/></p>

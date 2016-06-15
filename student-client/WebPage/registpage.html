@@ -23,7 +23,7 @@
 				o["phone"] = phone;
 				var estatus = 0;
 				var pattern = /\w[-\w.+]*@(bjtu\.)+(edu\.)+(cn)/;
-				var pattern2 = /(13\d|14[57]|15[^4,\D]|17[678]|18\d)\d{8}|170[059]\d{7}/,
+				var pattern2 = /(13\d|14[57]|15[^4,\D]|17[678]|18\d)\d{8}|170[059]\d{7}/;
 				if(!pattern.test(email))
 				{
 					showerr('errmail');

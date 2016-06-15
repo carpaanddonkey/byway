@@ -64,7 +64,6 @@
             }
            function showerr(span_id)
 		   {
-			document.getElementById('errorInfo').txt = '输入信息有误';
 			document.getElementById('errorInfo').style.visibility = 'visible';
 			document.getElementById(span_id).style.visibility = 'visible';
 		   }
@@ -78,7 +77,7 @@
         <div id="register_form">
             <fieldset>
                 <form> 
-					<p><span id = 'errorInfo' class="hint" style = "visibility:hidden" >两次输入的密码不同</span></p>
+					<p><span id = 'errorInfo' class="hint" style = "visibility:hidden" >输入信息有误</span></p>
                     <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="    用户名"/></p>  
                     <p><img class="icon" src="Images/icon/emailicon.png"  alt="Email" /> <input class="ipt" id="user_email" type="text" style='width: 200px' placeholder="    Email"/><span id = 'errmail' style = "visibility:hidden" class="error">×</span></p>
                     <p><img class="icon" src="Images/icon/phoneicon.png"  alt="手机号" /> <input class="ipt" id="user_phone" type="text" style='width: 200px' placeholder="    手机号码"/><span id = 'errphone' style = "visibility:hidden" class="error">×</span></p>

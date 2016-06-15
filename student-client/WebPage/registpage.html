@@ -10,23 +10,36 @@
         <script type = "text/javascript">
             var o = {"name":"","mail":"","phone":"","password":""};
             var flag = "0";
-            var url = "http://api.byway.net.cn/v1/login/";
+            var url = "http://api.byway.net.cn/v1/customers/";
             function registe(){
                 var name = document.getElementById("user_name").value;
                 var password = document.getElementById("user_password").value;
                 var email = document.getElementById("user_email").value;
 				var phone = document.getElementById("user_phone").value;
 				var passwordrt = document.getElementById("user_passwordrpt").value;
-				if(password!=passwordrt)
-				{
-					return;
-				}
 				o["name"] = name;
                 o["password"] = password;
 				o["mail"]  = email;
 				o["phone"] = phone;
+				var estatus = 0;
+				var pattern = /\w[-\w.+]*@(bjtu\.)+(edu\.)+(cn)/;
+				if(!pattern.test(email))
+				{
+					estatus = 1;
+				}
+				if(password!=passwordrt)
+				{
+					estatus = 2;
+				}
+				
+				switch(estatus)
+				{
+					case 1:showerr('errmail','请输入正确的邮箱');break;
+					case 2:showerr('errpw','两次输入的密码不同');break;
+				}
+				}
                 //ajax(url,JSON.stringify(o),'POST',su,err);
-                $.ajax({
+               /* $.ajax({
                     async:true,
                     type:"POST",
                     url:url,
@@ -45,8 +58,13 @@
                     }
                 });
                 
-            }
-            
+            }*/
+           function showerr(span_id,str)
+		   {
+			document.getElementById('errorInfo').txt = str;
+			document.getElementById('errorInfo').style.visibility = 'visible';
+			document.getElementById(span_id).style.visibility = 'visible';
+		   }
         </script>
     </head>
     <body >
@@ -57,11 +75,12 @@
         <div id="register_form">
             <fieldset>
                 <form> 
+					<p><span id = 'errorInfo' style = "color:red;visibility:hidden" >两次输入的密码不同</span></p>
                     <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="    用户名"/></p>  
-                    <p><img class="icon" src="Images/icon/emailicon.png"  alt="Email" /> <input class="ipt" id="user_email" type="text" style='width: 200px' placeholder="    Email"/></p>
+                    <p><img class="icon" src="Images/icon/emailicon.png"  alt="Email" /> <input class="ipt" id="user_email" type="text" style='width: 200px' placeholder="    Email"/><span id = 'errmail' style = "color:red;visibility:hidden">X</span></p>
                     <p><img class="icon" src="Images/icon/phoneicon.png"  alt="手机号" /> <input class="ipt" id="user_phone" type="text" style='width: 200px' placeholder="    手机号码"/></p>
                     <p><img class="icon" src="Images/icon/pwdicon.png"  alt="密码" /> <input class="ipt" id="user_password" type="password" style='width: 200px' placeholder="     密码"/></p>
-                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="确认密码" /> <input class="ipt" id="user_passwordrpt" type="password" style='width: 200px' placeholder="    确认密码"/><span id = 'errorpw' ></span></p>
+                    <p><img class="icon" src="Images/icon/pwdicon.png"  alt="确认密码" /> <input class="ipt" id="user_passwordrpt" type="password" style='width: 200px' placeholder="    确认密码"/><span id= 'errpw' style = "color:red;visibility:hidden">X</span></p>
                     <input id = "submit"  onclick = "registe()" type = "button" value = "登   录"/>  
                 </form> 
             </fieldset>

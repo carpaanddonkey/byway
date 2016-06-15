@@ -15,6 +15,10 @@
         var r = window.location.search;
             r = r.replace('?','');
         //function test = 
+		function ProduInfo(id)
+		{
+			 window.location.href = 'productpage.html?'+id;
+		}
         function getData(div_id){
             
             var url =  'http://api.byway.net.cn/v1/windows/'+r+'/';
@@ -35,7 +39,7 @@
                                 txt+='<p id = "i'+k+'">'+jsonp[i].category+'</p>';
                                 for(j in jsonp[i].products)
                                 {
-                                    txt+='<div class="i_cart_data" onclick="javascript:window.parent.location.href = \'productpage.html\'"  >'+'<img class="i_dishpic" src="'+jsonp[i].products[j].picture+'" alt="食物图片"/>'+
+                                    txt+='<div class="i_cart_data" onclick="ProduInfo('+jsonp[i].products[j].id+')"  >'+'<img class="i_dishpic" src="'+jsonp[i].products[j].picture+'" alt="食物图片"/>'+
                                         '<span class="i_di_name">'+jsonp[i].products[j].name+'</span>'+
                                         '<span class="i_di_money">¥ '+jsonp[i].products[j].price+'</span>'+
                                         '<span class="i_di_sell">热销'+jsonp[i].products[j].sold_num+'</span>'+ 

@@ -23,20 +23,21 @@
 				o["phone"] = phone;
 				var estatus = 0;
 				var pattern = /\w[-\w.+]*@(bjtu\.)+(edu\.)+(cn)/;
+				var pattern2 = /(13\d|14[57]|15[^4,\D]|17[678]|18\d)\d{8}|170[059]\d{7}/,
 				if(!pattern.test(email))
 				{
-					estatus = 1;
+					showerr('errmail');
+				}
+				if(!pattern2.test(phone))
+				{
+					showerr('errphone');
 				}
 				if(password!=passwordrt)
 				{
-					estatus = 2;
+					showerr('errpw');
 				}
 				
-				switch(estatus)
-				{
-					case 1:showerr('errmail','请输入正确的邮箱');break;
-					case 2:showerr('errpw','两次输入的密码不同');break;
-				}
+				
                 //ajax(url,JSON.stringify(o),'POST',su,err);
                 $.ajax({
                     async:true,
@@ -58,9 +59,9 @@
                 });
                 
             }
-           function showerr(span_id,str)
+           function showerr(span_id)
 		   {
-			document.getElementById('errorInfo').txt = str;
+			document.getElementById('errorInfo').txt = '输入信息有误';
 			document.getElementById('errorInfo').style.visibility = 'visible';
 			document.getElementById(span_id).style.visibility = 'visible';
 		   }
@@ -77,7 +78,7 @@
 					<p><span id = 'errorInfo' class="hint" style = "visibility:hidden" >两次输入的密码不同</span></p>
                     <p><img class="icon" src="Images/icon/usericon.png"  alt="用户" /> <input class="ipt" id="user_name" type="text" style='width: 200px' placeholder="    用户名"/></p>  
                     <p><img class="icon" src="Images/icon/emailicon.png"  alt="Email" /> <input class="ipt" id="user_email" type="text" style='width: 200px' placeholder="    Email"/><span id = 'errmail' style = "visibility:hidden" class="error">×</span></p>
-                    <p><img class="icon" src="Images/icon/phoneicon.png"  alt="手机号" /> <input class="ipt" id="user_phone" type="text" style='width: 200px' placeholder="    手机号码"/></p>
+                    <p><img class="icon" src="Images/icon/phoneicon.png"  alt="手机号" /> <input class="ipt" id="user_phone" type="text" style='width: 200px' placeholder="    手机号码"/><span id = 'errphone' style = "visibility:hidden" class="error">×</span></p>
                     <p><img class="icon" src="Images/icon/pwdicon.png"  alt="密码" /> <input class="ipt" id="user_password" type="password" style='width: 200px' placeholder="     密码"/></p>
                     <p><img class="icon" src="Images/icon/pwdicon.png"  alt="确认密码" /> <input class="ipt" id="user_passwordrpt" type="password" style='width: 200px' placeholder="    确认密码"/><span id= 'errpw' style = "visibility:hidden"  class="error">×</span></p>
                     <input id = "submit"  onclick = "registe()" type = "button" value = "注   册"/>  

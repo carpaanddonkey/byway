@@ -6,6 +6,9 @@
         <link href="css/general_style.css" rel="stylesheet" type="text/css" />
         <link href="css/shop_style.css" rel="stylesheet" type="text/css"/>
         <link href="css/cart_style.css" rel="stylesheet" type="text/css" />
+
+        <script src="http://api.map.baidu.com/api?v=2.0&ak=Nr7Ao4f5G8aDmtKz9z94eQxg8tPOPnck" type="text/javascript"></script>
+        
         <script src = "js/jquery-1.8.2.min.js"></script>
         <script src = "js/menu.js"></script>
         <script src = "js/cookies.js"></script>
@@ -150,7 +153,56 @@
                 getData('store_body');
             }
         </script>
-    </div>
+
+        <div id="allmap"></div>
+        <script type="text/javascript">
+
+                // 百度地图API功能
+                var map = new BMap.Map("allmap");
+                var point = new BMap.Point(116.344917,39.956254);
+                map.centerAndZoom(point,17);
+
+                var pointXUEHUO = new BMap.Point(116.344917,39.956254);    //学活餐厅坐标
+                var pointYISHITANG = new BMap.Point(116.349831,39.958812);   //一食堂坐标
+                var pointDONGQUSHITANG = new BMap.Point(116.352732,39.954105);   //东区食堂坐标
+
+                var geolocation = new BMap.Geolocation();
+                geolocation.getCurrentPosition(function(r){
+                    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                        var mk = new BMap.Marker(r.point);
+                        map.addOverlay(mk);
+                        map.panTo(r.point);
+                        var pointCurrent = new BMap.Point(r.point.lng,r.point.lat);
+
+                        disXUEHUO = map.getDistance(pointCurrent,pointXUEHUO);
+                        disYISHITANG = map.getDistance(pointCurrent,pointYISHITANG);
+                        disDONGQUSHITANG = map.getDistance(pointCurrent,pointDONGQUSHITANG);
+                         
+                        var max;
+                        if (disXUEHUO<=disYISHITANG&&disXUEHUO<=disDONGQUSHITANG) max = "学活食堂";
+                            else if (disYISHITANG<=disXUEHUO&&disYISHITANG<=disDONGQUSHITANG) max = "一食堂";
+                            else max = "东区食堂";
+
+                        var select = document.getElementById("messhall");  
+                        for(var i=0; i<select.options.length; i++){  
+                            if(select.options[i].innerHTML == max){  
+                                select.options[i].selected = true;  
+                                break;  
+                            }  
+                        }  
+
+
+                      //  alert('您的位置：'+r.point.lng+','+r.point.lat + "\n学活" + disXUEHUO +
+                      //        '\n一食堂' + disYISHITANG +'\n东区食堂'+ disDONGQUSHITANG + '\n' + max);
+
+
+                    }
+                    else {
+                        alert('failed'+this.getStatus());
+                    }        
+                },{enableHighAccuracy: true})
+            </script>
+        </div>
     <div class="clearfix_head"></div>
 
     <div>

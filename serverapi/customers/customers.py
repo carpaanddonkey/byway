@@ -39,7 +39,7 @@ def get_customer(request, customer_id=None):
 		print(e)
 		content['status'] = 404
 		content['msg'] = '未找到'
-		return create_simple_response(404, e)
+		return create_simple_response(404, u'失败')
 
 
 def post_customer(request):

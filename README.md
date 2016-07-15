@@ -6,16 +6,6 @@
 在宿舍的同学可以通过**_顺道儿_**点餐 --> 食堂工作人员收到订单并制作菜品 --> 在食堂就餐的同学可以进行接单并顺道儿配送。
 系统通过位置服务推荐附近食堂、通过奖励系统对配送员进行奖励。
 
-### 预览
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/hello.png) 
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/login.png) 
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/register.png) 
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/chome.png) 
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/c_window.png) 
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/c_ordernew.png)
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/o_orderlist.png)  
-![](https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/orderstate.png) 
-
 ### 如何配置&运行
 #### 配置
 

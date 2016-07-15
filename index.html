@@ -31,7 +31,12 @@
 
 <p><img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/hello.png" alt=""> 
 <img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/login.png" alt=""> 
-<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/register.png" alt=""> </p>
+<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/register.png" alt=""> 
+<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/chome.png" alt=""> 
+<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/c_window.png" alt=""> 
+<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/c_ordernew.png" alt="">
+<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/o_orderlist.png" alt=""><br>
+<img src="https://github.com/carpaanddonkey/byway/raw/raw_for_byway/raw_imgs/orderstate.png" alt=""> </p>
 
 <h3>
 <a id="如何配置运行" class="anchor" href="#%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E8%BF%90%E8%A1%8C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何配置&amp;运行</h3>
@@ -42,7 +47,7 @@
 <h5>
 <a id="配置host" class="anchor" href="#%E9%85%8D%E7%BD%AEhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置host:</h5>
 
-<p>在host文件中添加以下规则：</p>
+<p>在host文件中添加以下规则：  </p>
 
 <pre><code>127.0.0.1   api.byway.net.cn    web.byway.net.cn
 </code></pre>
@@ -50,46 +55,46 @@
 <h5>
 <a id="配置mysql" class="anchor" href="#%E9%85%8D%E7%BD%AEmysql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置MySQL</h5>
 
-<pre><code>* 启动MySQL
-* 新建用户、数据库（如：用户名byway、密码byway，数据库byway）
-* 将项目中的byway.sql导入mysql中
+<pre><code>* 启动MySQL  
+* 新建用户、数据库（如：用户名byway、密码byway，数据库byway）  
+* 将项目中的byway.sql导入mysql中  
 </code></pre>
 
 <h5>
 <a id="启动redis" class="anchor" href="#%E5%90%AF%E5%8A%A8redis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>启动Redis</h5>
 
-<pre><code>启动Redis
+<pre><code>启动Redis  
 </code></pre>
 
 <h5>
 <a id="配置django-settings" class="anchor" href="#%E9%85%8D%E7%BD%AEdjango-settings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置Django Settings</h5>
 
-<p>修改/serverapi/serverapi/settings.py文件
-    * MySQL Settings:
-        修改为对应之前新建的用户、数据库
-    * TIME_ZONE:
-        项目默认为Asia/Shanghai
-    * Celery:
-        在settings.py文件的最底部可以修改Celery配置</p>
+<p>修改/serverapi/serverapi/settings.py文件<br>
+    * MySQL Settings:<br>
+        修改为对应之前新建的用户、数据库<br>
+    * TIME_ZONE:<br>
+        项目默认为Asia/Shanghai<br>
+    * Celery:<br>
+        在settings.py文件的最底部可以修改Celery配置   </p>
 
 <h5>
 <a id="允许本地跨域请求" class="anchor" href="#%E5%85%81%E8%AE%B8%E6%9C%AC%E5%9C%B0%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>允许本地跨域请求</h5>
 
-<p>修改serverapi/util/response_util.py:
-response['Access-Control-Allow-Origin']的值改为'null'</p>
+<p>修改serverapi/util/response_util.py:<br>
+response['Access-Control-Allow-Origin']的值改为'null'  </p>
 
 <h4>
 <a id="运行" class="anchor" href="#%E8%BF%90%E8%A1%8C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>运行</h4>
 
-<p>配置完成后，进入项目目录serverapi
-执行python manage.py runserver 0.0.0.0:8000即可运行
-使用PC或者Mac运行网页时，可以调用浏览器的Responsive Design Mode功能，使界面符合移动端的表现</p>
+<p>配置完成后，进入项目目录serverapi<br>
+执行python manage.py runserver 0.0.0.0:8000即可运行<br>
+使用PC或者Mac运行网页时，可以调用浏览器的Responsive Design Mode功能，使界面符合移动端的表现  </p>
 
 <h5>
 <a id="用户customer--deliver端" class="anchor" href="#%E7%94%A8%E6%88%B7customer--deliver%E7%AB%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>用户(Customer &amp; Deliver)端</h5>
 
 <p>登陆账号：<a href="mailto:13301052@bjtu.edu.cn">13301052@bjtu.edu.cn</a> 密码：123<br>
-在浏览器中打开文件serverapi/student-client/WebPage/hellopage.html  </p>
+在浏览器中打开文件serverapi/student-client/WebPage/hellopage.html    </p>
 
 <pre><code># Vegeta @ YHN-MBP in ~/Documents/byway/student-client/WebPage on git:raw_for_byway x [13:24:48]
 $ open hellopage.html -a Safari
@@ -98,7 +103,7 @@ $ open hellopage.html -a Safari
 <h5>
 <a id="食堂操作operator端" class="anchor" href="#%E9%A3%9F%E5%A0%82%E6%93%8D%E4%BD%9Coperator%E7%AB%AF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>食堂操作(Operator)端</h5>
 
-<p>登陆账号：admin 密码：123<br>
+<p>登陆账号：canadmin 密码：123<br>
 在浏览器中打开文件serverapi/cafeteria-client/WebPage/hellopage.html  </p>
 
       <footer class="site-footer">

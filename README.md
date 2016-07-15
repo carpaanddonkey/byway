@@ -1,5 +1,6 @@
 # byway
 顺道儿项目
+展示页：[GitHub Page](http://carpaanddonkey.github.io/byway/)
 
 ### 简介
 **_顺道儿_**是一个为高校食堂和学生提供线上服务的平台Demo。  
